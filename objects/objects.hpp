@@ -1,0 +1,6 @@
+#include "cube/cube.hpp"
+#include "finish/finish.hpp"
+#include "floor/floor.hpp"
+#include "simcam/simcam.hpp"
+#include "sphere/sphere.hpp"
+#include "wall/wall.hpp"
