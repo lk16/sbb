@@ -229,7 +229,7 @@ void des_main_window::update_ui()
 		current->y=cam->z-20;
 		current->z=-cam->y;
 	}
-	std::stringstream sx;
+/*	std::stringstream sx;
 	std::stringstream sy;
 	std::stringstream sz;
 	sx<<"x="<<cam->x;
@@ -238,7 +238,7 @@ void des_main_window::update_ui()
 	
 	x_lab.set_text(sx.str());
 	y_lab.set_text(sy.str());
-	z_lab.set_text(sz.str());
+	z_lab.set_text(sz.str());*/
 }
 
 des_main_window::~des_main_window(){
