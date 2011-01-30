@@ -58,7 +58,7 @@ struct ui_updater:engine_interface{
 		switch(k){
 		case GDK_space:
 		case GDK_Return:win->create_current_object();break;
-		case GDK_p: win->create_object_on_position();  
+		case GDK_p: win->create_object_on_position();break;
 		}
 	}
 };
