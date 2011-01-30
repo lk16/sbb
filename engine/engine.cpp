@@ -109,7 +109,7 @@ void t_engine::do_keys() {
 }
 #endif
 bool t_engine::step() {
-	if (!(lockdown||stopped)) {
+	if (!(/*lockdown||*/stopped)) {
 		if (!debug) {
 			do_keys();
 			do_steps();
@@ -160,7 +160,7 @@ void t_engine::set_camera(t_camera* new_camera) {
 t_engine::t_engine():
 		camera(0),
 		texture_load_ready(false),
-		lockdown(0),
+//		lockdown(0),
 		stopped(true){
 	
 	set_can_focus();//blablah
@@ -336,10 +336,6 @@ void t_engine::gl_end() {
 }
 
 void t_engine::clear_all() {
-	if (lockdown == 0) {
-		lockdown = 1;
-		return;
-	}
 	delete camera;
 	camera = 0;
 	while (!drawables.empty()) {
@@ -357,7 +353,6 @@ void t_engine::clear_all() {
 	while (!has_textures.empty()) {
 		delete has_textures[0];
 	}
-	lockdown = 0;//no genocide next step
 	std::cout << "cleared engine garbage" << std::endl;
 }
 

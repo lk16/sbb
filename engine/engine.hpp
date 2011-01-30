@@ -79,7 +79,7 @@ class t_engine:
 		
 		std::set<unsigned> keys_down;
 //		main_window* win;
-		int lockdown; /* necessary to stop the main loop temporarily to clear engine*/
+//		int lockdown; /* necessary to stop the main loop temporarily to clear engine*/
 		
 		void clear_all();
 		void run();
