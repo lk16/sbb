@@ -96,7 +96,7 @@ des_main_window::des_main_window():
 	}
 	cbox.show();
 	cbox.signal_changed().connect(sigc::mem_fun(*this,&des_main_window::on_object_change));
-	object_view.signal_focus().connect(sigc::mem_fun(*this,&des_main_window::update_from_view));
+	engine->signal_grab_focus().connect(sigc::mem_fun(*this,&des_main_window::update_from_view));
 	bottom_bar.pack_start(cbox);
 
 //	x_lab.show();
@@ -106,17 +106,7 @@ des_main_window::des_main_window():
 //	bottom_bar.pack_end(y_lab,Gtk::PACK_SHRINK);
 //	bottom_bar.pack_end(x_lab,Gtk::PACK_SHRINK);
 	
-/*	object_view.signal_button_press_event().connect(
-		sigc::mem_fun(*this, &des_main_window::on_object_view_clicked),false);*/
-	
-	object_view.signal_focus().connect(
-		sigc::mem_fun(*this,&des_main_window::on_object_view_focus));
-	
-	
 	object_view.set_events(Gdk::ALL_EVENTS_MASK);
-	
-	engine->signal_button_press_event().connect(
-		sigc::mem_fun(*this,&des_main_window::on_engine_clicked));
 	
 	m_VBox.pack_end(bottom_bar,Gtk::PACK_SHRINK);
 	m_VBox.show();
