@@ -126,15 +126,62 @@ bool des_main_window::on_engine_clicked(GdkEventButton* )
 	return true;
 }
 
-
-bool des_main_window::on_object_view_focus(Gtk::DirectionType dir)
+void des_main_window::update_from_view(/*Gtk::DirectionType d*/)
 {
-	std::cout << dir << '\n';
-	return true;
+	curr_lev->objects.clear();
+	for(unsigned i=object_view.size()-1;i<object_view.size();i--){///HACK: geen rekening gehouden met camera:companion_index
+		if(object_view.get_text(i,7)!=""){
+			curr_lev->objects.push_back(new object(
+				object_view.get_text(i,0),
+				fromstr<double>(object_view.get_text(i,1)),
+				fromstr<double>(object_view.get_text(i,2)),
+				fromstr<double>(object_view.get_text(i,3)),
+				fromstr<double>(object_view.get_text(i,4)),
+				fromstr<double>(object_view.get_text(i,5)),
+				fromstr<double>(object_view.get_text(i,6)),
+				object_view.get_text(i,7)
+			));
+			continue;
+		}
+		if(object_view.get_text(i,4)!=""
+			||object_view.get_text(i,5)!=""
+			||object_view.get_text(i,6)!=""
+		){
+			curr_lev->objects.push_back(new object(
+				object_view.get_text(i,0),
+				fromstr<double>(object_view.get_text(i,1)),
+				fromstr<double>(object_view.get_text(i,2)),
+				fromstr<double>(object_view.get_text(i,3)),
+				fromstr<double>(object_view.get_text(i,4)),
+				fromstr<double>(object_view.get_text(i,5)),
+				fromstr<double>(object_view.get_text(i,6))
+			));
+			continue;
+		}
+		if(object_view.get_text(i,1)!=""
+			||object_view.get_text(i,2)!=""
+			||object_view.get_text(i,3)!=""
+		){
+			curr_lev->objects.push_back(new object(
+				object_view.get_text(i,0),
+				fromstr<double>(object_view.get_text(i,1)),
+				fromstr<double>(object_view.get_text(i,2)),
+				fromstr<double>(object_view.get_text(i,3))
+			));
+			continue;
+		}
+		curr_lev->objects.push_back(new object(object_view.get_text(i,0)));
+	}
+	engine->clear_all();
+	current=0;
+	engine->stop();
+	load_level(curr_lev);
+	engine->run();
 }
 
 void des_main_window::show_menu()
 {
+	current=0;
 	object_view.hide();
 	bottom_bar.hide();
 	main_window::show_menu();
