@@ -250,8 +250,8 @@ void des_main_window::write_out()
 	if(!curr_lev) return;
 	std::cout << "write out changes\n";
 	int j=0;
-	std::ofstream out(("data/levels/"+curr_lev->fname).c_str());
-	out << "LEVEL \"" << curr_lev->name << "\"{\n";
+	std::ofstream out(curr_lev->fname.c_str());
+	out << "LEVEL \"" << curr_lev->name << "\"{";
 	for(std::deque<object*>::iterator i=curr_lev->objects.begin();i!=curr_lev->objects.end();++j,++i){
 		if(j==curr_lev->camera.companion_index+1){
 			out <<'}'; 
