@@ -9,6 +9,25 @@
 #include <cstdlib>
 #include <gtkmm/main.h>
 #include <gdk/gdkkeysyms.h>
+#include <sstream>
+
+#define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
+
+
+template< class T>
+std::string tostr(T x){
+	std::stringstream buff;
+	buff << x;
+	return buff.str();
+}
+
+template< class T>
+T fromstr(std::string x){
+	std::stringstream buff(x);
+	T temp;
+	buff >> temp;
+	return temp;
+}
 
 struct bird_cam: t_camera, engine_interface{
 	bird_cam(t_engine& e):t_camera(e),engine_interface(e,ei_t_key_receiver|ei_moveable){z=10;}
@@ -206,18 +225,13 @@ void des_main_window::write_out()
 	out << "\n}\n";
 }
 
-template< class T>
-static std::string tostr(T x){
-	std::stringstream buff;
-	buff << x;
-	return buff.str();
-}
+
 
 void des_main_window::load_level(t_level* l){
 	write_out();
 	curr_lev=l;
-	menu.hide();
 	container.show_all();
+	menu.hide();
 	bottom_bar.show();
 	in_menu = false;
 	object_view.clear_items();
