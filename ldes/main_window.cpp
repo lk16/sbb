@@ -114,16 +114,29 @@ des_main_window::des_main_window():
 	container.show();
 }
 
-bool des_main_window::update_from_view(Gtk::DirectionType d)
+bool des_main_window::on_key_press_event(GdkEventKey* k)
 {
-	//TODO
-	return true;
+	if(k->keyval==GDK_Delete){
+		delete_selected_object();
+	}
+	return main_window::on_key_press_event(k);
 }
 
-bool des_main_window::on_engine_clicked(GdkEventButton* )
+
+void des_main_window::delete_selected_object()
 {
-	std::cout<<"PING!\n";
-	return true;
+	std::vector<int> list= object_view.get_selected();
+	for(std::vector<int>::iterator i=list.begin(),e=list.end();i!=e;i++){
+		std::cout << *i << '\n';
+		delete curr_lev->objects[object_view.size()-*i-1];
+		curr_lev->objects.erase(curr_lev->objects.begin()+object_view.size()-*i-1);
+	}
+	object_view.clear_items();
+	engine->clear_all();
+	current=0;
+	engine->stop();
+	load_level(curr_lev);
+	engine->run();
 }
 
 void des_main_window::update_from_view(/*Gtk::DirectionType d*/)

@@ -21,6 +21,9 @@ class des_main_window:
 		virtual void load_level(t_level*);
 		virtual void show_menu();
 		
+		virtual bool on_key_press_event(GdkEventKey*);
+
+		void delete_selected_object();
 		void update_ui();
 		void on_object_change();
 		bool on_object_view_focus(Gtk::DirectionType);
