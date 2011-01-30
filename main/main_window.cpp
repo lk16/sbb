@@ -28,6 +28,8 @@ main_window::main_window():
 	set_title("Super Bunny Ball");
 	set_reallocate_redraws(true);
 	add(m_VBox);
+	
+	set_size_request(300,300);
 
 	engine->set_size_request(200, 200);
 	m_VBox.pack_start(*engine);
