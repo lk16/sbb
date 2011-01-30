@@ -6,9 +6,9 @@
 #include <objects/floor/floor.hpp>
 #include <algorithm>
 
-SBB_REGISTER_ei(t_sphere);
+SBB_REGISTER_ei(player_ball);
 
-void t_sphere::key_pressed(unsigned k) {
+void player_ball::key_pressed(unsigned k) {
 	using flomath::pi;
 	using flomath::vector;
 	using std::sin;
@@ -32,7 +32,7 @@ void t_sphere::key_pressed(unsigned k) {
 	}
 }
 
-void t_sphere::step() {
+void player_ball::step() {
 //	accel_same_direction(.99);
 	if (y < -5) {
 		x = 0;
@@ -64,7 +64,7 @@ struct p_same_normal_cmp{
 };
 
 //TODO FIXIT
-void t_sphere::collide(collision_data<t_floor>& f) {
+void player_ball::collide(collision_data<t_floor>& f) {
 	flomath::plane p(*f.p_other);
 	flomath::vector normal = p.normal / p.normal.length();
 	normal.rotate(f.other->rotation);
@@ -90,14 +90,15 @@ void t_sphere::collide(collision_data<t_floor>& f) {
 	}
 }
 
-void t_sphere::collide(base_plane& f) {
+void player_ball::collide(base_plane& f) {
 	flomath::vector normal = f.normal / f.normal.length();
 	flomath::vector vovernormal = normal * flomath::dotproduct(speed, normal);
-	*this -= vovernormal;
+	*this -=
+	vovernormal;
 	speed -= vovernormal * 2 * .7;
 }
 
-void t_sphere::collide(finish) {
+void player_ball::collide(finish) {
 	if (prevcol == DOB_True) return;
 	if (prevcol == DOB_TRY_FALSE) {
 		prevcol = DOB_True;
@@ -108,7 +109,7 @@ void t_sphere::collide(finish) {
 	prevcol = DOB_True;
 }
 
-void t_sphere::draw() {
+void player_ball::draw() {
 	using namespace std;
 	const int prec = 30;
 	glColor4f(0, 0, 1, .6);
@@ -130,8 +131,8 @@ void t_sphere::draw() {
 	glPopMatrix();
 }
 
-t_sphere::t_sphere(t_engine& e, double _x, double _y, double _z):
-		can_collide< t_sphere , COL_SPHERE>(e, _x, _y, _z, .3, false),
+player_ball::player_ball(t_engine& e, double _x, double _y, double _z):
+		can_collide< player_ball , COL_SPHERE>(e, _x, _y, _z, .3, false),
 		prevcol(DOB_False),
 		time(0) {
 	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable | ei_drawable);

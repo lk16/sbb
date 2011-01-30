@@ -12,9 +12,9 @@ class test_engine:
 	public t_engine
 {
 	virtual void do_collisions(){
-		collision<t_sphere, t_floor>();
-		collision<t_sphere, wall>();
-		collision<t_sphere, finish>();
+		collision<player_ball, t_floor>();
+		collision<player_ball, wall>();
+		collision<player_ball, finish>();
 	}
 	
 };

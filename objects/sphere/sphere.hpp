@@ -11,8 +11,8 @@
 
 struct t_floor;
 
-class t_sphere:
-	public can_collide<t_sphere,COL_SPHERE>
+class player_ball:
+	public can_collide<player_ball,COL_SPHERE>
 {
 	enum doubly_owned_bool{ 
 		DOB_False=0,
@@ -26,7 +26,7 @@ class t_sphere:
 	
 	
 	public:
-		t_sphere(t_engine&,double,double,double);
+		player_ball(t_engine&,double,double,double);
 		
 		void collide(collision_data<t_floor>&);
 		void collide(base_plane&);
