@@ -37,7 +37,6 @@ class des_main_window:
 		void update_from_view(/*Gtk::DirectionType d*/);
 
 	protected:
-		void on_button_quit_clicked();
 		
 		t_level* curr_lev;
 

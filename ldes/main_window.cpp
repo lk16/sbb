@@ -109,13 +109,6 @@ des_main_window::des_main_window():
 	cbox.signal_changed().connect(sigc::mem_fun(*this,&des_main_window::on_object_change));
 	engine->signal_grab_focus().connect(sigc::mem_fun(*this,&des_main_window::update_from_view));
 	bottom_bar.pack_start(cbox);
-
-//	x_lab.show();
-//	y_lab.show();
-//	z_lab.show();
-//	bottom_bar.pack_end(z_lab,Gtk::PACK_SHRINK);
-//	bottom_bar.pack_end(y_lab,Gtk::PACK_SHRINK);
-//	bottom_bar.pack_end(x_lab,Gtk::PACK_SHRINK);
 	
 	object_view.set_events(Gdk::ALL_EVENTS_MASK);
 	
@@ -240,16 +233,6 @@ void des_main_window::update_ui()
 		current->y=cam->z-20;
 		current->z=-cam->y;
 	}
-/*	std::stringstream sx;
-	std::stringstream sy;
-	std::stringstream sz;
-	sx<<"x="<<cam->x;
-	sy<<"y="<<cam->y;
-	sz<<"z="<<cam->z;
-	
-	x_lab.set_text(sx.str());
-	y_lab.set_text(sy.str());
-	z_lab.set_text(sz.str());*/
 }
 
 des_main_window::~des_main_window(){
