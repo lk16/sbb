@@ -30,18 +30,30 @@ T fromstr(std::string x){
 }
 
 struct bird_cam: t_camera, engine_interface{
-	bird_cam(t_engine& e):t_camera(e),engine_interface(e,ei_t_key_receiver|ei_moveable){z=10;}
+	
+	bird_cam(const bird_cam& bc):
+		t_camera(bc),
+		engine_interface(bc)
+	{}
+	
+	bird_cam(t_engine& e):
+		t_camera(e),
+		engine_interface(e,ei_t_key_receiver|ei_moveable)
+	{
+		z=10;
+	}
 	virtual void key_pressed(unsigned int k){
 		switch(k){
-		case GDK_Right:x+=.25;break;
-		case GDK_Left:x-=.25;break;
-		case GDK_Up:y+=.25;break;
-		case GDK_Down:y-=.25;break;
-		case GDK_minus:z+=.5;break;
+		case GDK_Right:x+=.125;break;
+		case GDK_Left:x-=.125;break;
+		case GDK_Up:y+=.125;break;
+		case GDK_Down:y-=.125;break;
+		case GDK_minus:z+=.25;break;
 		case GDK_equal:
-		case GDK_plus:z-=.5;break;
+		case GDK_plus:z-=.25;break;
 		}
 	}
+	
 	void operator()(){
 		glTranslated(-x,-y,-z);
 		glRotated(90,1,0,0);
