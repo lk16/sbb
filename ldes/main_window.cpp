@@ -70,7 +70,6 @@ struct ui_updater:engine_interface{
 		switch(k){
 		case GDK_space:
 		case GDK_Return:win->create_current_object();break;
-		case GDK_p: win->create_object_on_position();break;
 		}
 	}
 };
@@ -340,42 +339,3 @@ void des_main_window::load_level(t_level* l){
 	engine->show();
 	engine->run();
 }
-
-class object_create_window:
-	public Gtk::Window
-{
-	des_main_window* win;
-	Gtk::Entry e1,e2,e3;
-	Gtk::Label l1,l2,l3;
-	Gtk::HBox hbox;
-
-	
-public:	
-	object_create_window(des_main_window* _w):
-		l1("x: "),l2("y: "),l3("z: ")
-	{
-		win = _w;
-		add(hbox);
-		hbox.pack_start(l1);
-		hbox.pack_start(e1);
-		hbox.pack_start(l2);
-		hbox.pack_start(e2);
-		hbox.pack_start(l3);
-		hbox.pack_start(e3);
-		show_all_children();
-	}
-    
-	~object_create_window(){
-		std::cout << "Ik ben dood\n";
-	}
-};
-
-
-void des_main_window::create_object_on_position(){
-	object_create_window* w = new object_create_window(this);
-	w->show();
-}
-
-
-
-
