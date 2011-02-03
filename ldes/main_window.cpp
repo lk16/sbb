@@ -118,6 +118,24 @@ des_main_window::des_main_window():
 	container.show();
 }
 
+void des_main_window::reload()
+{
+	flomath::point pos = *dynamic_cast<bird_cam*>(engine->camera);
+	
+	object_view.clear_items();
+	engine->clear_all();
+	current=0;
+	engine->stop();
+	load_level(curr_lev);
+	bird_cam* cam = new bird_cam(*engine);
+	*static_cast<flomath::point*>(cam)=pos;
+	engine->set_camera(cam);
+	engine->run();
+	on_object_change();
+}
+
+
+
 bool des_main_window::on_key_press_event(GdkEventKey* k)
 {
 	if(k->keyval==GDK_Delete){
@@ -135,12 +153,7 @@ void des_main_window::delete_selected_object()
 		delete curr_lev->objects[object_view.size()-*i-1];
 		curr_lev->objects.erase(curr_lev->objects.begin()+object_view.size()-*i-1);
 	}
-	object_view.clear_items();
-	engine->clear_all();
-	current=0;
-	engine->stop();
-	load_level(curr_lev);
-	engine->run();
+	reload();   
 }
 
 void des_main_window::update_from_view(/*Gtk::DirectionType d*/)
@@ -189,11 +202,7 @@ void des_main_window::update_from_view(/*Gtk::DirectionType d*/)
 		}
 		curr_lev->objects.push_back(new object(object_view.get_text(i,0)));
 	}
-	engine->clear_all();
-	current=0;
-	engine->stop();
-	load_level(curr_lev);
-	engine->run();
+	reload();
 }
 
 void des_main_window::show_menu()
@@ -212,15 +221,15 @@ void des_main_window::create_current_object()
 	if(name==""){
 		return;
 	}
-	engine_interface* it= do_register_ei::objs()[name](*engine,cam->x,cam->z-20,-cam->y);
 	curr_lev->objects.push_back(new object(name,cam->x,cam->z-20,-cam->y));
-	it->load_textures();
+	reload();
 }
 
 void des_main_window::on_object_change()
 {
 	bird_cam* cam=dynamic_cast<bird_cam*>(engine->camera);
 	delete current;
+	if(cbox.get_active_text()=="") return;
 	current=do_register_ei::objs()[cbox.get_active_text()](*engine,cam->x,cam->z-20,-cam->y);
 	current->load_textures();
 }
