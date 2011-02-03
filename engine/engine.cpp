@@ -164,6 +164,7 @@ t_engine::t_engine():
 		stopped(true){
 	
 	set_can_focus();//blablah
+	grab_focus();
 	debug = false;
 	Glib::RefPtr<Gdk::GL::Config> glconfig;
 	// Try double-buffered visual
