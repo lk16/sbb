@@ -129,3 +129,18 @@ t_camera::t_camera(t_engine& _e):e(&_e){
 t_camera::~t_camera(){
 	e->remove_camera(this);
 }
+
+engine_interface::engine_interface(const engine_interface& rhs){
+	e=rhs.e;
+	for(size_t i=0;i<5;i++){
+		if(rhs.interfaces[i]){
+			add_interface(i);
+		}
+	}
+	if(interfaces[4]){
+		*static_cast<flomath::point*>(this)=rhs;
+		speed=rhs.speed;
+		accel=rhs.accel;
+		rotation=rhs.rotation;
+	}
+}
