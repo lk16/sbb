@@ -144,3 +144,8 @@ engine_interface::engine_interface(const engine_interface& rhs){
 		rotation=rhs.rotation;
 	}
 }
+/*
+t_camera::t_camera(const t_camera& tc){
+	e = tc.e;
+	e->set_camera(this);
+}*/

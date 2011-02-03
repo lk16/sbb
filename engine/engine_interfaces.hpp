@@ -25,6 +25,7 @@ public:
 	flomath::quaternion rotation;
 	
 	engine_interface(t_engine& _e,unsigned input);
+	engine_interface(const engine_interface& ei);
 	virtual ~engine_interface();
 	
 	void add_interface_from_bitset(unsigned char n);
@@ -50,7 +51,9 @@ struct t_camera{
 	t_engine* e;
 	
 	t_camera(t_engine& _e);
+//	t_camera(const t_camera& tc);
 	virtual ~t_camera();
+
 	
 	virtual void operator()()=0;
 };
