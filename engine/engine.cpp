@@ -75,7 +75,9 @@ void t_engine::do_moves() {
 	}
 }
 
-void t_engine::do_collisions() {}
+void t_engine::do_collisions() {
+	signal_collision.emit();
+}
 
 #ifdef DEBUG_LOG_KEYS
 void t_engine::do_keys() {

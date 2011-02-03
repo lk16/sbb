@@ -50,6 +50,8 @@ class t_engine:
 		void key_press(unsigned);
 		void key_release(unsigned);
 		
+		sigc::signal<void> signal_collision;
+
 	protected:
 		std::vector<engine_interface*> drawables;
 		std::vector<engine_interface*> key_receivs;
@@ -58,7 +60,7 @@ class t_engine:
 		std::vector<engine_interface*> has_textures;
 		t_camera* camera;
 
-		virtual void do_collisions();
+		void do_collisions();
 		void draw();
 		bool step();
 		
