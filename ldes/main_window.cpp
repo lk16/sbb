@@ -34,13 +34,19 @@ struct bird_cam: t_camera, engine_interface{
 	bird_cam(const bird_cam& bc):
 		t_camera(bc),
 		engine_interface(bc)
-	{}
+	{
+		std::cout << "+++\n";
+	}
 	
 	bird_cam(t_engine& e):
 		t_camera(e),
 		engine_interface(e,ei_t_key_receiver|ei_moveable)
 	{
 		z=10;
+		std::cout << "+++\n";
+	}
+	~bird_cam(){
+		std::cout << "---\n";
 	}
 	virtual void key_pressed(unsigned int k){
 		switch(k){
