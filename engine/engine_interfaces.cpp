@@ -20,48 +20,14 @@ void engine_interface::add_interface(unsigned char n){
 	}
 	if(interfaces[n]) return;
 	interfaces[n]=true;
-	switch(n){
-		case 0:
-			e->add_has_texture(this);		
-			break;
-		case 1:
-			e->add_steppable(this);
-			break;
-		case 2:
-			e->add_drawable(this);
-			break;
-		case 3:
-			e->add_key_receiver(this);
-			break;
-		case 4:
-			e->add_moveable(this);
-			speed.set(0,0,0);
-			accel.set(0,0,0);
-			break;
-	}
+	e->ei_list[n].add(this);
 }
 
 void engine_interface::remove_interface(unsigned char n){
 	if(n>4) return;
 	if(!interfaces[n]) return;
 	interfaces[n]=false;
-	switch(n){
-		case 0:
-			e->remove_has_texture(this);		
-			break;
-		case 1:
-			e->remove_steppable(this);
-			break;
-		case 2:
-			e->remove_drawable(this);
-			break;
-		case 3:
-			e->remove_key_receiver(this);
-			break;
-		case 4:
-			e->remove_moveable(this);
-			break;
-	}
+	e->ei_list[n].remove(this);
 }
 
 engine_interface::engine_interface(t_engine& _e,unsigned input=0):

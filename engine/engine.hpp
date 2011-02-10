@@ -14,7 +14,6 @@ class des_main_window;
 class engine_interface;
 class t_camera;
 
-
 class t_engine:
 	public Gtk::DrawingArea,
 	public Gtk::GL::Widget<t_engine>
@@ -22,27 +21,21 @@ class t_engine:
 	friend class main_window;
 	friend class des_main_window;
 
+	struct engine_interface_list:
+		private std::vector<engine_interface*> 
+	{
+		friend class t_engine;
+		void add(engine_interface*);
+		void remove(engine_interface*);
+		using std::vector<engine_interface*>::clear;
+	};
+	
 	public:
 		t_engine(/*main_window**/);
 		virtual ~t_engine();
 		void gl_begin();
 		void gl_end();
 		
-		void add_moveable(engine_interface*);
-		void remove_moveable(engine_interface*);
-		
-		void add_drawable(engine_interface*);
-		void remove_drawable(engine_interface*);
-		
-		void add_steppable(engine_interface*);
-		void remove_steppable(engine_interface*);
-		
-		void add_has_texture(engine_interface*);
-		void remove_has_texture(engine_interface*);
-		
-		void add_key_receiver(engine_interface*);
-		void remove_key_receiver(engine_interface*);
-				
 		void set_camera(t_camera*);
 		void remove_camera(t_camera*);
 		
@@ -52,12 +45,15 @@ class t_engine:
 		
 		sigc::signal<void> signal_collision;
 
+		engine_interface_list ei_list[6];
+
+		engine_interface_list &has_textures, &steppables, 
+		&drawables, &key_receivs, &moveables, 
+		&transparent_drawables;
+
 	protected:
-		std::vector<engine_interface*> drawables;
-		std::vector<engine_interface*> key_receivs;
-		std::vector<engine_interface*> moveables;
-		std::vector<engine_interface*> steppables;
-		std::vector<engine_interface*> has_textures;
+
+		
 		t_camera* camera;
 
 		void do_collisions();

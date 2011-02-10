@@ -22,6 +22,16 @@ std::ofstream key_log("key_log");
 
 typedef std::vector<engine_interface*>::iterator eip_iter;
 
+void t_engine::engine_interface_list::add(engine_interface* arg1)
+{
+	push_back(arg1);
+}
+void t_engine::engine_interface_list::remove(engine_interface* arg1)
+{
+	erase(std::remove(begin(), end(), arg1), end());
+}
+
+
 void t_engine::remove_camera(t_camera* arg1) {
 	if (camera == arg1) {
 		camera = 0;
@@ -39,34 +49,10 @@ void t_engine::stop()
 	stopped=true;
 }
 
-void t_engine::remove_drawable(engine_interface* arg1) {
-	drawables.erase(std::remove(drawables.begin(), drawables.end(), arg1), drawables.end());
-}
-
-void t_engine::remove_key_receiver(engine_interface* arg1) {
-	key_receivs.erase(std::remove(key_receivs.begin(), key_receivs.end(), arg1), key_receivs.end());
-}
-
-void t_engine::remove_moveable(engine_interface* arg1) {
-	moveables.erase(std::remove(moveables.begin(), moveables.end(), arg1), moveables.end());
-}
-
-void t_engine::remove_steppable(engine_interface* arg1) {
-	steppables.erase(std::remove(steppables.begin(), steppables.end(), arg1), steppables.end());
-}
-
 void t_engine::do_steps() {
 	for (eip_iter i = steppables.begin();i != steppables.end();i++) {
 		(*i)->step();
 	}
-}
-
-void t_engine::add_steppable(engine_interface* arg1) {
-	steppables.push_back(arg1);
-}
-
-void t_engine::add_moveable(engine_interface*m) {
-	moveables.push_back(m);
 }
 
 void t_engine::do_moves() {
@@ -163,10 +149,16 @@ t_engine::t_engine():
 		camera(0),
 		texture_load_ready(false),
 //		lockdown(0),
-		stopped(true){
+		stopped(true),
+		has_textures(ei_list[0]), 
+		steppables(ei_list[1]), 
+		drawables(ei_list[2]), 
+		key_receivs(ei_list[3]), 
+		moveables(ei_list[4]), 
+		transparent_drawables(ei_list[5])
+		{
 	
 	set_can_focus();//blablah
-	grab_focus();
 	debug = false;
 	Glib::RefPtr<Gdk::GL::Config> glconfig;
 	// Try double-buffered visual
@@ -207,11 +199,6 @@ bool t_engine::on_key_press_event(GdkEventKey* k)
 bool t_engine::on_key_release_event(GdkEventKey* k)
 {
 	key_release(k->keyval);
-}
-
-
-void t_engine::add_key_receiver(engine_interface* key_rec) {
-	key_receivs.push_back(key_rec);
 }
 
 void t_engine::on_realize() {
@@ -267,14 +254,6 @@ void t_engine::on_realize() {
 	glwindow->gl_end();
 
 }
-void t_engine::add_has_texture(engine_interface* arg1) {
-	has_textures.push_back(arg1);
-}
-void t_engine::remove_has_texture(engine_interface* arg1) {
-	has_textures.erase(std::remove(has_textures.begin(), has_textures.end(), arg1), has_textures.end());
-}
-
-
 
 void t_engine::load_textures() {
 	for (eip_iter i = has_textures.begin();i != has_textures.end();i++) {
@@ -317,6 +296,10 @@ void t_engine::draw() {
 		(*i)->draw();
 	}
 
+	for (eip_iter i = transparent_drawables.begin();i != transparent_drawables.end();i++) {
+		(*i)->draw();
+	}
+	
 	// Swap buffers.
 	if (glwindow->is_double_buffered())
 		glwindow->swap_buffers();
@@ -324,10 +307,6 @@ void t_engine::draw() {
 		glFlush();
 
 	glwindow->gl_end();
-}
-
-void t_engine::add_drawable(engine_interface* const d) {
-	drawables.push_back(d);
 }
 
 void t_engine::gl_begin() {
@@ -341,20 +320,10 @@ void t_engine::gl_end() {
 void t_engine::clear_all() {
 	delete camera;
 	camera = 0;
-	while (!drawables.empty()) {
-		delete drawables[0];
-	}
-	while (!key_receivs.empty()) {
-		delete key_receivs[0];
-	}
-	while (!moveables.empty()) {
-		delete moveables[0];
-	}
-	while (!steppables.empty()) {
-		delete steppables[0];
-	}
-	while (!has_textures.empty()) {
-		delete has_textures[0];
+	for(int i=sizeof(ei_list)/sizeof(ei_list[0])-1;i>=0;i--){
+		while (!ei_list[i].empty()) {
+			delete ei_list[i][0];
+		}
 	}
 	std::cout << "cleared engine garbage" << std::endl;
 }
