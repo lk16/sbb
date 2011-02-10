@@ -262,7 +262,8 @@ bool t_engine::on_configure_event(GdkEventConfigure* event) {
 
 	glViewport(0, 0, get_width(), get_height());
 	load_textures();
-
+//	grab_focus();
+	
 	glwindow->gl_end();
 
 	return true;
