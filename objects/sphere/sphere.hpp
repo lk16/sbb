@@ -27,6 +27,7 @@ class player_ball:
 	
 	public:
 		player_ball(t_engine&,double,double,double);
+		~player_ball();
 		
 		void collide(collision_data<t_floor>&);
 		void collide(base_plane&);

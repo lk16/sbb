@@ -134,14 +134,19 @@ void player_ball::draw() {
 }
 
 player_ball::player_ball(t_engine& e, double _x, double _y, double _z):
-		can_collide< player_ball , COL_SPHERE>(e, _x, _y, _z, .3, false),
+		can_collide< player_ball , COL_SPHERE>(e, _x, _y, _z, .5, false),
 		prevcol(DOB_False),
 		time(0) {
-	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable | ei_drawable);
+	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable );
+	e.transparent_drawables.add(this);
+	e.drawables.remove(this);
 	accel.y = -0.010;
 	type = "t_sphere";
 	e.signal_collision.connect(&::collision<player_ball, t_floor>);
 	e.signal_collision.connect(&::collision<player_ball, wall>);
 	e.signal_collision.connect(&::collision<player_ball, finish>);
 		
+}
+player_ball::~player_ball(){
+	e->transparent_drawables.remove(this);
 }
