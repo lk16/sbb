@@ -234,7 +234,7 @@ void t_engine::on_realize() {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(40.0, 1.0, 0.1, 50.0);
+	gluPerspective(40.0, 1.0, 0.1, 500.0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
