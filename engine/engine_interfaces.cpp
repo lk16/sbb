@@ -31,8 +31,10 @@ void engine_interface::remove_interface(unsigned char n){
 }
 
 engine_interface::engine_interface(t_engine& _e,unsigned input=0):
-e(&_e),
-rotation(1,0,0,0)
+	e(&_e),
+	rotation(1,0,0,0),
+	speed(0,0,0),
+	accel(0,0,0)
 {
 	for(size_t i=0;i<5;i++){
 		if(input&1<<i){

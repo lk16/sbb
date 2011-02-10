@@ -17,6 +17,8 @@ class engine_interface:
 	virtual public flomath::point
 {
 	std::bitset<5> interfaces;
+
+protected:
 	t_engine* e;
 
 public:
