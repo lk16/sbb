@@ -4,6 +4,8 @@
 #include <register/register.hpp>
 #include <engine/collision_test.hpp>
 #include <objects/floor/floor.hpp>
+#include <objects/wall/wall.hpp>
+#include <objects/finish/finish.hpp>
 #include <algorithm>
 
 SBB_REGISTER_ei(player_ball);
@@ -138,4 +140,8 @@ player_ball::player_ball(t_engine& e, double _x, double _y, double _z):
 	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable | ei_drawable);
 	accel.y = -0.010;
 	type = "t_sphere";
+	e.signal_collision.connect(&::collision<player_ball, t_floor>);
+	e.signal_collision.connect(&::collision<player_ball, wall>);
+	e.signal_collision.connect(&::collision<player_ball, finish>);
+		
 }

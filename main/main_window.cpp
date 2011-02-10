@@ -8,21 +8,10 @@
 #include <gtkmm/main.h>
 #include <gdk/gdkkeysyms.h>
 
-class test_engine:
-	public t_engine
-{
-	virtual void do_collisions(){
-		collision<player_ball, t_floor>();
-		collision<player_ball, wall>();
-		collision<player_ball, finish>();
-	}
-	
-};
-
 main_window::main_window():
 	in_menu(true),
 	m_VBox(false, 0),
-	engine(new test_engine/*(this)*/),
+	engine(new t_engine/*(this)*/),
 	menu(*new main_menu(this))
 {
 	set_title("Super Bunny Ball");
