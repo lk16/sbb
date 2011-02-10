@@ -13,7 +13,7 @@ void simcam::operator()(){
 	flomath::quaternion rot(mv->rotation);
 	rot*=flomath::quaternion(cos(-pi/20),sin(-pi/20),0,0);
 	glRotated(-180/pi*2*flomath::acos(rot.a),rot.b,rot.c,rot.d);
-	flomath::point q(0,.25,2);
+	flomath::point q(0,.5,4);
 	q.rotate(rot);
 	glTranslated(-mv->x-q.x,-mv->y-q.y,-mv->z-q.z);
 }
