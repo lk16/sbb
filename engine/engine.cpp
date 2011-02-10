@@ -243,13 +243,6 @@ void t_engine::on_realize() {
 	          0.0, 1.0, 0.0);
 	glTranslatef(0.0, 0.0, -3.0);
 
-	std::cout << "configure ready" << std::endl;
-	if (texture_load_ready) {
-		load_textures();
-	}
-	else {
-		texture_load_ready = true;
-	}
 	draw();
 	glwindow->gl_end();
 
@@ -268,6 +261,7 @@ bool t_engine::on_configure_event(GdkEventConfigure* event) {
 		return false;
 
 	glViewport(0, 0, get_width(), get_height());
+	load_textures();
 
 	glwindow->gl_end();
 
