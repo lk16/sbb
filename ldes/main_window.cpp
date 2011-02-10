@@ -133,9 +133,7 @@ void des_main_window::reload()
 	current=0;
 	engine->stop();
 	load_level(curr_lev);
-	bird_cam* cam = new bird_cam(*engine);
-	*static_cast<flomath::point*>(cam)=pos;
-	engine->set_camera(cam);
+	*static_cast<flomath::point*>(dynamic_cast<bird_cam*>(engine->camera))=pos;
 	engine->run();
 	on_object_change();
 }
