@@ -25,6 +25,7 @@ figure::figure(t_engine& e,const flomath::point& pos):
 
 void figure::file2fig(std::string fname){
 	const obj_file& file=obj_parse(fname);
+	bool has_alpha=false;
 	typedef std::vector<t_face>::const_iterator iter;
 	for(iter i=file.faces.begin();i!=file.faces.end();++i){
 		drawable_face here;
@@ -78,7 +79,14 @@ void figure::file2fig(std::string fname){
 			}
 			
 		}
+		if(!here.has_texture && !flomath::equals(here.alpha,1)){
+			has_alpha = true;
+		}
 		draw_faces.push_back(here);
+	}
+	if(has_alpha){
+		remove_interface(ei_drawable);
+		e->transparent_drawables.add(this);
 	}
 }
 

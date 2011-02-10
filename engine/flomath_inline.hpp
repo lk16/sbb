@@ -17,6 +17,11 @@ namespace flomath{
 		return std::acos(ax>1?x/ax:x);
 	}
 	
+	template<class T,class U>
+	bool equals(T x,U y){
+		return flomath::abs(x-y)<negligible;
+	}
+	
 	
 	inline point& point::normalize(){
 		return *this/=length();

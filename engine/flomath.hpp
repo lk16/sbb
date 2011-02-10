@@ -23,6 +23,8 @@ namespace flomath{
 	template <class T>
 	T abs (T p);
 
+	template<class T,class U>
+	bool equals(T x,U y);
 	
 	struct point;
 	struct quaternion;
