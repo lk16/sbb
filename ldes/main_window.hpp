@@ -2,6 +2,7 @@
 #include <gtkmm/window.h>
 #include <gtkmm/comboboxtext.h>
 #include <gtkmm/listviewtext.h>
+#include <gtkmm/scrolledwindow.h>
 
 #include "main/main_window.hpp"
 #include "engine/engine.hpp"
@@ -42,4 +43,5 @@ class des_main_window:
 		Gtk::Label x_lab,y_lab,z_lab;
 		engine_interface* current;
 		Gtk::ListViewText object_view;
+		Gtk::ScrolledWindow object_view_scroll;
 };

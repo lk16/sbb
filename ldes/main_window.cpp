@@ -125,7 +125,18 @@ des_main_window::des_main_window():
 	object_view.set_can_focus();
 	
 	container.pack_start(m_VBox);
-	container.pack_start(object_view);
+
+	object_view.set_column_title(0,"name");
+	object_view.set_column_title(1,"x");
+	object_view.set_column_title(2,"y");
+	object_view.set_column_title(3,"z");
+	object_view.set_column_title(4,"rx");
+	object_view.set_column_title(5,"ry");
+	object_view.set_column_title(6,"rz");
+	object_view.set_column_title(7,"param");
+	
+	object_view_scroll.add(object_view);
+	container.pack_start(object_view_scroll);
 	
 	do_register_ei::t_map& objs=do_register_ei::objs();
 	typedef do_register_ei::t_map t_map;
@@ -234,7 +245,7 @@ void des_main_window::update_from_view(/*Gtk::DirectionType d*/)
 void des_main_window::show_menu()
 {
 	current=0;
-	object_view.hide();
+	object_view_scroll.hide();
 	bottom_bar.hide();
 	main_window::show_menu();
 }
@@ -353,7 +364,7 @@ void des_main_window::load_level(t_level* l){
 	else{
 		engine->texture_load_ready = true;
 	}
-	object_view.show();
+	object_view_scroll.show();
 	engine->show();
 	engine->run();
 }
