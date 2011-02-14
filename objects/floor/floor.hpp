@@ -16,9 +16,7 @@ class t_floor:
 class tiled_floor:
 	public t_floor
 {
-	unsigned tn;
 	public:
-		void draw();
 		tiled_floor(t_engine&,double,double,double);
 };
 #endif
