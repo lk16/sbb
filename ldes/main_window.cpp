@@ -32,21 +32,53 @@ T fromstr(std::string x){
 struct bird_cam: t_camera, engine_interface{
 	
 	
+
+	bool shift_down,moved_last_time;
+	
 	bird_cam(t_engine& e):
 		t_camera(e),
-		engine_interface(e,ei_t_key_receiver|ei_moveable)
+		engine_interface(e,ei_t_key_receiver|ei_moveable|ei_stepable)
 	{
 		z=10;
+		moved_last_time = false;
+		shift_down=false;
 	}
+
+	virtual void step(){
+		if(!shift_down || !moved_last_time){
+			*this+=speed;
+		}
+		moved_last_time = (speed!=flomath::point(0,0,0));
+		speed=flomath::point(0,0,0);
+		shift_down=false;
+	}
+	
 	virtual void key_pressed(unsigned int k){
 		switch(k){
-		case GDK_Right:x+=.125;break;
-		case GDK_Left:x-=.125;break;
-		case GDK_Up:y+=.125;break;
-		case GDK_Down:y-=.125;break;
-		case GDK_minus:z+=.25;break;
+		case GDK_Right:
+			speed.x=.125;
+			break;
+		case GDK_Left:
+			speed.x=-.125;
+			break;
+		case GDK_Up:
+			speed.y=.125;
+			break;
+		case GDK_Down:
+			speed.y=-.125;
+			break;
+		case GDK_minus:
+		case GDK_underscore:	
+			speed.z=.25;
+			break;
 		case GDK_equal:
-		case GDK_plus:z-=.25;break;
+		case GDK_plus:
+			speed.z=-.25;
+			break;
+		case GDK_Shift_L:
+		case GDK_Shift_R:
+			shift_down=true;
+			break;
 		}
 	}
 	
