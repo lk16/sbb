@@ -22,6 +22,10 @@ namespace flomath{
 		return flomath::abs(x-y)<negligible;
 	}
 	
+	template <class T,class U>
+	bool operator!=(T lhs,U rhs){
+		return !(lhs==rhs);
+	}
 	
 	inline point& point::normalize(){
 		return *this/=length();

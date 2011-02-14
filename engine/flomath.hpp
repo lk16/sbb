@@ -25,7 +25,10 @@ namespace flomath{
 
 	template<class T,class U>
 	bool equals(T x,U y);
-	
+
+	template <class T,class U>
+	bool operator!=(T lhs,U rhs);
+
 	struct point;
 	struct quaternion;
 	struct plane;
