@@ -23,6 +23,40 @@ figure::figure(t_engine& e,const flomath::point& pos):
 	*static_cast<point*>(this)=pos;
 }
 
+unsigned figure::get_texture_tag(const std::string& fname){
+
+	Glib::RefPtr<Gdk::Pixbuf> pic=Gdk::Pixbuf::create_from_file(fname);
+	
+	char* data=reinterpret_cast<char*>(pic->get_pixels());
+	size_t rs=pic->get_rowstride();
+	size_t wi=pic->get_width();
+	
+	std::vector<char> buff;
+	for(int j=0;j<pic->get_height();j++){
+		buff.insert(buff.end(),data+rs*j,data+rs*j+wi*pic->get_n_channels());
+	}
+	GLuint format=pic->get_has_alpha()?GL_RGBA:GL_RGB;
+	assert(pic->get_bits_per_sample()==8);
+
+	GLuint texname;
+	
+	glEnable(GL_TEXTURE_2D);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1,&texname);
+	glBindTexture(GL_TEXTURE_2D,texname);
+
+	assert(texname);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, format, pic->get_width(),
+	pic->get_height(), 0, format, GL_UNSIGNED_BYTE, &buff[0]);
+	return texname;
+}
+
 void figure::file2fig(std::string fname){
 	const obj_file& file=obj_parse(fname);
 	bool has_alpha=false;
@@ -32,30 +66,7 @@ void figure::file2fig(std::string fname){
 		add_face(*i,file);
 		if(i->mtl->filename){
 			here.has_texture=true;
-			Glib::RefPtr<Gdk::Pixbuf> pic=Gdk::Pixbuf::create_from_file((obj_folder/i->mtl->filename).string());
-			
-			char* data=reinterpret_cast<char*>(pic->get_pixels());
-			size_t rs=pic->get_rowstride();
-			size_t wi=pic->get_width();
-			
-			std::vector<char> buff;
-			for(int j=0;j<pic->get_height();j++){
-				buff.insert(buff.end(),data+rs*j,data+rs*j+wi*pic->get_n_channels());
-			}
-			GLuint format=pic->get_has_alpha()?GL_RGBA:GL_RGB;
-			assert(pic->get_bits_per_sample()==8);
-			
-			glEnable(GL_TEXTURE_2D);
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glGenTextures(1,&here.texname);
-			glBindTexture(GL_TEXTURE_2D,here.texname);
-			
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			
-			glTexImage2D(GL_TEXTURE_2D, 0, format, pic->get_width(), pic->get_height(), 0, format, GL_UNSIGNED_BYTE, &buff[0]);
+			here.texname = get_texture_tag((obj_folder/i->mtl->filename).string());
 			typedef std::vector<face_triple>::const_iterator inner_iter;
 			for(inner_iter j=i->data.begin();j!=i->data.end();j++){
 				drawable_face::coord c;

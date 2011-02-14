@@ -52,6 +52,7 @@ private:
 	std::string file;
 	std::vector<drawable_face> draw_faces;
 	void add_face(const t_face& arg1,const obj_file& arg2);
+	static unsigned get_texture_tag(const std::string& fname);
 };
 
 #endif
