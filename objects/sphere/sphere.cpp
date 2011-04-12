@@ -1,4 +1,5 @@
 #include <gdk/gdkkeysyms.h>
+#include <algorithm>
 
 #include "sphere.hpp"
 #include <register/register.hpp>
@@ -6,7 +7,8 @@
 #include <objects/floor/floor.hpp>
 #include <objects/wall/wall.hpp>
 #include <objects/finish/finish.hpp>
-#include <algorithm>
+#include "../../engine/util.hpp"
+
 
 SBB_REGISTER_ei(player_ball);
 
@@ -43,11 +45,11 @@ void player_ball::step() {
 		set_speed(0, 0, 0);
 	}
 	time++;
-	if (prevcol == DOB_True) {
+	if (prevcol == DOB_TRUE) {
 		prevcol = DOB_TRY_FALSE;
 	}
 	else if (prevcol == DOB_TRY_FALSE) {
-		prevcol = DOB_False;
+		prevcol = DOB_FALSE;
 	}
 	accel_same_direction(0.999);
 }
@@ -101,14 +103,14 @@ void player_ball::collide(base_plane& f) {
 }
 
 void player_ball::collide(finish) {
-	if (prevcol == DOB_True) return;
+	if (prevcol == DOB_TRUE) return;
 	if (prevcol == DOB_TRY_FALSE) {
-		prevcol = DOB_True;
+		prevcol = DOB_TRUE;
 		return;
 	}
 	std::cout << "your time was :" << time << '\n';
 	time = 0;
-	prevcol = DOB_True;
+	prevcol = DOB_TRUE;
 }
 
 void player_ball::draw() {
@@ -135,7 +137,7 @@ void player_ball::draw() {
 
 player_ball::player_ball(t_engine& e, double _x, double _y, double _z):
 		can_collide< player_ball , COL_SPHERE>(e, _x, _y, _z, .5, false),
-		prevcol(DOB_False),
+		prevcol(DOB_FALSE),
 		time(0) {
 	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable );
 	e.transparent_drawables.add(this);

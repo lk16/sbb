@@ -5,27 +5,10 @@
 #include <vector>
 #include <cmath>
 
-const double negligible = 0.000001;
-
-///this does exactly what you think it does, dont execute on systems without protected memory(ancient 8086 for example)
-inline void segfault(){
-	*(int*)(0)=1;
-}
-
+#include "util.hpp"
 
 namespace flomath{
 	
-	const double pi=3.1415926;
-	
-	template<class T>
-	T acos(T x);
-
-	template <class T>
-	T abs (T p);
-
-	template<class T,class U>
-	bool equals(T x,U y);
-
 	template <class T,class U>
 	bool operator!=(T lhs,U rhs);
 
@@ -47,7 +30,7 @@ namespace flomath{
 		
 		friend std::ostream& operator<<(std::ostream&,point);
 		
-		point(){}
+		point();
 		point(double,double,double);
 		point operator+(const point& b)const;
 		point operator-(const point& b)const;

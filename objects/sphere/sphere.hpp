@@ -4,22 +4,18 @@
 #include <cmath>
 #include <vector>
 
-#include "engine/engine.hpp"
-#include "engine/collision_test.hpp"
-#include "engine/engine_interfaces.hpp"
-#include "objects/finish/finish.hpp"
+#include "../../engine/engine.hpp"
+#include "../../engine/collision_test.hpp"
+#include "../../engine/engine_interfaces.hpp"
+#include "../../objects/finish/finish.hpp"
+#include "../../engine/util.hpp"
 
 struct t_floor;
 
 class player_ball:
 	public can_collide<player_ball,COL_SPHERE>
 {
-	enum doubly_owned_bool{ 
-		DOB_False=0,
-		DOB_True=1,
-		DOB_TRY_FALSE,
-		DOB_TRY_TRUE 
-	};
+
 	
 	doubly_owned_bool prevcol;
 	int time;

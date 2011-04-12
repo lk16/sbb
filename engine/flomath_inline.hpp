@@ -6,26 +6,7 @@
 
 namespace flomath{
 
-	template <class T>
-	T abs (T p){
-		return (p<0)?-p:p;
-	}
-	
-	template<class T>
-	T acos(T x){
-		T ax=flomath::abs(x);
-		return std::acos(ax>1?x/ax:x);
-	}
-	
-	template<class T,class U>
-	bool equals(T x,U y){
-		return flomath::abs(x-y)<negligible;
-	}
-	
-	template <class T,class U>
-	bool operator!=(T lhs,U rhs){
-		return !(lhs==rhs);
-	}
+
 	
 	inline point& point::normalize(){
 		return *this/=length();

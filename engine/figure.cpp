@@ -179,7 +179,7 @@ void drawable_face::draw(){
 		glDisable(GL_TEXTURE_2D);
 	}
 	else{
-		if(alpha<negligible){
+		if(flomath::equals(alpha,0)){
 			return;
 		}
 		glColor4d(r,g,b,alpha);
