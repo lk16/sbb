@@ -128,7 +128,11 @@ bool sphere_collides_line(flomath::point& swrtf,double r,const flomath::point& p
 		flomath::vector a = p-p1;
 		flomath::vector b = p-p2;
 		double g = flomath::dotproduct(a,b)/a.length()/b.length();
+<<<<<<< HEAD
 		if(flomath::equals(g+1,0) || flomath::distance(swrtf,p1)<r){
+=======
+		if(flomath::abs(g+1)<negligible || flomath::distance(swrtf,p1)<r){
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 			return true;
 		}
 	}

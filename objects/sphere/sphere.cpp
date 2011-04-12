@@ -1,5 +1,8 @@
 #include <gdk/gdkkeysyms.h>
+<<<<<<< HEAD
 #include <algorithm>
+=======
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 
 #include "sphere.hpp"
 #include <register/register.hpp>
@@ -7,8 +10,12 @@
 #include <objects/floor/floor.hpp>
 #include <objects/wall/wall.hpp>
 #include <objects/finish/finish.hpp>
+<<<<<<< HEAD
 #include "../../engine/util.hpp"
 
+=======
+#include <algorithm>
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 
 SBB_REGISTER_ei(player_ball);
 
@@ -45,11 +52,19 @@ void player_ball::step() {
 		set_speed(0, 0, 0);
 	}
 	time++;
+<<<<<<< HEAD
 	if (prevcol == DOB_TRUE) {
 		prevcol = DOB_TRY_FALSE;
 	}
 	else if (prevcol == DOB_TRY_FALSE) {
 		prevcol = DOB_FALSE;
+=======
+	if (prevcol == DOB_True) {
+		prevcol = DOB_TRY_FALSE;
+	}
+	else if (prevcol == DOB_TRY_FALSE) {
+		prevcol = DOB_False;
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 	}
 	accel_same_direction(0.999);
 }
@@ -103,14 +118,24 @@ void player_ball::collide(base_plane& f) {
 }
 
 void player_ball::collide(finish) {
+<<<<<<< HEAD
 	if (prevcol == DOB_TRUE) return;
 	if (prevcol == DOB_TRY_FALSE) {
 		prevcol = DOB_TRUE;
+=======
+	if (prevcol == DOB_True) return;
+	if (prevcol == DOB_TRY_FALSE) {
+		prevcol = DOB_True;
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		return;
 	}
 	std::cout << "your time was :" << time << '\n';
 	time = 0;
+<<<<<<< HEAD
 	prevcol = DOB_TRUE;
+=======
+	prevcol = DOB_True;
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 }
 
 void player_ball::draw() {
@@ -137,7 +162,11 @@ void player_ball::draw() {
 
 player_ball::player_ball(t_engine& e, double _x, double _y, double _z):
 		can_collide< player_ball , COL_SPHERE>(e, _x, _y, _z, .5, false),
+<<<<<<< HEAD
 		prevcol(DOB_FALSE),
+=======
+		prevcol(DOB_False),
+>>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		time(0) {
 	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable );
 	e.transparent_drawables.add(this);
