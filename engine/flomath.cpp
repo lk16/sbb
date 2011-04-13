@@ -5,12 +5,10 @@
 
 namespace flomath{
 	
-<<<<<<< HEAD
 	point::point(){
 		x = y = z = 0.0;
 	}
-=======
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
+
 	
 	double point::length_sqr() const
 	{
@@ -48,7 +46,6 @@ namespace flomath{
 		ax+by+cz+d=0
 		normal: col(a,b,c)
 		*/
-<<<<<<< HEAD
 		vector v1(tp1),v2(tp1);
 		v1 -= tp2;
 		v2 -= tp3;
@@ -74,33 +71,6 @@ namespace flomath{
 
 	double plane::eval(const point& a)const{
 		return dotproduct(normal,a)-d;
-=======
-		flomath::vector v1(tp1),v2(tp1);
-		v1 -= tp2;
-		v2 -= tp3;
-				
-		normal = flomath::crossproduct(v1,v2);
-		d = flomath::dotproduct(normal,tp1);		
-	}
-	
-	plane::plane(const triangle& t){
-		flomath::vector v1=t.p[0]-t.p[1];
-		flomath::vector v2=t.p[0]-t.p[2];
-		normal = flomath::crossproduct(v1,v2);
-		d = flomath::dotproduct(normal,t.p[0]);
-	}
-	
-	plane::plane(const flomath::polygon& p)
-	{
-		flomath::vector v1=p.p[0]-p.p[1];
-		flomath::vector v2=p.p[0]-p.p[2];
-		normal = flomath::crossproduct(v1,v2);
-		d = flomath::dotproduct(normal,p.p[0]);
-	}
-
-	double plane::eval(const point& a)const{
-		return flomath::dotproduct(normal,a)-d;
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 	}
 
 	double distance(const point& p1,const point& p2){
@@ -110,23 +80,14 @@ namespace flomath{
 	/// | RC X (OFF - P) |  
 	/// ------------------
 	///       |RC|
-<<<<<<< HEAD
 	double distance(const point& p,const line3d& l){
 		point tmp1 = l.offset-p;
-=======
-	double distance(const flomath::point& p,const flomath::line3d& l){
-		flomath::point tmp1 = l.offset-p;
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		double res = crossproduct(l.rc,tmp1).length();
 		return res/l.rc.length();
 	}
 	
 	point project(const point& p,const line3d& l){
-<<<<<<< HEAD
 		point tmp1 = l.offset-p;
-=======
-		flomath::point tmp1 = l.offset-p;
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		point tmp2 = crossproduct(l.rc,tmp1);
 		point tmp3 = crossproduct(tmp2,l.rc);
 		tmp3 = tmp3 / tmp3.length();
@@ -306,23 +267,17 @@ namespace flomath{
 		x=_x , y=_y , z=_z;
 	}
 
-	line3d::line3d(const point& a,const point& b):rc(a-b),offset(a){}
+	line3d::line3d(const point& a,const point& b):
+		rc(a-b),offset(a)
+	{}
 	
-<<<<<<< HEAD
 	triangle triangle::operator+(const vector& b)const{
-=======
-	flomath::triangle flomath::triangle::operator+(const flomath::vector& b)const{
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		return triangle(p[0]+b,p[1]+b,p[2]+b);
 	}
 	
 	triangle::triangle(){}
 	
-<<<<<<< HEAD
 	triangle::triangle(const point& p0, const point& p1, const point& p2){
-=======
-	triangle::triangle(const flomath::point& p0, const flomath::point& p1, const flomath::point& p2){
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		p[0]=p0;
 		p[1]=p1;
 		p[2]=p2;
@@ -335,17 +290,10 @@ namespace flomath{
 	}
 
 	polygon::polygon(
-<<<<<<< HEAD
 		const point& p1,
 		const point& p2,
 		const point& p3,
 		const point& p4
-=======
-		const flomath::point& p1,
-		const flomath::point& p2,
-		const flomath::point& p3,
-		const flomath::point& p4
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 	){
 		p.push_back(p1);
 		p.push_back(p2);
@@ -361,26 +309,16 @@ namespace flomath{
 		if(p.size()==3){
 			return true;
 		}
-<<<<<<< HEAD
 		plane tp(p[0],p[1],p[2]);
 		for(unsigned i=3;i<p.size();i++){
 			if(abs(tp.eval(p[i]))<negligible){
-=======
-		flomath::plane tp(p[0],p[1],p[2]);
-		for(unsigned i=3;i<p.size();i++){
-			if(flomath::abs(tp.eval(p[i]))<negligible){
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 				return false;
 			}
 		}
 		return true;
 	}
 
-<<<<<<< HEAD
 	void base_figure::add_triangle(const point& p0,const point& p1,const point& p2){
-=======
-	void base_figure::add_triangle(const flomath::point& p0,const flomath::point& p1,const flomath::point& p2){
->>>>>>> 7d795d9ad1de932c75971aa5975d8b47383a0bc9
 		polly.push_back(polygon(p0,p1,p2));
 	}
 
