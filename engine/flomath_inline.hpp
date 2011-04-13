@@ -15,23 +15,24 @@ namespace flomath{
 	}
 
 	inline std::ostream& operator<<(std::ostream& out ,point p){
-		out <<'('<<p.x<<','<<p.y<<','<<p.z<<')';
+		out << '(' << p.x << ',' << p.y << ',' << p.z << ')';
 	}
+	
 	inline point project(const point& p,const plane& q){
 		double dist = q.eval(p)/q.normal.length_sqr();
 		return p-(q.normal*dist);
 	}
 	
-	inline bool is_in_polygon(const point& p0,const polygon& q){
-		plane r(q);
+	inline bool polygon::is_in_polygon(const point& p0) const{
+		plane r(*this);
 		point p1 = project(p0,r);
 		double thoek = 0.0;
-		for(unsigned i=0;i<q.p.size()-1;i++){
-			point a = q.p[i]-p1;
-			point b = q.p[i+1]-p1;
+		for(unsigned i=0;i<p.size()-1;i++){
+			point a = p[i]-p1;
+			point b = p[i+1]-p1;
 			thoek += std::acos(dotproduct(a,b)/(a.length()*b.length()));
 		}
-		point a = q.p.back()-p1,b = q.p.front()-p1;
+		point a = p.back()-p1,b = p.front()-p1;
 		thoek += std::acos(dotproduct(a,b)/(a.length()*b.length()));
 		return abs(thoek - 2*pi) < 0.1 ;
 	}
@@ -99,14 +100,14 @@ namespace flomath{
 		copy.d = a*q.d + b*q.c - c*q.b + d*q.a;
 		return *this = copy;
 	}
-	inline quaternion quaternion::operator *(const quaternion& q)const{
+	inline quaternion quaternion::operator*(const quaternion& q)const{
 		quaternion res = *this;
 		return res*=q;
 	}
-	inline quaternion quaternion::conj(){
+	inline quaternion quaternion::conj() const{
 		return quaternion(a,-b,-c,-d);
 	}
-	inline quaternion quaternion::inv(){
+	inline quaternion quaternion::inv() const{
 		if(abs(length()-1)<negligible){
 			return conj();
 		}
@@ -131,7 +132,7 @@ namespace flomath{
 		glRotated(2*180/pi*acos(q.a),q.b,q.c,q.d);
 	}
 	
-	inline quaternion quaternion::operator-(){
+	inline quaternion quaternion::operator-() const{
 		return quaternion(-a,-b,-c,-d);
 	}
 }

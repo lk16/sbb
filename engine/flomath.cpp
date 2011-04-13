@@ -103,13 +103,7 @@ namespace flomath{
 		return a.x*b.x + a.y*b.y + a.z*b.z;
 	}
 
-	void normalize(vector& p){
-		if(p.length_sqr()>negligible){
-			p*=(1/p.length());
-		}
-	}
-
-	point turn(const point& p,const vector& q){
+	/*point turn(const point& p,const vector& q){
 		
 		using namespace std;
 		double resx,resy,resz;
@@ -125,7 +119,7 @@ namespace flomath{
 		resx = cos(atan(resy/resx)+q.z)*sqrt(p.x*p.x+p.y*p.y);
 		
 		return point(resx,resy,resz);
-	}
+	}*/
 
 	//http://mathworld.wolfram.com/Line-LineIntersection.html
 	
@@ -177,7 +171,7 @@ namespace flomath{
 		
 		line3d res;
 		res.rc=crossproduct(p1.normal,p2.normal);
-		normalize(res.rc);
+		res.rc.normalize();
 		double point::* a=&point::x, point::* b=&point::y;
 		
 		if(!are_planes_paralel_in_coords(p1,p2,a,b)){
@@ -351,7 +345,7 @@ namespace flomath{
 		polly.push_back(polygon(p0,p1,p2,p3));
 	}
 	
-	double distance(plane x,point p){
+	double distance(const point& p,const plane& x){
 		return x.eval(p)/x.normal.length();
 	}
 

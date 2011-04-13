@@ -144,8 +144,8 @@ collision_data_base* collide(base_sphere& s,figure& f){
 	
 	for(unsigned i=0;i<f.polly.size();i++){
 		flomath::plane pl(f.polly[i]);
-		if(flomath::abs(flomath::distance(pl,swrtf))<s.r){
-			if(flomath::is_in_polygon(swrtf,f.polly[i])){
+		if(flomath::abs(flomath::distance(swrtf,pl))<s.r){
+			if(f.polly[i].is_in_polygon(swrtf)){
 				return new collision_data_base(NULL,&f.polly[i]);
 			}
 			flomath::point p0 = f.polly[i].p.front(); 

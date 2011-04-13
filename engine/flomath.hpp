@@ -9,9 +9,6 @@
 
 namespace flomath{
 	
-	template <class T,class U>
-	bool operator!=(T lhs,U rhs);
-
 	struct point;
 	struct quaternion;
 	struct plane;
@@ -20,7 +17,6 @@ namespace flomath{
 	struct line3d;
 	struct base_figure;
 	
-	std::ostream& operator<<(std::ostream&,point);
 	struct point{
 		double x,y,z;
 		double length() const;
@@ -32,16 +28,17 @@ namespace flomath{
 		
 		point();
 		point(double,double,double);
-		point operator+(const point& b)const;
-		point operator-(const point& b)const;
+		point operator+(const point&)const;
+		point operator-(const point&)const;
+		point& operator+=(const point&);
+		point& operator-=(const point&);
+		point& operator*=(double);
+		point& operator/=(double);
+		point operator*(double) const;
+		point operator/(double) const;
 		point operator-()const;
-		point& operator+=(const point& b);
-		point& operator-=(const point& b);
-		point& operator*=(double b);
-		point& operator/=(double b);
-		point operator*(double b)const;
-		point operator/(double b) const;
-		bool operator==(const point& b)const;
+
+		bool operator==(const point&)const;
 		void set(double,double,double);
 		void rotate(quaternion);
 		void rotate(double,point);
@@ -50,26 +47,30 @@ namespace flomath{
 	typedef point vector;
 	vector crossproduct(const vector&,const vector&);
 	double dotproduct(const vector&,const vector&);
-	void   normalize(vector&);
-
 	double distance(const point&,const point&);
-	double distance(plane,point);
-	double distance(const flomath::point& p,const flomath::line3d& l);
+	double distance(const point&,const plane&);
+	double distance(const point&,const line3d&);
+	point project(const point&,const plane&);
+	point project(const point&,const line3d&);
+	
+
+
 	
 	///DONT USE THIS!
-	point turn(const point&,const vector&);
-
+	//point turn(const point&,const vector&);
+	
 	struct triangle{
-		flomath::point p[3];
-		triangle operator+(const vector& b) const;
+		point p[3];
+		triangle operator+(const vector&)const;
 		triangle();
-		triangle(const flomath::point& p0, const flomath::point& p1, const flomath::point& p2);
+		triangle(const point&,const point&,const point&);
 	};
 	
 	triangle operator*(double lhs,triangle rhs);
 	
+	
 	struct plane{
-		flomath::vector normal;
+		vector normal;
 		double d;
 		
 		plane(const point&,const point&,const point&);
@@ -80,10 +81,7 @@ namespace flomath{
 	};
 	
 
-	/*
-	 *RC*t+offset=X,Y,Z
-	 *
-	 */
+	//RC*t+offset=X,Y,Z
 	struct line3d{
 		line3d(){}
 		line3d(const point&,const point&);
@@ -97,57 +95,55 @@ namespace flomath{
 	
 	
 	struct base_figure{
-		std::vector<polygon> polly;//wants a cracker
+		std::vector<polygon> polly;
 	
-		void add_triangle(const flomath::point&,const flomath::point&,const flomath::point&);
+		void add_triangle(const point&,const point&,const point&);
 		void add_triangle(const triangle&);	
-		void add_polygon(const polygon& p);
-		void add_polygon(const flomath::point&,const flomath::point&,const flomath::point&,const flomath::point&);
-		double radius()const;
+		void add_polygon(const polygon&);
+		void add_polygon(const point&,const point&,const point&,const point&);
+		double radius() const;
 	};
+	
 	
 	struct quaternion{
 		double a,b,c,d;
+
 		quaternion(){}
 		quaternion(double _a,double _b,double _c,double _d): a(_a),b(_b),c(_c),d(_d){}
 		quaternion(double a,vector v):a(a),b(v.x),c(v.y),d(v.z){}
-		quaternion(double _a):a(_a){}
-		
+		quaternion(double _a):a(_a){}	
 		vector get_vec();
-		quaternion& operator+=(const quaternion& q);
-		quaternion operator+(const quaternion& q)const;
-		quaternion operator-();
+		quaternion& operator+=(const quaternion&);
+		quaternion operator+(const quaternion&)const;
+		quaternion operator-() const;
 		void normalize();
-		quaternion normalized()const;
-		double length_sqr()const;
-		double length()const;
-		quaternion& operator*=(const quaternion& q);
-		quaternion operator *(const quaternion& q)const;
-		quaternion conj();
-		quaternion inv();
-		
+		quaternion normalized() const;
+		double length_sqr() const;
+		double length() const;
+		quaternion& operator*=(const quaternion&);
+		quaternion operator*(const quaternion&) const;
+		quaternion conj() const;
+		quaternion inv() const;
 	};
-
+	
 	void glRotateq(quaternion);
 
+	
 	struct polygon{
-		std::vector<flomath::point> p;
+		std::vector<point> p;
 		
 		polygon(){}
 		polygon(const point&,const point&,const point&);
 		polygon(const point&,const point&,const point&,const point&); 
  		polygon(const triangle&);
-
-		polygon& operator+=(point q);
+		polygon& operator+=(point);
 		bool in_plane()const;	
+		void rotate(quaternion);
+		bool is_in_polygon(const point&)const;
 		//polygon rotate(double,vector);
-		void rotate(quaternion q);
 	};
-	
-	point project(const point&,const plane& );
-	point project(const point&,const line3d&);
-	
-	bool is_in_polygon(const point& p0,const polygon& q);
+
+
 }
 
 #include "flomath_inline.hpp"
