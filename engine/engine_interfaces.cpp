@@ -1,9 +1,58 @@
 #include "engine_interfaces.hpp"
 #include <iostream>
-void engine_interface::construct_param(std::string s)
+void engine_interface::construct_params()
 {
-	std::cout<<"WARNING: some weirdo sent redundant parameter `"<< s <<"'\n";
+	for(std::map<std::string,std::string>::iterator i=params.begin();i!=params.end();i++){
+		std::cout<<"WARNING: redundant parameter found '"<< i->first << " = " << i->second << "'\n";
+	}
 }
+
+std::string engine_interface::get_param(const std::string& s)
+{
+	if(params.find(s)==params.end()){
+		std::cout << "Can not find key '" << s << "'\n";
+		std::exit(23);
+	}
+	return params[s];
+}
+
+std::string get_param(const std::string& s,const std::string& def){
+	return params.find(s)==params.end() ? def : param[s];
+	
+}
+
+void engine_interface::set_construct_params(const std::string& s)
+{
+	std::vector<std::string> tmp;
+	for(unsigned i=0;i<s.size();i++){
+		char c = s[i];
+		switch(c){
+			case ';':
+				tmp.push_back("");
+				break;
+			default: 
+				tmp.back() += c;
+				break;
+			
+		}
+	}
+	for(unsigned i=0;i<tmp.size();i++){
+		std::string cur = tmp[i];
+		unsigned pos = cur.find('=');
+		std::string key,val;
+		
+		key = cur.substr(0,pos);
+		val = cur.substr(pos+1);
+		
+		if(params.find(key)!=params.end()){
+			std::cout << "Key '" << key << "' was already used\n";
+			std::exit(1);
+		}
+		params[key] = val;
+	}
+	
+}
+
 
 void engine_interface::add_interface_from_bitset(unsigned char n){
 	for(int i=0;i<5;i++){

@@ -3,7 +3,9 @@
 
 #include "flomath.hpp"
 #include "engine.hpp"
+
 #include <bitset>
+#include <map> 
 
 enum{
 	ei_has_texture = 1,
@@ -18,6 +20,9 @@ class engine_interface:
 {
 	std::bitset<5> interfaces;
 
+private:
+std::map<std::string,std::string> params;
+	
 protected:
 	t_engine* e;
 
@@ -38,7 +43,12 @@ public:
 	void set_speed(double _dx,double _dy,double _dz);
 	void accelerate(double _ax,double _ay, double _az);	
 	void move();	
-	void construct_param(std::string s);
+	
+	std::string get_param(const std::string& s);
+	std::string get_param(const std::string& s,const std::string& def);
+	void construct_params();
+	void set_construct_params(const std::string& s);
+	
 	
 	virtual void load_textures(){}
 	virtual void step(){}
