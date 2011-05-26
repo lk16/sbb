@@ -1,5 +1,5 @@
 #!/bin/bash
-rm objects.hpp
+rm -f objects.hpp
 for i in $(ls -l | grep '^d' | sed 's=\([^ ]* \+\)\{8\}=='); 
 do 
 	cd "$i";

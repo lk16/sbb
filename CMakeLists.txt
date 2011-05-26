@@ -14,8 +14,7 @@ link_directories(
 SET(objects
 	objects/cube/cube.cpp
 	objects/finish/finish.cpp
-	objects/floor/tiled_floor.cpp
-	objects/floor/tiled_floor_1x1.cpp
+	objects/floor/floor.cpp
 	objects/simcam/simcam.cpp
 	objects/player_ball/player_ball.cpp
 	objects/wall/wall.cpp
@@ -56,6 +55,7 @@ add_custom_command (
 	include_directories(${GTKGLMM_INCLUDE_DIRS})
 	include_directories(${GTKMM_INCLUDE_DIRS})
 	include_directories(${CMAKE_CURRENT_BINARY_DIR})
+	include_directories(/usr/lib/x86_64-linux-gnu/glib-2.0/include/)
 	add_library(engine
 	      ${BISON_object_parser_OUTPUTS}
 	      ${BISON_mtl_parser_OUTPUTS}
@@ -87,6 +87,7 @@ target_link_libraries(ldes
 	${GTKGLMM_LIBRARIES}
 	boost_filesystem
 	boost_system
+	glibmm
 	engine
 )
 

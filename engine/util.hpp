@@ -1,6 +1,8 @@
 #ifndef SBB_UTIL_HPP
 #define SBB_UTIL_HPP
 
+#include <sstream>
+
 enum doubly_owned_bool{ 
 	DOB_FALSE=0,
 	DOB_TRUE=1,
