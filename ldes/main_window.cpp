@@ -11,23 +11,11 @@
 #include <gdk/gdkkeysyms.h>
 #include <sstream>
 
+#include <engine/util.hpp>
+
 #define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
 
 
-template< class T>
-std::string tostr(T x){
-	std::stringstream buff;
-	buff << x;
-	return buff.str();
-}
-
-template< class T>
-T fromstr(std::string x){
-	std::stringstream buff(x);
-	T temp;
-	buff >> temp;
-	return temp;
-}
 
 struct bird_cam: t_camera, engine_interface{
 	
@@ -318,6 +306,7 @@ void des_main_window::write_out()
 
 
 void des_main_window::load_level(t_level* l){
+	using flomath::deg2rad;
 	write_out();
 	curr_lev=l;
 	container.show_all();
@@ -339,14 +328,14 @@ void des_main_window::load_level(t_level* l){
 		object_view.set_text(0,3,tostr((*i)->z));
 		switch((*i)->mode){
 			case object::CRE_6d:{
-				that->rotation = flomath::aal_rot_to_quaternion((*i)->rx,(*i)->ry,(*i)->rz);
+				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				object_view.set_text(0,4,tostr((*i)->rx));
 				object_view.set_text(0,5,tostr((*i)->ry));
 				object_view.set_text(0,6,tostr((*i)->rz));
 				break;
 			}
 			case object::CRE_6ds:{
-				that->rotation = flomath::aal_rot_to_quaternion((*i)->rx,(*i)->ry,(*i)->rz);
+				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				that->construct_param((*i)->param);
 				object_view.set_text(0,7,(*i)->param);
 				break;

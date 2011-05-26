@@ -59,7 +59,8 @@ void main_window::on_button_quit_clicked(){
 	Gtk::Main::quit();
 }
 
-void main_window::load_level(t_level* l){	
+void main_window::load_level(t_level* l){
+	using flomath::deg2rad;
 	menu.hide();
 	engine->show();
 	in_menu = false;
@@ -73,11 +74,11 @@ void main_window::load_level(t_level* l){
 		engine_interface* that=(p_new_ei->second)(*engine,(*i)->x,(*i)->y,(*i)->z);//lijpe shit
 		switch((*i)->mode){
 			case object::CRE_6d:{
-				that->rotation = flomath::aal_rot_to_quaternion((*i)->rx,(*i)->ry,(*i)->rz);
+				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				break;
 			}
 			case object::CRE_6ds:{
-				that->rotation = flomath::aal_rot_to_quaternion((*i)->rx,(*i)->ry,(*i)->rz);
+				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				that->construct_param((*i)->param);
 				break;
 			}
