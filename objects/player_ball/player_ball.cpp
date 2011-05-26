@@ -1,7 +1,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <algorithm>
 
-#include "sphere.hpp"
+#include "player_ball.hpp"
 #include <register/register.hpp>
 #include <engine/collision_test.hpp>
 #include <objects/floor/floor.hpp>
