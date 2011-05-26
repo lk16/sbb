@@ -135,5 +135,12 @@ namespace flomath{
 	inline quaternion quaternion::operator-() const{
 		return quaternion(-a,-b,-c,-d);
 	}
+	
+	inline double rad2deg(double x){
+		return 180*x/pi;
+	}
+	inline double deg2rad(double x){
+		return pi*x/180;
+	}
 }
 #endif

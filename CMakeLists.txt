@@ -17,7 +17,7 @@ SET(objects
 	objects/floor/tiled_floor.cpp
 	objects/floor/tiled_floor_1x1.cpp
 	objects/simcam/simcam.cpp
-	objects/sphere/sphere.cpp
+	objects/player_ball/player_ball.cpp
 	objects/wall/wall.cpp
 	register/register.cpp
 )

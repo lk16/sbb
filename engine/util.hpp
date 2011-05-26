@@ -41,4 +41,19 @@ inline bool operator!=(T lhs,U rhs){
 	return !(lhs==rhs);
 }
 
+template<class T>
+std::string tostr(T x){
+	std::stringstream buff;
+	buff << x;
+	return buff.str();
+}
+
+template<class T>
+T fromstr(std::string x){
+	std::stringstream buff(x);
+	T temp;
+	buff >> temp;
+	return temp;
+}
+
 #endif

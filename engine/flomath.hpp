@@ -143,7 +143,8 @@ namespace flomath{
 		//polygon rotate(double,vector);
 	};
 
-
+	double deg2rad(double x);
+	double rad2deg(double x);
 }
 
 #include "flomath_inline.hpp"
