@@ -12,7 +12,6 @@ link_directories(
 )
 
 SET(objects
-	objects/cube/cube.cpp
 	objects/finish/finish.cpp
 	objects/floor/floor.cpp
 	objects/simcam/simcam.cpp
