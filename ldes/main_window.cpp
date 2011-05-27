@@ -76,12 +76,16 @@ struct bird_cam: t_camera, engine_interface{
 	}
 };
 
-struct ui_updater:engine_interface{
+struct ui_updater:
+	engine_interface
+{
 	des_main_window* win;
 	ui_updater(t_engine& _e,des_main_window* w):engine_interface(_e,ei_stepable|ei_t_key_receiver),win(w){}
+	
 	void step(){
 		win->update_ui();
 	}
+	
 	void key_released(unsigned k){
 		switch(k){
 		case GDK_space:
