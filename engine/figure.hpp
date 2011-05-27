@@ -44,15 +44,17 @@ struct figure:
 	figure(t_engine&,double,double,double);
 	virtual void draw();
 	virtual void load_textures();
+	static unsigned get_texture_tag(const std::string& fname);
 	
 	void draw_col_fig();
 	void file2fig(std::string);
 
+protected:
+	std::vector<drawable_face> draw_faces;
+	
 private:
 	std::string file;
-	std::vector<drawable_face> draw_faces;
 	void add_face(const t_face& arg1,const obj_file& arg2);
-	static unsigned get_texture_tag(const std::string& fname);
 };
 
 #endif
