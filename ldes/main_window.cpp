@@ -331,6 +331,11 @@ void des_main_window::load_level(t_level* l){
 		object_view.set_text(0,2,tostr((*i)->y));
 		object_view.set_text(0,3,tostr((*i)->z));
 		switch((*i)->mode){
+			case object::CRE_s:
+			case object::CRE_3ds:
+				that->set_construct_params((*i)->param);
+				object_view.set_text(0,7,(*i)->param);
+				break;
 			case object::CRE_6d:{
 				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				object_view.set_text(0,4,tostr((*i)->rx));
@@ -339,6 +344,9 @@ void des_main_window::load_level(t_level* l){
 				break;
 			}
 			case object::CRE_6ds:{
+				object_view.set_text(0,4,tostr((*i)->rx));
+				object_view.set_text(0,5,tostr((*i)->ry));
+				object_view.set_text(0,6,tostr((*i)->rz));
 				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				that->set_construct_params((*i)->param);
 				object_view.set_text(0,7,(*i)->param);

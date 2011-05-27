@@ -6,7 +6,7 @@
 struct object{
 	std::string name;
 	
-	enum{ CRE,CRE_3d,CRE_6d,CRE_6ds} mode ;
+	enum{ CRE,CRE_s,CRE_3d,CRE_3ds,CRE_6d,CRE_6ds} mode;
 	
 	double x,y,z,rx,ry,rz;
 	std::string param;
@@ -31,10 +31,24 @@ struct object{
 		x(a),y(b),z(c)
 	{}
 	
+	object(std::string s,double a,double b,double c,std::string p):
+		name(s),
+		mode(CRE_3ds),
+		x(a),y(b),z(c),
+		param(p)
+	{}
+	
 	object(std::string s):
 		name(s),
 		mode(CRE),
 		x(0),y(0),z(0)
+	{}	
+	
+	object(std::string s,std::string p):
+		name(s),
+		mode(CRE_s),
+		x(0),y(0),z(0),
+		param(p)
 	{}	
 };
 

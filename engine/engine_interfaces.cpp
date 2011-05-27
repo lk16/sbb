@@ -14,17 +14,22 @@ std::string engine_interface::get_param(const std::string& s)
 		std::cout << "Can not find key '" << s << "'\n";
 		std::exit(23);
 	}
-	return params[s];
+	std::string tmp = params[s];
+	params.erase(params.find(s));
+	return tmp;
 }
 
 std::string engine_interface::get_param(const std::string& s, const std::string& def)
 {
-	return params.find(s)==params.end() ? def : params[s];
+	std::map<std::string,std::string>::const_iterator i=params.find(s);
+	std::string str=( (i==params.end()) ? def : i->second);
+	params.erase(i);
+	return str;
 }
 
 void engine_interface::set_construct_params(const std::string& s)
 {
-	std::vector<std::string> tmp;
+	std::vector<std::string> tmp(1);
 	for(unsigned i=0;i<s.size();i++){
 		char c = s[i];
 		switch(c){
@@ -51,7 +56,7 @@ void engine_interface::set_construct_params(const std::string& s)
 		}
 		params[key] = val;
 	}
-	
+	construct_params();
 }
 
 

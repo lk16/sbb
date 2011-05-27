@@ -73,6 +73,10 @@ void main_window::load_level(t_level* l){
 		}
 		engine_interface* that=(p_new_ei->second)(*engine,(*i)->x,(*i)->y,(*i)->z);//lijpe shit
 		switch((*i)->mode){
+			case object::CRE_s:
+			case object::CRE_3ds:
+				that->set_construct_params((*i)->param);
+				break;
 			case object::CRE_6d:{
 				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
 				break;
