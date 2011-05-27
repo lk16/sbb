@@ -2,7 +2,10 @@
 #define REGISTER_HPP
 #include <map>
 #include <string>
+
 #include "engine/engine_interfaces.hpp"
+#include "engine/flomath.hpp"
+
 class t_engine;
 template<class T>
 t_camera* create(t_engine& e,engine_interface* vict){
@@ -27,7 +30,7 @@ struct do_register_cam{
 
 template<class T>
 engine_interface* create(t_engine& e,double x,double y,double z){
-	return new T(e,x,y,z);
+	return new T(e,flomath::point(x,y,z));
 }
 
 struct do_register_ei{

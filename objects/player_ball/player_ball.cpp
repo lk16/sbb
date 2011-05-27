@@ -140,8 +140,8 @@ void player_ball::draw() {
 	glPopMatrix();
 }
 
-player_ball::player_ball(t_engine& e, double _x, double _y, double _z):
-	can_collide< player_ball , COL_SPHERE>(e, _x, _y, _z, .5, false),
+player_ball::player_ball(t_engine& e,flomath::point p):
+	can_collide< player_ball , COL_SPHERE>(e,p, .5, false),
 	prevcol(DOB_FALSE),
 	time(0)
 {

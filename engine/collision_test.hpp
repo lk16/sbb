@@ -97,6 +97,10 @@ struct can_collide<T,COL_PLANE>:
 	can_collide(t_engine& e, double _x,double _y,double _z,const std::string& s):
 		base_plane(e,flomath::point(_x,_y,_z),s)
 	{}
+	
+	can_collide(t_engine& e, flomath::point p,std::string s):
+		base_plane(e,p,s)
+	{}
 };
 
 template<class T>
@@ -112,7 +116,7 @@ struct can_collide<T,COL_OTHER>:
 		figure(e,_x,_y,_z,s)
 	{}
 	
-    can_collide(t_engine& e,const flomath::point& pos):
+	can_collide(t_engine& e,const flomath::point& pos):
 		figure(e,pos)
 	{}
 

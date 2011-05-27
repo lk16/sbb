@@ -6,7 +6,7 @@ class finish:
 public can_collide<finish,COL_PLANE>
 {
 	public:
-		finish(t_engine& e,double,double,double);
+		finish(t_engine& e,flomath::point);
 		void draw();
 };
 #endif

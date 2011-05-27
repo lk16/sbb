@@ -20,7 +20,7 @@ class player_ball:
 	int time;
 	
 	public:
-		player_ball(t_engine&,double,double,double);
+		player_ball(t_engine&,flomath::point);
 		~player_ball();
 		
 		void collide(collision_data<t_floor>&);

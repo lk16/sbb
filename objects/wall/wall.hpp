@@ -9,7 +9,7 @@ class wall:
 {
 	public:
 // 	virtual void draw();
-	wall(t_engine&,double,double,double);
+	wall(t_engine&,flomath::point);
 };
 
 #endif

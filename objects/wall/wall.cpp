@@ -8,8 +8,8 @@ void wall::draw(){
 	draw_col_fig();
 }*/
 
-wall::wall (t_engine& e,double _x,double _y,double _z ):
-	can_collide<wall,COL_PLANE>(e,_x,_y,_z,/*flomath::polygon(
+wall::wall (t_engine& e,flomath::point p):
+	can_collide<wall,COL_PLANE>(e,p,/*flomath::polygon(
 		point(0, 4.0, 4.0),
 		point(0,-4.0, 4.0),
 		point(0,-4.0,-4.0),

@@ -14,8 +14,8 @@ class t_floor:
 	static const double height = 0.5;
 
 public:
-	t_floor(t_engine& e,const flomath::point& pos,const std::string& name):
-		can_collide<t_floor,COL_OTHER>(e,pos,name)
+	t_floor(t_engine& e,const flomath::point& pos):
+		can_collide<t_floor,COL_OTHER>(e,pos)
 	{}
 	
 	virtual void construct_param();

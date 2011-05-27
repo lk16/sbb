@@ -3,9 +3,9 @@
 
 SBB_REGISTER_ei(finish);
 
-finish::finish(t_engine& e,double _x,double _y,double _z):
-	flomath::point(_x,_y,_z),
-	can_collide< finish , COL_PLANE>(e,_x,_y,_z,flomath::polygon(
+finish::finish(t_engine& e,flomath::point p):
+	flomath::point(p),
+	can_collide< finish , COL_PLANE>(e,p,flomath::polygon(
 		point(-1,-1,0),
 		point(-1, 1,0),
 		point( 1, 1,0),
