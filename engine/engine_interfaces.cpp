@@ -1,5 +1,6 @@
 #include "engine_interfaces.hpp"
 #include <iostream>
+
 void engine_interface::construct_params()
 {
 	for(std::map<std::string,std::string>::iterator i=params.begin();i!=params.end();i++){
@@ -16,9 +17,9 @@ std::string engine_interface::get_param(const std::string& s)
 	return params[s];
 }
 
-std::string get_param(const std::string& s,const std::string& def){
-	return params.find(s)==params.end() ? def : param[s];
-	
+std::string engine_interface::get_param(const std::string& s, const std::string& def)
+{
+	return params.find(s)==params.end() ? def : params[s];
 }
 
 void engine_interface::set_construct_params(const std::string& s)

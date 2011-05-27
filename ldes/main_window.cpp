@@ -340,7 +340,7 @@ void des_main_window::load_level(t_level* l){
 			}
 			case object::CRE_6ds:{
 				that->rotation = flomath::aal_rot_to_quaternion(deg2rad((*i)->rx),deg2rad((*i)->ry),deg2rad((*i)->rz));
-				that->construct_param((*i)->param);
+				that->set_construct_params((*i)->param);
 				object_view.set_text(0,7,(*i)->param);
 				break;
 			}

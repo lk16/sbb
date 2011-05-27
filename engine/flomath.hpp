@@ -38,7 +38,7 @@ namespace flomath{
 		point operator/(double) const;
 		point operator-()const;
 
-		bool operator==(const point&)const;
+		bool operator==(const point& b)const;
 		void set(double,double,double);
 		void rotate(quaternion);
 		void rotate(double,point);

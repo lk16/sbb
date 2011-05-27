@@ -54,7 +54,11 @@ template <class T>
 std::vector<T*> listable<T>::list;
 
 
-enum {COL_SPHERE,COL_PLANE,COL_OTHER};
+enum{
+	COL_SPHERE,
+	COL_PLANE,
+	COL_OTHER
+};
 
 ///inherit this if you want to be able to collide
 /*BUG een deel van de code is nog afhankelijk van de impliciete inherit van figure hier
