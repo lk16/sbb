@@ -13,7 +13,6 @@
 
 #include <engine/util.hpp>
 
-#define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
 
 
 

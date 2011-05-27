@@ -3,6 +3,8 @@
 
 #include <sstream>
 
+#define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
+
 enum doubly_owned_bool{ 
 	DOB_FALSE=0,
 	DOB_TRUE=1,
