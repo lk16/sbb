@@ -1,0 +1,9 @@
+#!/bin/bash
+echo 'building :' $1
+cd build
+make $1
+a=$?
+cd ..
+if [ $a = 0 ]; then
+	build/$1;
+fi
