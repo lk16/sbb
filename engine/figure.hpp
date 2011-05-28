@@ -11,7 +11,7 @@
 #include <boost/array.hpp>
 
 #include "flomath.hpp"
-#include "engine_interfaces.hpp"
+#include "engine_interface.hpp"
 #include "engine.hpp"
 #include "object-parser/parse.hpp"
 

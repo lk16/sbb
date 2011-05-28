@@ -56,8 +56,8 @@ add_custom_command (
 	include_directories(${CMAKE_CURRENT_BINARY_DIR})
 	include_directories(/usr/lib/x86_64-linux-gnu/glib-2.0/include/)
 	add_library(engine
-	      ${BISON_object_parser_OUTPUTS}
-	      ${BISON_mtl_parser_OUTPUTS}
+		${BISON_object_parser_OUTPUTS}
+		${BISON_mtl_parser_OUTPUTS}
 		${FLEX_object_lexer_OUTPUTS}
 		${FLEX_mtl_lexer_OUTPUTS}
 		${BISON_level_parser_OUTPUTS}
@@ -68,7 +68,7 @@ add_custom_command (
 
 		engine/collision_test.cpp
 		engine/collision_types.cpp
-		engine/engine_interfaces.cpp
+		engine/engine_interface.cpp
 		engine/engine.cpp
 		engine/figure.cpp
 		engine/flomath.cpp

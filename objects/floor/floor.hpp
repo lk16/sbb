@@ -11,9 +11,10 @@ class t_floor:
 	public can_collide<t_floor,COL_OTHER>
 {
 	double width,length;
-	static const double height;
 
 public:
+	static const double height;
+	
 	t_floor(t_engine& e,const flomath::point& pos):
 		can_collide<t_floor,COL_OTHER>(e,pos)
 	{}

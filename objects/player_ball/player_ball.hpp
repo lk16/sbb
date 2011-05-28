@@ -4,11 +4,11 @@
 #include <cmath>
 #include <vector>
 
-#include "../../engine/engine.hpp"
-#include "../../engine/collision_test.hpp"
-#include "../../engine/engine_interfaces.hpp"
-#include "../../objects/finish/finish.hpp"
-#include "../../engine/util.hpp"
+#include "engine/engine.hpp"
+#include "engine/collision_test.hpp"
+#include "engine/engine_interface.hpp"
+#include "engine/util.hpp"
+#include "objects/finish/finish.hpp"
 
 struct t_floor;
 

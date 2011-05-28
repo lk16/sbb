@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-#include "engine/engine_interfaces.hpp"
+#include "engine/engine_interface.hpp"
 #include "engine/flomath.hpp"
 
 class t_engine;

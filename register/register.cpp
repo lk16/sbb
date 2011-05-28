@@ -1,4 +1,5 @@
 #include "register.hpp"
+
 do_register_ei::t_map& do_register_ei::objs(){
 		static t_map* it=new t_map;
 		return *it;

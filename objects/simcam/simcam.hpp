@@ -1,7 +1,9 @@
 #ifndef SIMCAM_HPP
 #define SIMCAM_HPP
+
 #include "engine/engine.hpp"
-#include "engine/engine_interfaces.hpp"
+#include "engine/engine_interface.hpp"
+
 class simcam: 
 	public t_camera 
 {
