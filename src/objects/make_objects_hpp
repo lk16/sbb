@@ -1,0 +1,10 @@
+#!/bin/bash
+rm -f objects.hpp
+for i in $(ls -l | grep '^d' | sed 's=\([^ ]* \+\)\{8\}=='); 
+do 
+	cd "$i";
+	ls  | \
+	grep '\.h' | \
+	sed -e "s=^=#include \"$i/=g" -e 's=$="=g' >> ../objects.hpp
+	cd .. ;  
+done
