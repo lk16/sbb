@@ -2,6 +2,7 @@
 #define SBB_UTIL_HPP
 
 #include <sstream>
+#include <cmath>
 
 #define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
 

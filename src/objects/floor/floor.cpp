@@ -7,7 +7,11 @@ const double t_floor::height = 0.5;
 void t_floor::construct_params(){
 	width = fromstr<double>(get_param("w"));
 	length = fromstr<double>(get_param("l"));
-	
+	update_faces();
+}
+
+void t_floor::update_faces()
+{
 	// half height & width
 	double hl,hw; 
 	hl = length/2;
@@ -81,15 +85,16 @@ void t_floor::construct_params(){
 	}	
 }
 
+
 void t_floor::set_length(double l)
 {
 	length = l;
-	// TODO some stuff
+	update_faces();
 }
 
 void t_floor::set_width(double w)
 {
 	width = w;
-	// TODO some stuff
+	update_faces();
 }
 

@@ -21,6 +21,7 @@ public:
 	{}
 	
 	void construct_params();
+	void update_faces();
 	
 	double get_width(){
 		return width;
