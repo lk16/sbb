@@ -12,7 +12,7 @@ std::string engine_interface::get_param(const std::string& s)
 {
 	if(params.find(s)==params.end()){
 		std::cout << "Can not find key '" << s << "'\n";
-		std::exit(23);
+		std::exit(1);
 	}
 	std::string tmp = params[s];
 	params.erase(params.find(s));

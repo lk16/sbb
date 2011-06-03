@@ -31,7 +31,7 @@ namespace flomath{
 
 	template<class T,class U>
 	inline bool equals(T t,U u){
-		return flomath::abs(t-u)<negligible;
+		return flomath::abs(t-u)<flomath::negligible;
 	}
 
 }
