@@ -305,11 +305,11 @@ namespace flomath{
 		}
 		plane tp(p[0],p[1],p[2]);
 		for(unsigned i=3;i<p.size();i++){
-			if(abs(tp.eval(p[i]))<negligible){
-				return false;
+			if(equals(tp.eval(p[i]),0)){
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	void base_figure::add_triangle(const point& p0,const point& p1,const point& p2){
@@ -336,7 +336,6 @@ namespace flomath{
 	void base_figure::add_polygon(const polygon& p){
 		if(!p.in_plane()){
 			show_error("polygon not in plane",false);
-// 			segfault();
 		}
 		polly.push_back(p);
 	}
