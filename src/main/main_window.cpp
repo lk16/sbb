@@ -68,7 +68,7 @@ void main_window::load_level(t_level* l){
 	for(std::deque<object*>::iterator i=l->objects.begin();i!=l->objects.end();++i,j++){
 		do_register_ei::t_map::const_iterator p_new_ei=do_register_ei::objs().find((*i)->name);
 		if(p_new_ei==do_register_ei::objs().end()){
-			std::cerr << "WARNING: object by name '" << (*i)->name <<"' not found\n"; 
+			show_warning("object by name '" + (*i)->name + "' not found"); 
 			continue;
 		}
 		engine_interface* that=(p_new_ei->second)(*engine,(*i)->x,(*i)->y,(*i)->z);//lijpe shit
@@ -90,8 +90,8 @@ void main_window::load_level(t_level* l){
 		if(j==l->camera.companion_index){
 			do_register_cam::t_map::const_iterator p_new_cam=do_register_cam::objs().find(l->camera.name);
 			if(p_new_cam==do_register_cam::objs().end()){
-				std::cerr << "WARNING: camera by name '" << l->camera.name <<"' not found\n"
-						 "WARNING: not loading level!!\n";
+				show_warning("camera by name '" + l->camera.name + "' not found");
+				show_warning("not loading level!!");
 				show_menu();///bug in level, we do need a camera!
 				continue;
 			}

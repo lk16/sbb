@@ -61,12 +61,12 @@ namespace flomath{
 		d = dotproduct(normal,t.p[0]);
 	}
 	
-	plane::plane(const polygon& p)
+	plane::plane(const polygon& poly)
 	{
-		vector v1=p.p[0]-p.p[1];
-		vector v2=p.p[0]-p.p[2];
+		vector v1=poly.p[0]-poly.p[1];
+		vector v2=poly.p[0]-poly.p[2];
 		normal = crossproduct(v1,v2);
-		d = dotproduct(normal,p.p[0]);
+		d = dotproduct(normal,poly.p[0]);
 	}
 
 	double plane::eval(const point& a)const{
@@ -188,7 +188,7 @@ namespace flomath{
 						/(p1.normal.*b * p2.normal.*a - p2.normal.*b * p1.normal.*a);
 		}
 		else{
-			std::cout << "WARNING: planes do not intersect, failing silently" << std::endl;
+			show_warning("planes do not intersect, failing silently");
 		}
 		return res;
 	}
@@ -297,7 +297,7 @@ namespace flomath{
 
 	bool polygon::in_plane()const{
 		if(p.size()<3){
-			std::cerr << "error polygon consisting of less then three points" << std::endl;
+			show_warning("polygon consisting of less then three points");
 			return false;
 		}
 		if(p.size()==3){
@@ -335,7 +335,7 @@ namespace flomath{
 	
 	void base_figure::add_polygon(const polygon& p){
 		if(!p.in_plane()){
-			std::cerr << "error: polygon not in plane" << std::endl;
+			show_error("polygon not in plane",false);
 // 			segfault();
 		}
 		polly.push_back(p);

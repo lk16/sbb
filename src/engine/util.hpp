@@ -3,6 +3,7 @@
 
 #include <sstream>
 #include <cmath>
+#include <iostream>
 
 #define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
 
@@ -41,6 +42,17 @@ inline void segfault(){
 	*(int*)(0)=1;
 }
 
+// prints a warning
+inline void show_warning(const std::string& what){
+	std::cout << "WARNING: " << what << std::endl;
+}
+
+// prints a warning and segfaults. USE WITH CARE!!
+inline void show_error(const std::string& what,bool segv=true){
+	std::cout << "ERROR: " << what << std::endl;
+	if(segv) segfault();
+}
+
 template <class T,class U>
 inline bool operator!=(T lhs,U rhs){
 	return !(lhs==rhs);
@@ -60,5 +72,6 @@ T fromstr(std::string x){
 	buff >> temp;
 	return temp;
 }
+
 
 #endif

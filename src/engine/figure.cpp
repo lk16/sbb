@@ -103,8 +103,7 @@ void figure::file2fig(std::string fname){
 
 void figure::add_face(const t_face& face,const obj_file& file){
 	if(face.data.size()<3){
-		std::cerr << "error: too few points for a triangle/polygon" << std::endl;
-		std::exit(0);
+		show_error("too few points for a triangle/polygon");
 	}
 	flomath::polygon pol;
 	for(unsigned i=0;i<face.data.size();i++){

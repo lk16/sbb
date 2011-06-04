@@ -321,7 +321,7 @@ void des_main_window::load_level(t_level* l){
 	for(std::deque<object*>::iterator i=l->objects.begin();i!=l->objects.end();++i,j++){
 		do_register_ei::t_map::const_iterator p_new_ei=do_register_ei::objs().find((*i)->name);
 		if(p_new_ei==do_register_ei::objs().end()){
-			std::cerr << "WARNING: object by name '" << (*i)->name <<"' not found\n"; 
+			show_warning("by name '" + (*i)->name  + "' not found"); 
 			continue;
 		} 
 		object_view.prepend_text((*i)->name);

@@ -4,14 +4,14 @@
 void engine_interface::construct_params()
 {
 	for(std::map<std::string,std::string>::iterator i=params.begin();i!=params.end();i++){
-		std::cout<<"WARNING: redundant parameter found '"<< i->first << " = " << i->second << "'\n";
+		show_warning("redundant parameter found '" + i->first + " = " + i->second);
 	}
 }
 
 std::string engine_interface::get_param(const std::string& s)
 {
 	if(params.find(s)==params.end()){
-		std::cout << "Can not find key '" << s << "'\n";
+		show_error("Can not find key '" + s);
 		std::exit(1);
 	}
 	std::string tmp = params[s];
@@ -51,8 +51,7 @@ void engine_interface::set_construct_params(const std::string& s)
 		val = cur.substr(pos+1);
 		
 		if(params.find(key)!=params.end()){
-			std::cout << "Key '" << key << "' was already used\n";
-			std::exit(1);
+			show_error("Key '" + key + "' was already used");
 		}
 		params[key] = val;
 	}
