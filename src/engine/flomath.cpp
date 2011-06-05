@@ -244,6 +244,10 @@ namespace flomath{
 		return point(a.x*b,a.y*b,a.z*b);
 	}
 	
+	point operator*(const point& a,double b){
+		return b*a;
+	}
+	
 	point& point::operator*=(double b){
 		x*=b;
 		y*=b;

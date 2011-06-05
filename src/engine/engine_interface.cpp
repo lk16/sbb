@@ -22,9 +22,15 @@ std::string engine_interface::get_param(const std::string& s)
 std::string engine_interface::get_param(const std::string& s, const std::string& def)
 {
 	std::map<std::string,std::string>::iterator i=params.find(s);
-	std::string str=( (i==params.end()) ? def : i->second);
-	params.erase(i);
-	return str;
+	std::string tmp;
+	if(i!=params.end()){
+		tmp = i->second;
+		params.erase(i);
+	}
+	else{
+		return def;
+	}
+	return tmp;
 }
 
 void engine_interface::set_construct_params(const std::string& s)

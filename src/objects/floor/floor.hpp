@@ -20,7 +20,7 @@ public:
 		can_collide<t_floor,COL_OTHER>(e,pos)
 	{}
 	
-	void construct_params();
+	virtual void construct_params();
 	void update_faces();
 	
 	double get_width(){

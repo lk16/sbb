@@ -14,6 +14,7 @@ link_directories(
 SET(objects
 	objects/finish/finish.cpp
 	objects/floor/floor.cpp
+	objects/floor/movingfloor.cpp
 	objects/simcam/simcam.cpp
 	objects/player_ball/player_ball.cpp
 	objects/wall/wall.cpp

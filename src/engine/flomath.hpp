@@ -44,6 +44,9 @@ namespace flomath{
 		void rotate(double,point);
 	};
 	
+	point operator*(double,const point&);
+	
+	
 	typedef point vector;
 	vector crossproduct(const vector&,const vector&);
 	double dotproduct(const vector&,const vector&);
@@ -61,12 +64,14 @@ namespace flomath{
 	
 	struct triangle{
 		point p[3];
-		triangle operator+(const vector&)const;
+		
 		triangle();
 		triangle(const point&,const point&,const point&);
+		
+		triangle operator+(const vector&)const;
 	};
 	
-	triangle operator*(double lhs,triangle rhs);
+	triangle operator*(double,triangle);
 	
 	
 	struct plane{
