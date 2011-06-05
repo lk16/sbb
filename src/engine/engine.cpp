@@ -7,10 +7,8 @@
 //#define DEBUG_LOAD_KEYS
 
 #include "engine.hpp"
+#include "util.hpp"
 #include "collision_test.hpp"
-//#include "other.hpp"
-//#include "main_window.hpp"
-//#include "engine_interfaces.hpp"
 
 
 
@@ -170,15 +168,14 @@ t_engine::t_engine():
 	                                   Gdk::GL::MODE_DEPTH   |
 	                                   Gdk::GL::MODE_DOUBLE);
 	if (!glconfig) {
-		std::cerr << "*** Cannot find the double-buffered visual." << std::endl;
-		std::cerr << "*** Trying single-buffered visual." << std::endl;
+		show_warning("Cannot find the double-buffered visual.");
+		show_warning("Trying single-buffered visual.");
 
 		// Try single-buffered visual
 		glconfig = Gdk::GL::Config::create(Gdk::GL::MODE_RGBA   |
 		                                   Gdk::GL::MODE_DEPTH);
 		if (!glconfig) {
-			std::cerr << "*** Cannot find any OpenGL-capable visual." << std::endl;
-			std::exit(1);
+			show_error("*** Cannot find any OpenGL-capable visual.");
 		}
 	}
 

@@ -23,9 +23,10 @@ figure::figure(t_engine& e,const flomath::point& pos):
 	*static_cast<point*>(this)=pos;
 }
 
+// fname should be relative to <projectroot>/data/img/
 unsigned figure::get_texture_tag(const std::string& fname){
 
-	Glib::RefPtr<Gdk::Pixbuf> pic=Gdk::Pixbuf::create_from_file(fname);
+	Glib::RefPtr<Gdk::Pixbuf> pic=Gdk::Pixbuf::create_from_file("data/img/"+fname);
 	
 	char* data=reinterpret_cast<char*>(pic->get_pixels());
 	size_t rs=pic->get_rowstride();

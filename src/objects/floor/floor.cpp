@@ -56,7 +56,7 @@ void t_floor::update_faces()
 		
 	drawable_face df;
 	df.has_texture = true;
-	df.texname = get_texture_tag(get_param("tex","floor.png")); 
+	df.texname = get_texture_tag(get_param("tex","floors/red.png")); 
 	drawable_face::coord c;
 	
 	for(int i=0;i<4;i++){
