@@ -1,4 +1,5 @@
 #!/bin/bash
+cmake .
 echo 'building :' $1
 cd build
 make $1
