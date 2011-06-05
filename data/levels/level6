@@ -1,0 +1,4 @@
+LEVEL "giantsquare"{
+t_floor	0	6.95316e-310	0	0	0	0	"w=1000;l=1000;tex=floors/yellow.png"
+CAMERA simcam{player_ball	0	1	0 	0	270	0}
+}

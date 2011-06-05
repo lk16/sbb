@@ -1,0 +1,13 @@
+LEVEL "test"{
+t_floor 0 0 0 	"w=8;l=8;tex=floors/red.png"
+t_floor 8 0 0 	"w=8;l=8;tex=floors/red.png"
+t_floor 16 0 0 	"w=8;l=8;tex=floors/red.png"
+t_floor 16 0 8 	"w=8;l=8;tex=floors/red.png"
+t_floor 16 0 16 "w=8;l=8;tex=floors/red.png"
+t_floor 8 0 16 	"w=8;l=8;tex=floors/red.png"
+t_floor 0 0 16 	"w=8;l=8;tex=floors/red.png"
+t_floor 0 0 8 	"w=8;l=8;tex=floors/red.png"
+finish 16 0 8
+wall 7 0 3 		
+CAMERA simcam { player_ball 0 1 0 }
+}

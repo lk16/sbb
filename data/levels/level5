@@ -1,0 +1,20 @@
+LEVEL "level5"{
+t_floor	0	6.95316e-310	0	0	0	0	"w=20;l=20;tex=floors/green.png"
+t_floor	20	0	0	0	0	0	"w=20;l=20;tex=floors/green.png"
+t_floor	40	0	0	0	0	0	"w=1;l=20;tex=floors/green.png"
+t_floor	60	0	0	0	0	0	"w=0.9;l=20;tex=floors/green.png"
+t_floor	80	0	0	0	0	0	"w=0.8;l=20;tex=floors/green.png"
+t_floor	100	0	0	0	0	0	"w=0.7;l=20;tex=floors/green.png"
+t_floor	120	0	0	0	0	0	"w=0.7;l=20;tex=floors/green.png"
+t_floor	140	0	0	0	0	0	"w=0.6;l=20;tex=floors/green.png"
+t_floor	160	0	0	0	0	0	"w=0.5;l=20;tex=floors/green.png"
+t_floor	180	0	0	0	0	0	"w=0.4;l=20;tex=floors/green.png"
+t_floor	200	0	0	0	0	0	"w=0.3;l=20;tex=floors/green.png"
+t_floor	220	0	0	0	0	0	"w=0.2;l=20;tex=floors/green.png"
+t_floor	240	0	0	0	0	0	"w=0.1;l=30;tex=floors/green.png"
+t_floor	260	0	0	0	0	0	"w=0.05;l=30;tex=floors/green.png"
+t_floor	280	0	0	0	0	0	"w=0.02;l=30;tex=floors/green.png"
+t_floor	300	0	0	0	0	0	"w=0.01;l=30;tex=floors/green.png"
+t_floor	320	0	0	0	0	0	"w=20;l=20;tex=floors/green.png"
+CAMERA simcam{player_ball	2	1	2 	0	270	0}
+}
