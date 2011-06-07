@@ -9,7 +9,7 @@ moving_floor 0 0 4 "l=4;w=4;startx=0;starty=0;startz=44;endx=0;endy=0;endz=56;pe
 t_floor 0 0 60 "l=4;w=4;tex=floors/blue.png"
 moving_floor 0 0 4 "l=4;w=4;startx=0;starty=0;startz=64;endx=0;endy=0;endz=76;period=1;tex=floors/green.png"
 t_floor 0 0 80 "l=4;w=4;tex=floors/blue.png"
-moving_floor 0 0 4 "l=4;w=4;startx=0;starty=0;startz=84;endx=0;endy=0;endz=100;period=1;tex=floors/green.png"
-moving_floor 0 0 4 "l=4;w=4;startx=0;starty=0;startz=116;endx=0;endy=0;endz=104;period=1;tex=floors/green.png"
+moving_floor 0 0 4 "l=4;w=4;startx=0;starty=0;startz=84;endx=0;endy=0;endz=100;period=2;tex=floors/green.png"
+moving_floor 0 0 4 "l=4;w=4;startx=0;starty=0;startz=116;endx=0;endy=0;endz=104;period=2;tex=floors/green.png"
 t_floor 0 0 120 "l=4;w=4;tex=floors/blue.png"
 }
