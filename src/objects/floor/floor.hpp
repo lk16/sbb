@@ -20,8 +20,11 @@ public:
 		can_collide<t_floor,COL_OTHER>(e,pos)
 	{}
 	
-	virtual void construct_params();
 	void update_faces();
+	void set_width(double w);
+	void set_length(double l);
+	
+	virtual void construct_params();
 	
 	double get_width(){
 		return width;
@@ -30,9 +33,6 @@ public:
 	double get_length(){
 		return length;
 	}
-	
-	void set_width(double w);
-	void set_length(double l);
 	
 	
 };

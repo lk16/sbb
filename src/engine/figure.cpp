@@ -58,7 +58,7 @@ unsigned figure::get_texture_tag(const std::string& fname){
 	return texname;
 }
 
-void figure::file2fig(std::string fname){
+void figure::file2fig(const std::string& fname){
 	const obj_file& file=obj_parse(fname);
 	bool has_alpha=false;
 	typedef std::vector<t_face>::const_iterator iter;
@@ -113,14 +113,14 @@ void figure::add_face(const t_face& face,const obj_file& file){
 	polly.push_back(pol);
 }
 
-figure::figure(t_engine& e, double _x,double _y,double _z,std::string fname):
+figure::figure(t_engine& e, double _x,double _y,double _z,const std::string& fname):
 	engine_interface(e,ei_drawable|ei_has_texture),
 	file(fname)
 {
 	*static_cast<flomath::point*>(this) = point(_x,_y,_z);
 }
 
-figure::figure(t_engine& e,const flomath::point& pos,std::string fname):
+figure::figure(t_engine& e,const flomath::point& pos,const std::string& fname):
 	engine_interface(e,ei_drawable|ei_has_texture),
 	file(fname)
 {

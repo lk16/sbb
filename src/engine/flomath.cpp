@@ -8,7 +8,6 @@ namespace flomath{
 	point::point(){
 		x = y = z = 0.0;
 	}
-
 	
 	double point::length_sqr() const
 	{
@@ -16,7 +15,7 @@ namespace flomath{
 	}
 	
 	//rotates point and returns nothing
-	void point::rotate(double angle,vector v){
+	void point::rotate(double angle,const vector& v){
 		quaternion q(std::cos(angle/2),v*std::sin(angle/2));
 		rotate(q);
 	}
@@ -29,14 +28,14 @@ namespace flomath{
 		return res;
 	}*/
 	
-	void polygon::rotate(quaternion q){
+	void polygon::rotate(const quaternion& q){
 		for(unsigned i=0;i<p.size();i++){
 			p[i].rotate(q);
 		}
 	}
 	
 	
-	void point::rotate(quaternion q){
+	void point::rotate(const quaternion& q){
 		quaternion r(0.0,*this);
 		*this = (q*r*q.inv()).get_vec();
 	}
@@ -102,24 +101,6 @@ namespace flomath{
 	double dotproduct(const vector& a,const vector& b){
 		return a.x*b.x + a.y*b.y + a.z*b.z;
 	}
-
-	/*point turn(const point& p,const vector& q){
-		
-		using namespace std;
-		double resx,resy,resz;
-		cout << "WARNING: flomath::turn called, deprecated!\n";
-		resx = p.x;
-		resy = sin(atan(p.y/p.z)+q.x)*sqrt(p.y*p.y+p.z*p.z);
-		resz = cos(atan(p.y/p.z)+q.x)*sqrt(p.y*p.y+p.z*p.z);
-		
-		resx = sin(atan(resx/resz)+q.y)*sqrt(p.x*p.x+p.z*p.z);  
-		resz = cos(atan(resx/resz)+q.y)*sqrt(p.x*p.x+p.z*p.z);
-		
-		resy = sin(atan(resy/resx)+q.z)*sqrt(p.x*p.x+p.y*p.y);
-		resx = cos(atan(resy/resx)+q.z)*sqrt(p.x*p.x+p.y*p.y);
-		
-		return point(resx,resy,resz);
-	}*/
 
 	//http://mathworld.wolfram.com/Line-LineIntersection.html
 	
@@ -234,10 +215,7 @@ namespace flomath{
 	
 	
 	bool point::operator==(const point& b)const{
-		return 
-		abs(x-b.x)<negligible && 
-		abs(y-b.y)<negligible &&
-		abs(z-b.z)<negligible;
+		return equals(x,b.x) && equals(y,b.y) && equals(z,b.z);
 	}
 	
 	point operator*(double b,const point& a){
@@ -299,6 +277,7 @@ namespace flomath{
 		p.push_back(p4);
 	}
 
+	// TODO something would be wrong
 	bool polygon::in_plane()const{
 		if(p.size()<3){
 			show_warning("polygon consisting of less then three points");

@@ -15,6 +15,7 @@
 #if defined(DEBUG_LOAD_KEYS) && defined(DEBUG_LOG_KEYS)
 #error "you can only load OR store the keypresses, not both"
 #endif
+
 #if   defined(DEBUG_LOAD_KEYS)
 std::ifstream key_log("key_log");
 #elif defined(DEBUG_LOG_KEYS)
@@ -148,18 +149,17 @@ void t_engine::set_camera(t_camera* new_camera) {
 
 
 t_engine::t_engine():
-		camera(0),
-		texture_load_ready(false),
+	camera(0),
+	texture_load_ready(false),
 //		lockdown(0),
-		stopped(true),
-		has_textures(ei_list[0]), 
-		steppables(ei_list[1]), 
-		drawables(ei_list[2]), 
-		key_receivs(ei_list[3]), 
-		moveables(ei_list[4]), 
-		transparent_drawables(ei_list[5])
-		{
-	
+	stopped(true),
+	has_textures(ei_list[0]), 
+	steppables(ei_list[1]), 
+	drawables(ei_list[2]), 
+	key_receivs(ei_list[3]), 
+	moveables(ei_list[4]), 
+	transparent_drawables(ei_list[5])
+{
 	set_can_focus();
 	debug = false;
 	Glib::RefPtr<Gdk::GL::Config> glconfig;

@@ -1,14 +1,9 @@
-#include "register/register.hpp"
 #include "movingfloor.hpp"
 
 SBB_REGISTER_ei(moving_floor);
 
 void moving_floor::step()
 {
-	// cos(start) = 1
-	// cos(eind) = -1
-	// 0.5-0.5*cos(start) = 0
-	// 0.5-0.5*cos(eind) = 1
 	timeval tv;
 	gettimeofday(&tv,NULL);
 	double time = tv.tv_sec + tv.tv_usec/1000000.0;

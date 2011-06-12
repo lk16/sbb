@@ -3,13 +3,21 @@
 
 #include <string>
 #include <deque>
+
 struct object{
 	std::string name;
-	
-	enum{ CRE,CRE_s,CRE_3d,CRE_3ds,CRE_6d,CRE_6ds} mode;
-	
 	double x,y,z,rx,ry,rz;
 	std::string param;
+	
+	enum{ 
+		CRE,
+		CRE_s,
+		CRE_3d,
+		CRE_3ds,
+		CRE_6d,
+		CRE_6ds
+	}mode;
+	
 	object(std::string s,double a,double b,double c,double d, double e,double f,std::string p):
 		name(s),
 		mode(CRE_6ds),
@@ -58,11 +66,10 @@ struct camera_diy{
 };
 
 struct t_level{
-	std::string fname;
-	std::string name;
+	std::string fname,name;
 	std::deque<object*> objects;
 	camera_diy camera;
 };
 
-t_level level_parse(std::string s);
+t_level level_parse(const std::string& s);
 #endif

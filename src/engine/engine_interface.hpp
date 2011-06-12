@@ -1,18 +1,20 @@
 #ifndef ENGINE_INTERFACE_HPP
 #define ENGINE_INTERFACE_HPP
 
+#include <bitset>
+#include <map>
+#include <iostream>
+
 #include "flomath.hpp"
 #include "engine.hpp"
 
-#include <bitset>
-#include <map> 
 
 enum{
 	ei_has_texture = 1,
 	ei_stepable = 2,
 	ei_drawable = 4,
 	ei_t_key_receiver = 8,
-	ei_moveable = 16
+	ei_movable = 16
 }; 
 
 class engine_interface:
@@ -27,8 +29,7 @@ protected:
 	t_engine* e;
 
 public:
-	flomath::vector speed;
-	flomath::vector accel;
+	flomath::vector speed,accel;
 	flomath::quaternion rotation;
 	
 	engine_interface(t_engine& _e,unsigned input);

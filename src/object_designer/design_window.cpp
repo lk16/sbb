@@ -1,27 +1,21 @@
 #include "designer_window.hpp"
 
-#include <gtkglmm.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-
-#include "../engine.hpp"
-#include "../engine_interfaces.hpp"
-
-#include <iostream>
-
 namespace design{
+	
 	class camera: 
 		public t_camera,
 		public t_key_receiver
 	{
 		double xr,yr,r;
-		public:
+		
+	public:
 		camera(t_engine& t):
 			t_camera(t),
 			t_key_receiver(t),
 			xr(0),yr(0),
 			r(2)
 		{}
+		
 		void key_pressed(unsigned k){
 			switch(k){
 				case GDK_Up:
@@ -34,6 +28,7 @@ namespace design{
 					yr-=.4;break;
 			}
 		}
+		
 		void operator()(){
 			glTranslated(0,0,-r);
 			glRotated(xr,1,0,0);
@@ -41,6 +36,8 @@ namespace design{
 		}
 	};
 }
+
+
 struct test : public drawable{
 	test(t_engine& e):drawable(e){}
 	void draw(){
@@ -54,6 +51,7 @@ struct test : public drawable{
 		glEnd();
 	}
 };
+
 design_window::design_window():
 	engine(*new t_engine)
 {
@@ -63,6 +61,7 @@ design_window::design_window():
 	add(m_VBox);
 	show_all_children();
 }
+
 bool design_window::on_key_press_event(GdkEventKey* k){
 	engine.key_press(k->keyval);
 	return true;

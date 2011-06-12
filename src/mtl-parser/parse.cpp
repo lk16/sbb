@@ -1,15 +1,9 @@
-#include <string>
-#include <stdio.h>
-#include <iostream>
-
 #include "parse.hpp"
-#include <boost/filesystem.hpp>
 
 extern boost::filesystem::path obj_folder;
 t_mtl_map mtl_map;
 
-
-t_materials mtl_parse(std::string s){
+t_materials mtl_parse(const std::string& s){
 	extern int mtl_parse();
 	extern FILE* mtl_in;
 	extern std::map<std::string,material>* materials;

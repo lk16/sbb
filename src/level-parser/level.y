@@ -47,13 +47,14 @@ object: object_impl
 	;
 
 
-object_impl	: NAME NUM NUM NUM  NUM NUM NUM QSTRING	{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d,$5.d,$6.d,$7.d,$8.str));}
-		| NAME NUM NUM NUM  NUM NUM NUM 		{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d,$5.d,$6.d,$7.d));}
-		| NAME NUM NUM NUM 				{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d));}
-		| NAME NUM NUM NUM QSTRING		{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d,$5.str));}
-		| NAME						{the_level.objects.push_back(new object($1.str));}
-		| NAME QSTRING				{the_level.objects.push_back(new object($1.str,$2.str));}
-		; 
+object_impl:
+  NAME NUM NUM NUM NUM NUM NUM QSTRING	{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d,$5.d,$6.d,$7.d,$8.str));}
+| NAME NUM NUM NUM NUM NUM NUM 			{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d,$5.d,$6.d,$7.d));}
+| NAME NUM NUM NUM QSTRING				{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d,$5.str));}
+| NAME NUM NUM NUM 						{the_level.objects.push_back(new object($1.str,$2.d,$3.d,$4.d));}
+| NAME QSTRING							{the_level.objects.push_back(new object($1.str,$2.str));}
+| NAME									{the_level.objects.push_back(new object($1.str));}
+; 
 
 camera	:CAMERA NAME LB nl_opt object_impl nl_opt RB		
 									{

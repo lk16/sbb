@@ -1,12 +1,15 @@
 #ifndef REGISTER_HPP
 #define REGISTER_HPP
+
 #include <map>
 #include <string>
 
 #include "engine/engine_interface.hpp"
 #include "engine/flomath.hpp"
+#include "engine/engine.hpp"
 
-class t_engine;
+//TODO replace ugly code
+
 template<class T>
 t_camera* create(t_engine& e,engine_interface* vict){
 	return new T(e,vict);

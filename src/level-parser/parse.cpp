@@ -2,7 +2,7 @@
 
 #include "parse.hpp"
 
-t_level level_parse(std::string s){
+t_level level_parse(const std::string& s){
 	extern int level_parse();
 	extern FILE* level_in;
 	extern t_level the_level;

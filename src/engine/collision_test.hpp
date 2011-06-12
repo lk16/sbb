@@ -11,6 +11,7 @@
 struct collision_data_base{
 	flomath::polygon* p_mine;
 	flomath::polygon* p_other;
+	
 	collision_data_base(flomath::polygon* pm,flomath::polygon* po):p_mine(pm),p_other(po){}
 	void swap();
 };
@@ -33,7 +34,7 @@ struct collision_data:
 
 extern bool debug;
 
-bool collide(flomath::polygon,flomath::polygon);
+bool collide(const flomath::polygon&,const flomath::polygon&);
 
 collision_data_base* collide(figure&,figure&);
 collision_data_base* collide(figure&,base_sphere&);

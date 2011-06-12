@@ -16,19 +16,22 @@
 
 
 
-struct bird_cam: t_camera, engine_interface{
-	
+struct bird_cam: 
+	t_camera, 
+	engine_interface
+{
+	 
 	
 
 	bool shift_down,moved_last_time;
 	
 	bird_cam(t_engine& e):
 		t_camera(e),
-		engine_interface(e,ei_t_key_receiver|ei_moveable|ei_stepable)
+		engine_interface(e,ei_t_key_receiver|ei_movable|ei_stepable)
 	{
-		z=10;
+		z = 10;
 		moved_last_time = false;
-		shift_down=false;
+		shift_down = false;
 	}
 
 	virtual void step(){
@@ -157,7 +160,7 @@ void des_main_window::reload()
 	current=0;
 	engine->stop();
 	load_level(curr_lev);
-	*static_cast<flomath::point*>(dynamic_cast<bird_cam*>(engine->camera))=pos;
+	*static_cast<flomath::point*>(dynamic_cast<bird_cam*>(engine->camera))=pos; // WTF is this ?!?
 	engine->run();
 	on_object_change();
 }
@@ -187,7 +190,8 @@ void des_main_window::delete_selected_object()
 void des_main_window::update_from_view(/*Gtk::DirectionType d*/)
 {
 	curr_lev->objects.clear();
-	for(unsigned i=object_view.size()-1;i<object_view.size();i--){///HACK: geen rekening gehouden met camera:companion_index
+	//TODO repair HACK: geen rekening gehouden met camera:companion_index
+	for(unsigned i=object_view.size()-1;i<object_view.size();i--){
 		if(object_view.get_text(i,7)!=""){
 			curr_lev->objects.push_back(new object(
 				object_view.get_text(i,0),
@@ -279,7 +283,6 @@ des_main_window::~des_main_window(){
 void des_main_window::write_out()
 {
 	if(!curr_lev) return;
-	std::cout << "write out changes\n";
 	int j=0;
 	std::ofstream out(curr_lev->fname.c_str());
 	out << "LEVEL \"" << curr_lev->name << "\"{";
@@ -304,6 +307,7 @@ void des_main_window::write_out()
 		out <<"\t}"; 
 	}
 	out << "\n}\n";
+	std::cout << "write out changes\n";
 }
 
 
@@ -321,7 +325,7 @@ void des_main_window::load_level(t_level* l){
 	for(std::deque<object*>::iterator i=l->objects.begin();i!=l->objects.end();++i,j++){
 		do_register_ei::t_map::const_iterator p_new_ei=do_register_ei::objs().find((*i)->name);
 		if(p_new_ei==do_register_ei::objs().end()){
-			show_warning("by name '" + (*i)->name  + "' not found"); 
+			show_warning("object by name '" + (*i)->name  + "' not found"); 
 			continue;
 		} 
 		object_view.prepend_text((*i)->name);

@@ -1,11 +1,14 @@
-#ifndef ENGINE_HPP
-#define ENGINE_HPP
+#ifndef SBB_ENGINE_HPP
+#define SBB_ENGINE_HPP
 
 #include <gtkmm/drawingarea.h>
 #include <vector>
 #include <set>
 #include <gtkglmm.h>
+
+#if   defined(DEBUG_LOAD_KEYS) || defined(DEBUG_LOG_KEYS)
 #include <fstream>
+#endif
 
 //#include "dbg/glconfigutil.hpp"
 

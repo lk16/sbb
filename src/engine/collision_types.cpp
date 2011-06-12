@@ -34,8 +34,8 @@ void base_sphere::generate_triangle(unsigned precision){
 		add_polygon(
 			data[i][0],
 			data[i].back(),
-					data[i+1].back(),
-					data[i+1][0]
+			data[i+1].back(),
+			data[i+1][0]
 		);
 	}
 }
@@ -45,11 +45,6 @@ base_plane::base_plane(t_engine& e ,const flomath::point& pos, const flomath::po
 {
 	if(p.p.size()>2){
 		*static_cast<flomath::plane*>(this) = flomath::plane(*this+p.p[0],*this+p.p[1],*this+p.p[2]);
-		/*			for(unsigned i=3;i<p.p.size();i++){
-		 *		if(abs(eval(p.p[i]))>negligible){
-		 *			segfault(); 
-		 }
-		 }*/
 	}
 	add_polygon(p);
 }
@@ -61,4 +56,9 @@ base_plane::base_plane(t_engine& e ,const flomath::point& pos, const std::string
 void base_plane::load_textures(){
 	figure::load_textures();
 	*static_cast<flomath::plane*>(this) = flomath::plane(*this+polly[0].p[0],*this+polly[0].p[1],*this+polly[0].p[2]);
+}
+
+double base_sphere::radius() const
+{
+	return r;
 }

@@ -1,5 +1,5 @@
 #include "engine_interface.hpp"
-#include <iostream>
+
 
 void engine_interface::construct_params()
 {
@@ -164,7 +164,7 @@ engine_interface::engine_interface(const engine_interface& rhs){
 			add_interface(i);
 		}
 	}
-	if(interfaces[4]){
+	if(interfaces[4]){ //moveable
 		*static_cast<flomath::point*>(this)=rhs;
 		speed=rhs.speed;
 		accel=rhs.accel;

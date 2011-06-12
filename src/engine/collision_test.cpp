@@ -11,7 +11,7 @@ typedef std::vector<std::pair<flomath::point,flomath::point> > cross_points_list
 
 cross_points_list collide_find_cross_points(flomath::plane p,const std::vector<flomath::point>&points)
 {
-	std::vector<std::pair<flomath::point,flomath::point> > res;
+	cross_points_list res;
 	typedef std::vector<flomath::point>::const_iterator point_iter;
 	for(point_iter i=points.begin();i!=points.end()-1;i++){
 		double first = p.eval(*i);
@@ -29,7 +29,7 @@ void collision_data_base::swap(){
 	p_mine=tmp;
 }
 
-bool collide(flomath::polygon t1,flomath::polygon t2){
+bool collide(const flomath::polygon& t1,const flomath::polygon& t2){
 	using flomath::abs;
 	
 	cross_points_list buur_list1=collide_find_cross_points(t1,t1.p);
@@ -119,7 +119,7 @@ collision_data_base* collide(figure& f,base_sphere& s){
 	return res;
 }
 
-// hulp functie voor collide(base_sphere&,figure&);
+// helping function for collide(base_sphere&,figure&);
 bool sphere_collides_line(flomath::point& swrtf,double r,const flomath::point& p1,const flomath::point& p2){
 	flomath::line3d l(p1,p2);
 	double d = flomath::distance(swrtf,l);
@@ -128,7 +128,7 @@ bool sphere_collides_line(flomath::point& swrtf,double r,const flomath::point& p
 		flomath::vector a = p-p1;
 		flomath::vector b = p-p2;
 		double g = flomath::dotproduct(a,b)/a.length()/b.length();
-		if(flomath::equals(g+1,0) || flomath::distance(swrtf,p1)<r){
+		if(flomath::equals(g,-1) || flomath::distance(swrtf,p1)<r){
 			return true;
 		}
 	}
@@ -136,7 +136,7 @@ bool sphere_collides_line(flomath::point& swrtf,double r,const flomath::point& p
 }
 
 collision_data_base* collide(base_sphere& s,figure& f){
-	if((f.radius()+s.r)<flomath::distance(s,f)){ 
+	if((f.radius()+s.radius())<flomath::distance(s,f)){ 
 		return NULL;
 	}
 	flomath::point swrtf(s-f);
@@ -144,7 +144,7 @@ collision_data_base* collide(base_sphere& s,figure& f){
 	
 	for(unsigned i=0;i<f.polly.size();i++){
 		flomath::plane pl(f.polly[i]);
-		if(flomath::abs(flomath::distance(swrtf,pl))<s.r){
+		if(flomath::abs(flomath::distance(swrtf,pl))<s.radius()){
 			if(f.polly[i].is_in_polygon(swrtf)){
 				return new collision_data_base(NULL,&f.polly[i]);
 			}
@@ -154,12 +154,12 @@ collision_data_base* collide(base_sphere& s,figure& f){
 			
 			for(std::vector<flomath::point>::const_iterator k=f.polly[i].p.begin()+1;k!=f.polly[i].p.end();k++){
 				p1 = *k;
-					if(sphere_collides_line(swrtf,s.r,p0,p1)){
+					if(sphere_collides_line(swrtf,s.radius(),p0,p1)){
 					return new collision_data_base(NULL,&f.polly[i]);
 				}
 				p0 = p1;
 			}
-			if(sphere_collides_line(swrtf,s.r,f.polly[i].p.back(),f.polly[i].p.front())){
+			if(sphere_collides_line(swrtf,s.radius(),f.polly[i].p.back(),f.polly[i].p.front())){
 				return new collision_data_base(NULL,&f.polly[i]);
 			}
 		}
@@ -168,7 +168,7 @@ collision_data_base* collide(base_sphere& s,figure& f){
 }
 
 collision_data_base* collide(base_sphere& s1,base_sphere& s2){
-	return flomath::distance(s1,s2) < s1.r + s2.r ? new collision_data_base(NULL,NULL) : NULL ;
+	return flomath::distance(s1,s2) < s1.radius() + s2.radius() ? new collision_data_base(NULL,NULL) : NULL ;
 }
 
 

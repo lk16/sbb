@@ -47,7 +47,7 @@ inline void show_warning(const std::string& what){
 	std::cout << "WARNING: " << what << std::endl;
 }
 
-// prints a warning and segfaults. USE WITH CARE!!
+// prints an error and segfaults. USE WITH CARE!!
 inline void show_error(const std::string& what,bool segv=true){
 	std::cout << "ERROR: " << what << std::endl;
 	if(segv) segfault();

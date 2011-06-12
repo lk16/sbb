@@ -1,10 +1,17 @@
+#include <iostream>
+#include <gtkglmm.h>
+
 #include <gtkmm/box.h>
 #include <gtkmm/window.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
-class t_engine;
+#include "engine/engine.hpp"
+#include "engine/engine_interface.hpp"
+#include "engine/engine.hpp"
 
 class design_window:
-public Gtk::Window
+	public Gtk::Window
 {
 	
 	public:

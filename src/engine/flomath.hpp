@@ -17,17 +17,23 @@ namespace flomath{
 	struct line3d;
 	struct base_figure;
 	
+	typedef point vector;
+	
 	struct point{
 		double x,y,z;
+		
+		point();
+		point(double,double,double);
+		
+		friend std::ostream& operator<<(std::ostream&,const point&);
+		
 		double length() const;
 		double length_sqr() const;
 		point normalized();
 		point& normalize();
 		
-		friend std::ostream& operator<<(std::ostream&,point);
 		
-		point();
-		point(double,double,double);
+
 		point operator+(const point&)const;
 		point operator-(const point&)const;
 		point& operator+=(const point&);
@@ -40,14 +46,14 @@ namespace flomath{
 
 		bool operator==(const point&)const;
 		void set(double,double,double);
-		void rotate(quaternion);
-		void rotate(double,point);
+		void rotate(const quaternion&);
+		void rotate(double,const flomath::vector&);
 	};
 	
 	point operator*(double,const point&);
 	
 	
-	typedef point vector;
+	
 	vector crossproduct(const vector&,const vector&);
 	double dotproduct(const vector&,const vector&);
 	double distance(const point&,const point&);
@@ -55,12 +61,6 @@ namespace flomath{
 	double distance(const point&,const line3d&);
 	point project(const point&,const plane&);
 	point project(const point&,const line3d&);
-	
-
-
-	
-	///DONT USE THIS!
-	//point turn(const point&,const vector&);
 	
 	struct triangle{
 		point p[3];
@@ -115,9 +115,9 @@ namespace flomath{
 
 		quaternion(){}
 		quaternion(double _a,double _b,double _c,double _d): a(_a),b(_b),c(_c),d(_d){}
-		quaternion(double a,vector v):a(a),b(v.x),c(v.y),d(v.z){}
+		quaternion(double a,const vector& v):a(a),b(v.x),c(v.y),d(v.z){}
 		quaternion(double _a):a(_a){}	
-		vector get_vec();
+		vector get_vec() const;
 		quaternion& operator+=(const quaternion&);
 		quaternion operator+(const quaternion&)const;
 		quaternion operator-() const;
@@ -131,7 +131,7 @@ namespace flomath{
 		quaternion inv() const;
 	};
 	
-	void glRotateq(quaternion);
+	void glRotateq(const quaternion&);
 
 	
 	struct polygon{
@@ -141,15 +141,15 @@ namespace flomath{
 		polygon(const point&,const point&,const point&);
 		polygon(const point&,const point&,const point&,const point&); 
  		polygon(const triangle&);
-		polygon& operator+=(point);
+		polygon& operator+=(const point&);
 		bool in_plane()const;	
-		void rotate(quaternion);
+		void rotate(const quaternion&);
 		bool is_in_polygon(const point&)const;
 		//polygon rotate(double,vector);
 	};
 
-	double deg2rad(double x);
-	double rad2deg(double x);
+	double deg2rad(double);
+	double rad2deg(double);
 }
 
 #include "flomath_inline.hpp"

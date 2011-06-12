@@ -36,18 +36,18 @@ struct figure:
 	public engine_interface,
 	public flomath::base_figure
 {
-	char* type;
+	const char* type;
 	figure(t_engine&,const flomath::point&,flomath::base_figure);
-	figure(t_engine&,const flomath::point&,std::string);
+	figure(t_engine&,const flomath::point&,const std::string&);
 	figure(t_engine&,const flomath::point&);
-	figure(t_engine&,double,double,double,std::string);
+	figure(t_engine&,double,double,double,const std::string&);
 	figure(t_engine&,double,double,double);
 	virtual void draw();
 	virtual void load_textures();
 	static unsigned get_texture_tag(const std::string& fname);
 	
 	void draw_col_fig();
-	void file2fig(std::string);
+	void file2fig(const std::string&);
 
 protected:
 	std::vector<drawable_face> draw_faces;

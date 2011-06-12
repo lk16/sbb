@@ -14,7 +14,7 @@ namespace flomath{
 		return *this/length();
 	}
 
-	inline std::ostream& operator<<(std::ostream& out ,point p){
+	inline std::ostream& operator<<(std::ostream& out ,const point& p){
 		out << '(' << p.x << ',' << p.y << ',' << p.z << ')';
 	}
 	
@@ -34,7 +34,7 @@ namespace flomath{
 		}
 		point a = p.back()-p1,b = p.front()-p1;
 		thoek += std::acos(dotproduct(a,b)/(a.length()*b.length()));
-		return abs(thoek - 2*pi) < 0.1 ;
+		return equals(thoek,2*pi);
 	}
 	
 	
@@ -52,14 +52,14 @@ namespace flomath{
 		p.push_back(t.p[2]);
 	}
 	
-	inline polygon& polygon::operator+=(point q){
+	inline polygon& polygon::operator+=(const point& q){
 		for(std::vector<point>::iterator i=p.begin();i!=p.end();i++){
 			*i+=q;
 		}
 		return *this;
 	}
 	
-	inline vector quaternion::get_vec(){
+	inline vector quaternion::get_vec() const{
 		return vector(b,c,d);
 	}
 	
@@ -70,28 +70,35 @@ namespace flomath{
 		d += q.d;
 		return *this;
 	}
+	
 	inline quaternion quaternion::operator+(const quaternion& q)const{
 		quaternion res = *this;
 		return res+=q;
 	}
+	
 	inline void quaternion::normalize(){
 		double len=length();
-		a/=len;
-		b/=len;
-		c/=len;
-		d/=len;
+		if(!equals(len,0)){
+			a/=len;
+			b/=len;
+			c/=len;
+			d/=len;
+		}
 	}
 	inline quaternion quaternion::normalized()const{
 		quaternion res(*this);
 		res.normalize();
 		return res;
 	}
+	
 	inline double quaternion::length_sqr()const{
 		return a*a+b*b+c*c+d*d;
 	}
+	
 	inline double quaternion::length()const{
 		return std::sqrt(length_sqr());
 	}
+	
 	inline quaternion& quaternion::operator*=(const quaternion& q){
 		quaternion copy(*this);
 		copy.a = a*q.a - b*q.b - c*q.c - d*q.d;
@@ -100,20 +107,18 @@ namespace flomath{
 		copy.d = a*q.d + b*q.c - c*q.b + d*q.a;
 		return *this = copy;
 	}
+	
 	inline quaternion quaternion::operator*(const quaternion& q)const{
 		quaternion res = *this;
 		return res*=q;
 	}
+	
 	inline quaternion quaternion::conj() const{
 		return quaternion(a,-b,-c,-d);
 	}
+	
 	inline quaternion quaternion::inv() const{
-		if(abs(length()-1)<negligible){
-			return conj();
-		}
-		else{
-			return conj()* (1/length_sqr()); 
-		}
+		return equals(length()-1,0) ? conj() : conj() * (1.0/length_sqr());
 	}
 	
 	inline quaternion aal_rot_to_quaternion(double x,double y,double z){
@@ -124,12 +129,12 @@ namespace flomath{
 		return res;
 	}
 	
-	inline quaternion aal_rot_to_quaternion(point p){
+	inline quaternion aal_rot_to_quaternion(const point& p){
 		return aal_rot_to_quaternion(p.x,p.y,p.z);
 	}
 	
-	inline void glRotateq(quaternion q){
-		glRotated(2*180/pi*acos(q.a),q.b,q.c,q.d);
+	inline void glRotateq(const quaternion& q){
+		glRotated(2*180/pi*acos(q.a),q.b,q.c,q.d); // BUG WTF 2*180/pi ???
 	}
 	
 	inline quaternion quaternion::operator-() const{

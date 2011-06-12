@@ -3,14 +3,17 @@
 #include "figure.hpp"
 #include "flomath.hpp"
 
-struct base_sphere:
+class base_sphere:
 	public figure
 {
+protected:
 	double r;
 	
+public:
 	base_sphere(t_engine& e,const flomath::point& pos,double _r,bool gentri);	
 
 	void generate_triangle(unsigned precision);
+	double radius() const;
 };
 
 struct base_plane :

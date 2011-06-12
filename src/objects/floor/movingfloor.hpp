@@ -4,6 +4,7 @@
 #include <cmath>
 #include <sys/time.h>
 
+#include "register/register.hpp"
 #include "floor.hpp"
 #include "engine/flomath.hpp"
 
@@ -21,8 +22,7 @@ public:
 	moving_floor(t_engine& e, const flomath::point& pos):
 		t_floor(e,pos)
 	{
-		add_interface_from_bitset(ei_stepable);
-		
+		engine_interface::add_interface_from_bitset(ei_stepable);
 	}
 	
 	virtual void step();

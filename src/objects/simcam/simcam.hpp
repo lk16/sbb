@@ -9,6 +9,7 @@ class simcam:
 {
 	private:
 		const engine_interface* mv;
+		
 	public:
 		simcam(t_engine&,const engine_interface*);
 		void operator()();

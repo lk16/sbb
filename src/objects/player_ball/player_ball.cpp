@@ -1,17 +1,4 @@
-#include <gdk/gdkkeysyms.h>
-#include <algorithm>
-
 #include "player_ball.hpp"
-#include <register/register.hpp>
-#include <engine/collision_test.hpp>
-#include <objects/floor/floor.hpp>
-#include <objects/wall/wall.hpp>
-#include <objects/finish/finish.hpp>
-
-#include "../../engine/util.hpp"
-
-
-
 
 SBB_REGISTER_ei(player_ball);
 
@@ -39,8 +26,7 @@ void player_ball::key_pressed(unsigned k) {
 	}
 }
 
-void player_ball::step() {
-//	accel_same_direction(.99);
+void player_ball::step(){
 	if (y < -5) {
 		x = 0;
 		y = 1;
@@ -51,27 +37,34 @@ void player_ball::step() {
 	if (prevcol == DOB_TRUE) {
 		prevcol = DOB_TRY_FALSE;
 	}
-	else if (prevcol == DOB_TRY_FALSE) {
+	else if(prevcol == DOB_TRY_FALSE) {
 		prevcol = DOB_FALSE;
-
 	}
 	accel_same_direction(0.999);
 }
-struct dist_to_p_cmp { flomath::point p1;
-	dist_to_p_cmp(flomath::point p0):p1(p0){}
+struct dist_to_p_cmp { 
+	flomath::point p1;
+	
+	dist_to_p_cmp(flomath::point p0):
+		p1(p0)
+	{}
+	
 	bool operator()(const flomath::point& r,const flomath::point& l){ 
 		return flomath::distance(r,p1)<flomath::distance(l,p1);
-}};
+	}
+};
 
 struct p_same_normal_cmp{ 
 	flomath::point p1;
-	p_same_normal_cmp(flomath::point p0):p1(p0){}
+	p_same_normal_cmp(flomath::point p0):
+		p1(p0)
+	{}
+	
 	bool operator()(const flomath::polygon& o){
 		return flomath::plane(o).normal.normalize() == p1;
 	}
 };
 
-//TODO FIXIT
 void player_ball::collide(collision_data<t_floor>& f) {
 	flomath::plane p(*f.p_other);
 	flomath::vector normal = p.normal / p.normal.length();
@@ -86,8 +79,8 @@ void player_ball::collide(collision_data<t_floor>& f) {
 		std::vector<flomath::point> edge_list(top.p);
 		assert(top.p.size() >= 2);
 		std::nth_element(edge_list.begin(),edge_list.begin()+1,edge_list.end(),dist_to_p_cmp(p_wrpt_f));
-
-		flomath::plane q(edge_list[0],edge_list[1], flomath::point(0, 4, 0));//BUG kludge
+		
+		flomath::plane q(edge_list[0],edge_list[1], flomath::point(0, 4, 0)); //TODO repair kludge
 		normal = q.normal; 
 		vovernormal = normal * flomath::dotproduct(speed, normal)/normal.length_sqr();
 		*this -= vovernormal;
@@ -140,12 +133,12 @@ void player_ball::draw() {
 	glPopMatrix();
 }
 
-player_ball::player_ball(t_engine& e,flomath::point p):
+player_ball::player_ball(t_engine& e,const flomath::point& p):
 	can_collide< player_ball , COL_SPHERE>(e,p, .5, false),
 	prevcol(DOB_FALSE),
 	time(0)
 {
-	add_interface_from_bitset(ei_moveable | ei_t_key_receiver | ei_stepable );
+	add_interface_from_bitset(ei_movable | ei_t_key_receiver | ei_stepable );
 	e.transparent_drawables.add(this);
 	e.drawables.remove(this);
 	accel.y = -0.010;
