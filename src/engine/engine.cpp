@@ -1,16 +1,6 @@
-#include <algorithm>
-#include <cstdlib>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <gdk/gdkkeysyms.h>
+#include "engine.hpp"
 
 //#define DEBUG_LOAD_KEYS
-
-#include "engine.hpp"
-#include "util.hpp"
-#include "collision_test.hpp"
-
-
 
 #if defined(DEBUG_LOAD_KEYS) && defined(DEBUG_LOG_KEYS)
 #error "you can only load OR store the keypresses, not both"
@@ -21,6 +11,8 @@ std::ifstream key_log("key_log");
 #elif defined(DEBUG_LOG_KEYS)
 std::ofstream key_log("key_log");
 #endif
+
+t_engine* t_engine::engine_ptr;
 
 typedef std::vector<engine_interface*>::iterator eip_iter;
 
@@ -160,6 +152,7 @@ t_engine::t_engine():
 	moveables(ei_list[4]), 
 	transparent_drawables(ei_list[5])
 {
+	engine_ptr = this;
 	set_can_focus();
 	debug = false;
 	Glib::RefPtr<Gdk::GL::Config> glconfig;
@@ -324,3 +317,7 @@ void t_engine::clear_all() {
 	std::cout << "cleared engine garbage" << std::endl;
 }
 
+t_engine* t_engine::get()
+{
+	return t_engine::engine_ptr;
+}

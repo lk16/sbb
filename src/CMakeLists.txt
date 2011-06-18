@@ -69,6 +69,7 @@ add_custom_command (
 
 		engine/collision_test.cpp
 		engine/collision_types.cpp
+		engine/collision_data.cpp
 		engine/engine_interface.cpp
 		engine/engine.cpp
 		engine/figure.cpp

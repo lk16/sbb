@@ -25,9 +25,9 @@ struct bird_cam:
 
 	bool shift_down,moved_last_time;
 	
-	bird_cam(t_engine& e):
-		t_camera(e),
-		engine_interface(e,ei_t_key_receiver|ei_movable|ei_stepable)
+	bird_cam():
+		t_camera(),
+		engine_interface(ei_t_key_receiver|ei_movable|ei_stepable)
 	{
 		z = 10;
 		moved_last_time = false;
@@ -82,7 +82,7 @@ struct ui_updater:
 	engine_interface
 {
 	des_main_window* win;
-	ui_updater(t_engine& _e,des_main_window* w):engine_interface(_e,ei_stepable|ei_t_key_receiver),win(w){}
+	ui_updater(des_main_window* w):engine_interface(ei_stepable|ei_t_key_receiver),win(w){}
 	
 	void step(){
 		win->update_ui();
@@ -140,7 +140,7 @@ des_main_window::des_main_window():
 	}
 	cbox.show();
 	cbox.signal_changed().connect(sigc::mem_fun(*this,&des_main_window::on_object_change));
-	engine->signal_grab_focus().connect(sigc::mem_fun(*this,&des_main_window::update_from_view));
+	engine()->signal_grab_focus().connect(sigc::mem_fun(*this,&des_main_window::update_from_view));
 	bottom_bar.pack_start(cbox);
 	
 	object_view.set_events(Gdk::ALL_EVENTS_MASK);
@@ -153,15 +153,15 @@ des_main_window::des_main_window():
 
 void des_main_window::reload()
 {
-	flomath::point pos = *dynamic_cast<bird_cam*>(engine->camera);
+	flomath::point pos = *dynamic_cast<bird_cam*>(engine()->camera);
 	
 	object_view.clear_items();
-	engine->clear_all();
+	engine()->clear_all();
 	current=0;
-	engine->stop();
+	engine()->stop();
 	load_level(curr_lev);
-	*static_cast<flomath::point*>(dynamic_cast<bird_cam*>(engine->camera))=pos; // WTF is this ?!?
-	engine->run();
+	*static_cast<flomath::point*>(dynamic_cast<bird_cam*>(engine()->camera))=pos; // WTF is this ?!?
+	engine()->run();
 	on_object_change();
 }
 
@@ -248,7 +248,7 @@ void des_main_window::show_menu()
 
 void des_main_window::create_current_object()
 {
-	bird_cam* cam=dynamic_cast<bird_cam*>(engine->camera);
+	bird_cam* cam=dynamic_cast<bird_cam*>(engine()->camera);
 	const std::string& name=cbox.get_active_text();
 	if(name==""){
 		return;
@@ -259,16 +259,16 @@ void des_main_window::create_current_object()
 
 void des_main_window::on_object_change()
 {
-	bird_cam* cam=dynamic_cast<bird_cam*>(engine->camera);
+	bird_cam* cam=dynamic_cast<bird_cam*>(engine()->camera);
 	delete current;
 	if(cbox.get_active_text()=="") return;
-	current=do_register_ei::objs()[cbox.get_active_text()](*engine,cam->x,cam->z-20,-cam->y);
+	current=do_register_ei::objs()[cbox.get_active_text()](cam->x,cam->z-20,-cam->y);
 	current->load_textures();
 }
 
 void des_main_window::update_ui()
 {
-	bird_cam* cam=dynamic_cast<bird_cam*>(engine->camera);
+	bird_cam* cam=dynamic_cast<bird_cam*>(engine()->camera);
 	if(current){
 		current->x=cam->x;
 		current->y=cam->z-20;
@@ -329,7 +329,7 @@ void des_main_window::load_level(t_level* l){
 			continue;
 		} 
 		object_view.prepend_text((*i)->name);
-		engine_interface* that=(p_new_ei->second)(*engine,(*i)->x,(*i)->y,(*i)->z);//lijpe shit
+		engine_interface* that=(p_new_ei->second)((*i)->x,(*i)->y,(*i)->z);
 		object_view.set_text(0,1,tostr((*i)->x));
 		object_view.set_text(0,2,tostr((*i)->y));
 		object_view.set_text(0,3,tostr((*i)->z));
@@ -357,18 +357,18 @@ void des_main_window::load_level(t_level* l){
 			}
 		}
 	}
-	engine->key_receivs.clear();
-	engine->moveables.clear();
-	engine->steppables.clear();
-	engine->set_camera(new bird_cam(*engine));
-	new ui_updater(*engine,this);
-	if(engine->texture_load_ready){
-		engine->load_textures();
+	engine()->key_receivs.clear();
+	engine()->moveables.clear();
+	engine()->steppables.clear();
+	engine()->set_camera(new bird_cam());
+	new ui_updater(this);
+	if(engine()->texture_load_ready){
+		engine()->load_textures();
 	}
 	else{
-		engine->texture_load_ready = true;
+		engine()->texture_load_ready = true;
 	}
 	object_view_scroll.show();
-	engine->show();
-	engine->run();
+	engine()->show();
+	engine()->run();
 }

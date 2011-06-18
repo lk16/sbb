@@ -1,13 +1,11 @@
-#ifndef ENGINE_INTERFACE_HPP
-#define ENGINE_INTERFACE_HPP
+#ifndef SBB_ENGINE_INTERFACE_HPP
+#define SBB_ENGINE_INTERFACE_HPP
 
 #include <bitset>
 #include <map>
 #include <iostream>
 
-#include "flomath.hpp"
 #include "engine.hpp"
-
 
 enum{
 	ei_has_texture = 1,
@@ -17,22 +15,24 @@ enum{
 	ei_movable = 16
 }; 
 
+#include "flomath.hpp"
+
+class t_engine;
+
 class engine_interface:
 	virtual public flomath::point
-{
+{	
 	std::bitset<5> interfaces;
 
 private:
-std::map<std::string,std::string> params;
+	std::map<std::string,std::string> params;
 	
-protected:
-	t_engine* e;
-
+	
 public:
 	flomath::vector speed,accel;
 	flomath::quaternion rotation;
 	
-	engine_interface(t_engine& _e,unsigned input);
+	engine_interface(unsigned input);
 	engine_interface(const engine_interface& ei);
 	virtual ~engine_interface();
 	
@@ -57,18 +57,21 @@ public:
 	virtual void key_pressed(unsigned){}
 	virtual void key_released(unsigned){}
 	
+	t_engine* engine();
+	
 	engine_interface& operator=(const engine_interface& rhs);
 };
 
 struct t_camera{
-	t_engine* e;
-	
-	t_camera(t_engine& _e);
-//	t_camera(const t_camera& tc);
+		
+	t_camera();
 	virtual ~t_camera();
-
+	
 	
 	virtual void operator()()=0;
+	
+	t_engine* engine();
+	
 };
 
 #endif

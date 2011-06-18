@@ -1,13 +1,17 @@
-BUG list:
-
 TODO list:
+- BUG sommige randen van floors in verkeerd om
 - button voor new level in ldes
 - in ldes in level: button rename/remove file
-- goal
+- goal moet verbeterd worden
 - mappenstructuur objectdata
 - figure::file2fig() opruimen
 - teken bol ipv cirkel.
-- kleinere tiled_floor
 - ldes listviewtext sort
-- util file maken voor segfault doubly_owned_bool etc
 - ldes sbb namespaces
+- TODO markings
+- respawn point should not be constant (syntax change?)
+
+WTF list:
+- playerball time property
+- register system is ugly
+- (collision data) base != collision (data base) -> name change?

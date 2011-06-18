@@ -1,12 +1,17 @@
 #include "engine_interface.hpp"
 
-
 void engine_interface::construct_params()
 {
 	for(std::map<std::string,std::string>::iterator i=params.begin();i!=params.end();i++){
 		show_warning("redundant parameter found '" + i->first + " = " + i->second);
 	}
 }
+
+t_engine* engine_interface::engine()
+{
+	return t_engine::get();
+}
+
 
 std::string engine_interface::get_param(const std::string& s)
 {
@@ -79,18 +84,17 @@ void engine_interface::add_interface(unsigned char n){
 	}
 	if(interfaces[n]) return;
 	interfaces[n]=true;
-	e->ei_list[n].add(this);
+	engine()->ei_list[n].add(this);
 }
 
 void engine_interface::remove_interface(unsigned char n){
 	if(n>4) return;
 	if(!interfaces[n]) return;
 	interfaces[n]=false;
-	e->ei_list[n].remove(this);
+	engine()->ei_list[n].remove(this);
 }
 
-engine_interface::engine_interface(t_engine& _e,unsigned input=0):
-	e(&_e),
+engine_interface::engine_interface(unsigned input=0):
 	rotation(1,0,0,0),
 	speed(0,0,0),
 	accel(0,0,0)
@@ -113,7 +117,6 @@ engine_interface& engine_interface::operator=(const engine_interface& rhs){
 	for(size_t i=0;i<5;i++){
 		remove_interface(i);
 	}
-	e=rhs.e;
 	for(size_t i=0;i<5;i++){
 		if(rhs.interfaces[i]){
 			add_interface(i);
@@ -149,16 +152,15 @@ void engine_interface::move(){
 	*static_cast<flomath::point*>(this) += speed;
 }
 
-t_camera::t_camera(t_engine& _e):e(&_e){
-	e->set_camera(this);
+t_camera::t_camera(){
+	engine()->set_camera(this);
 }
 
 t_camera::~t_camera(){
-	e->remove_camera(this);
+	engine()->remove_camera(this);
 }
 
 engine_interface::engine_interface(const engine_interface& rhs){
-	e=rhs.e;
 	for(size_t i=0;i<5;i++){
 		if(rhs.interfaces[i]){
 			add_interface(i);
@@ -171,8 +173,8 @@ engine_interface::engine_interface(const engine_interface& rhs){
 		rotation=rhs.rotation;
 	}
 }
-/*
-t_camera::t_camera(const t_camera& tc){
-	e = tc.e;
-	e->set_camera(this);
-}*/
+
+t_engine* t_camera::engine()
+{
+	t_engine::get();
+}

@@ -133,21 +133,21 @@ void player_ball::draw() {
 	glPopMatrix();
 }
 
-player_ball::player_ball(t_engine& e,const flomath::point& p):
-	can_collide< player_ball , COL_SPHERE>(e,p, .5, false),
+player_ball::player_ball(const flomath::point& p):
+	can_collide< player_ball , COL_SPHERE>(p, .5, false),
 	prevcol(DOB_FALSE),
 	time(0)
 {
 	add_interface_from_bitset(ei_movable | ei_t_key_receiver | ei_stepable );
-	e.transparent_drawables.add(this);
-	e.drawables.remove(this);
+	engine()->transparent_drawables.add(this);
+	engine()->drawables.remove(this);
 	accel.y = -0.010;
 	type = "t_sphere";
-	e.signal_collision.connect(&::collision<player_ball, t_floor>);
-	e.signal_collision.connect(&::collision<player_ball, wall>);
-	e.signal_collision.connect(&::collision<player_ball, finish>);
+	engine()->signal_collision.connect(&::collision<player_ball, t_floor>);
+	engine()->signal_collision.connect(&::collision<player_ball, wall>);
+	engine()->signal_collision.connect(&::collision<player_ball, finish>);
 		
 }
 player_ball::~player_ball(){
-	e->transparent_drawables.remove(this);
+	engine()->transparent_drawables.remove(this);
 }

@@ -9,6 +9,7 @@
 #include "engine/engine.hpp"
 #include "engine/collision_test.hpp"
 #include "engine/engine_interface.hpp"
+#include "engine/collision_data.hpp"
 #include "engine/util.hpp"
 #include "objects/finish/finish.hpp"
 #include "objects/floor/floor.hpp"
@@ -23,7 +24,7 @@ class player_ball:
 	int time;
 	
 	public:
-		player_ball(t_engine&,const flomath::point&);
+		player_ball(const flomath::point&);
 		~player_ball();
 		
 		void collide(collision_data<t_floor>&);

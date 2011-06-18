@@ -11,14 +11,14 @@
 //TODO replace ugly code
 
 template<class T>
-t_camera* create(t_engine& e,engine_interface* vict){
-	return new T(e,vict);
+t_camera* create(engine_interface* vict){
+	return new T(vict);
 }
 
 struct do_register_cam{
-	typedef std::map<std::string,t_camera*(*)(t_engine&,engine_interface*)> t_map;
+	typedef std::map<std::string,t_camera*(*)(engine_interface*)> t_map;
 	static t_map& objs();
-	do_register_cam(t_camera*(*make)(t_engine&,engine_interface*),const char*name){
+	do_register_cam(t_camera*(*make)(engine_interface*),const char*name){
 		objs()[name]=make;
 	}
 };
@@ -32,14 +32,14 @@ struct do_register_cam{
 
 
 template<class T>
-engine_interface* create(t_engine& e,double x,double y,double z){
-	return new T(e,flomath::point(x,y,z));
+engine_interface* create(double x,double y,double z){
+	return new T(flomath::point(x,y,z));
 }
 
 struct do_register_ei{
-	typedef std::map<std::string,engine_interface*(*)(t_engine&,double,double,double)> t_map;
+	typedef std::map<std::string,engine_interface*(*)(double,double,double)> t_map;
 	static t_map& objs();
-	do_register_ei(engine_interface*(*make)(t_engine&,double,double,double ),const char*name){
+	do_register_ei(engine_interface*(*make)(double,double,double ),const char*name){
 		objs()[name]=make;
 	}
 };

@@ -71,7 +71,7 @@ namespace flomath{
 		triangle operator+(const vector&)const;
 	};
 	
-	triangle operator*(double,triangle);
+	triangle operator*(double,const triangle&);
 	
 	
 	struct plane{

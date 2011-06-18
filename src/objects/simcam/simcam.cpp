@@ -3,8 +3,8 @@
 #include <GL/gl.h>
 
 SBB_REGISTER_cam(simcam);
-simcam::simcam(t_engine& e,const engine_interface* p):
-	t_camera(e),
+simcam::simcam(const engine_interface* p):
+	t_camera(),
 	mv(p)
 {}
 

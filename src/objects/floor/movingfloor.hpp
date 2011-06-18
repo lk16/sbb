@@ -19,8 +19,8 @@ public:
 	//secs
 	double period;
 	
-	moving_floor(t_engine& e, const flomath::point& pos):
-		t_floor(e,pos)
+	moving_floor(const flomath::point& pos):
+		t_floor(pos)
 	{
 		engine_interface::add_interface_from_bitset(ei_stepable);
 	}

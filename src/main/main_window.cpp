@@ -11,8 +11,8 @@
 main_window::main_window():
 	in_menu(true),
 	m_VBox(false, 0),
-	engine(new t_engine/*(this)*/),
-	menu(*new main_menu(this))
+	menu(*new main_menu(this)),
+	e(new t_engine)
 {
 	set_title("Super Bunny Ball");
 	set_reallocate_redraws(true);
@@ -20,38 +20,41 @@ main_window::main_window():
 	
 	set_size_request(300,300);
 
-	engine->set_size_request(200, 200);
-	m_VBox.pack_start(*engine);
+	engine()->set_size_request(200, 200);
+	m_VBox.pack_start(*engine());
 	m_VBox.pack_start(menu);
 	m_VBox.show();
 	menu.show();
 }
 
 bool main_window::on_key_press_event(GdkEventKey* k){
-	switch((k->keyval!=GDK_Escape)|(in_menu<<1)){
-		case 0:show_menu();break;
-//		case 1:engine->key_press(k->keyval);break;
-		case 2:Gtk::Main::quit();break;
+	if(k->keyval==GDK_Escape){
+		if(in_menu){
+			Gtk::Main::quit();
+		}
+		else{
+			show_menu();
+		}	
 	}
 	return Gtk::Window::on_key_press_event (k);
 }
 
 bool main_window::on_key_release_event(GdkEventKey* k){
-//	if(!in_menu){ engine->key_release(k->keyval); }
+//	if(!in_menu){ engine()->key_release(k->keyval); }
 	return Gtk::Window::on_key_release_event (k);
 }
 
 void main_window::show_menu(){
-	engine->hide();
-	engine->stop();
-	engine->clear_all();
+	engine()->hide();
+	engine()->stop();
+	engine()->clear_all();
 	in_menu=true;
 	menu.show();
 }
 
 
 main_window::~main_window(){
-	delete engine;
+	delete engine();
 	delete &menu;
 }
 
@@ -62,7 +65,7 @@ void main_window::on_button_quit_clicked(){
 void main_window::load_level(t_level* l){
 	using flomath::deg2rad;
 	menu.hide();
-	engine->show();
+	engine()->show();
 	in_menu = false;
 	int j=0;
 	for(std::deque<object*>::iterator i=l->objects.begin();i!=l->objects.end();++i,j++){
@@ -71,7 +74,7 @@ void main_window::load_level(t_level* l){
 			show_warning("object by name '" + (*i)->name + "' not found"); 
 			continue;
 		}
-		engine_interface* that=(p_new_ei->second)(*engine,(*i)->x,(*i)->y,(*i)->z);//lijpe shit
+		engine_interface* that=(p_new_ei->second)((*i)->x,(*i)->y,(*i)->z);
 		switch((*i)->mode){
 			case object::CRE_s:
 			case object::CRE_3ds:
@@ -95,18 +98,22 @@ void main_window::load_level(t_level* l){
 				show_menu();///bug in level, we do need a camera!
 				continue;
 			}
-			(p_new_cam->second)(*engine,that);
+			(p_new_cam->second)(that);
 		}
 	}
-	if(engine->texture_load_ready){
-		engine->load_textures();
+	if(engine()->texture_load_ready){
+		engine()->load_textures();
 	}
 	else{
-		engine->texture_load_ready = true;
+		engine()->texture_load_ready = true;
 	}
-	engine->run();
+	engine()->run();
 }
 
+t_engine* main_window::engine()
+{
+	return t_engine::engine_ptr;
+}
 
 
 

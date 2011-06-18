@@ -1,5 +1,6 @@
-#ifndef COLLISION_TYPES_HPP
-#define COLLISION_TYPES_HPP
+#ifndef SBB_COLLISION_TYPES_HPP
+#define SBB_COLLISION_TYPES_HPP
+
 #include "figure.hpp"
 #include "flomath.hpp"
 
@@ -10,7 +11,7 @@ protected:
 	double r;
 	
 public:
-	base_sphere(t_engine& e,const flomath::point& pos,double _r,bool gentri);	
+	base_sphere(const flomath::point& pos,double _r,bool gentri);	
 
 	void generate_triangle(unsigned precision);
 	double radius() const;
@@ -20,8 +21,8 @@ struct base_plane :
 	public figure,
 	public flomath::plane
 {
-	base_plane(t_engine& e ,const flomath::point& pos, const flomath::polygon& p);
-	base_plane(t_engine& e ,const flomath::point& pos, const std::string& s);
+	base_plane(const flomath::point& pos, const flomath::polygon& p);
+	base_plane(const flomath::point& pos, const std::string& s);
 	
 	virtual void load_textures();
 };

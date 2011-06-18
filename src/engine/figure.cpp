@@ -1,24 +1,20 @@
 #include "figure.hpp"
-#include "object-parser/parse.hpp"
-#include "flomath.hpp"
 
-#include <cassert>
-
-figure::figure(t_engine& e,const flomath::point& pos, flomath::base_figure data):
-	engine_interface(e,ei_drawable),
+figure::figure(const flomath::point& pos,const flomath::base_figure& data):
+	engine_interface(ei_drawable),
 	flomath::base_figure(data)
 {
 	*static_cast<point*>(this)=pos;
 }
 	
-figure::figure(t_engine& e,double _x,double _y,double _z):
-		engine_interface(e,ei_drawable)
+figure::figure(double _x,double _y,double _z):
+		engine_interface(ei_drawable)
 {
 	*static_cast<flomath::point*>(this) = point(_x,_y,_z);
 }
 
-figure::figure(t_engine& e,const flomath::point& pos):
-	engine_interface(e,ei_drawable)
+figure::figure(const flomath::point& pos):
+	engine_interface(ei_drawable)
 {
 	*static_cast<point*>(this)=pos;
 }
@@ -98,7 +94,7 @@ void figure::file2fig(const std::string& fname){
 	}
 	if(has_alpha){
 		remove_interface(ei_drawable);
-		e->transparent_drawables.add(this);
+		engine()->transparent_drawables.add(this);
 	}
 }
 
@@ -113,15 +109,15 @@ void figure::add_face(const t_face& face,const obj_file& file){
 	polly.push_back(pol);
 }
 
-figure::figure(t_engine& e, double _x,double _y,double _z,const std::string& fname):
-	engine_interface(e,ei_drawable|ei_has_texture),
+figure::figure(double _x,double _y,double _z,const std::string& fname):
+	engine_interface(ei_drawable|ei_has_texture),
 	file(fname)
 {
 	*static_cast<flomath::point*>(this) = point(_x,_y,_z);
 }
 
-figure::figure(t_engine& e,const flomath::point& pos,const std::string& fname):
-	engine_interface(e,ei_drawable|ei_has_texture),
+figure::figure(const flomath::point& pos,const std::string& fname):
+	engine_interface(ei_drawable|ei_has_texture),
 	file(fname)
 {
 	*static_cast<flomath::point*>(this) = pos;

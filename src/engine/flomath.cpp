@@ -212,8 +212,7 @@ namespace flomath{
 	point point::operator/(double b) const{
 		return *this * (1/b);
 	}
-	
-	
+		
 	bool point::operator==(const point& b)const{
 		return equals(x,b.x) && equals(y,b.y) && equals(z,b.z);
 	}
@@ -224,7 +223,7 @@ namespace flomath{
 	
 	point operator*(const point& a,double b){
 		return b*a;
-	}
+	}	
 	
 	point& point::operator*=(double b){
 		x*=b;

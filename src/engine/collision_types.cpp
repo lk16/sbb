@@ -1,7 +1,10 @@
 #include "collision_types.hpp"
 
-base_sphere::base_sphere(t_engine& e,const flomath::point& pos,double _r,bool gentri=true):
-	figure(e,pos),
+#include "figure.hpp"
+#include "flomath.hpp"
+
+base_sphere::base_sphere(const flomath::point& pos,double _r,bool gentri=true):
+	figure(pos),
 	r(_r)
 {
 	if(gentri) generate_triangle(20);
@@ -40,8 +43,8 @@ void base_sphere::generate_triangle(unsigned precision){
 	}
 }
 
-base_plane::base_plane(t_engine& e ,const flomath::point& pos, const flomath::polygon& p):
-	figure(e,pos)
+base_plane::base_plane(const flomath::point& pos, const flomath::polygon& p):
+	figure(pos)
 {
 	if(p.p.size()>2){
 		*static_cast<flomath::plane*>(this) = flomath::plane(*this+p.p[0],*this+p.p[1],*this+p.p[2]);
@@ -49,8 +52,8 @@ base_plane::base_plane(t_engine& e ,const flomath::point& pos, const flomath::po
 	add_polygon(p);
 }
 
-base_plane::base_plane(t_engine& e ,const flomath::point& pos, const std::string& s):
-	figure(e,pos,s)
+base_plane::base_plane(const flomath::point& pos, const std::string& s):
+	figure(pos,s)
 {}
 
 void base_plane::load_textures(){

@@ -11,7 +11,7 @@ class simcam:
 		const engine_interface* mv;
 		
 	public:
-		simcam(t_engine&,const engine_interface*);
+		simcam(const engine_interface*);
 		void operator()();
 };
 

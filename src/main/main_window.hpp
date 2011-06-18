@@ -19,10 +19,10 @@ class main_window:
 
 	protected:
 		void on_button_quit_clicked();
-		
+		t_engine* engine();
+		t_engine* e;
 		bool in_menu;
 		Gtk::VBox m_VBox;
-		t_engine* engine;
 		Gtk::Button m_ButtonQuit;
 		main_menu& menu;
 };

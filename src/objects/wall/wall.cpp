@@ -2,8 +2,8 @@
 
 SBB_REGISTER_ei(wall);
 
-wall::wall (t_engine& e,const flomath::point& p):
-	can_collide<wall,COL_PLANE>(e,p,"data/wall.obj")
+wall::wall (const flomath::point& p):
+	can_collide<wall,COL_PLANE>(p,"data/wall.obj")
 {
 	type="wall";
 }

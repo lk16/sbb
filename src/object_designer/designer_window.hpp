@@ -22,5 +22,5 @@ class design_window:
 		
 	protected:
 		Gtk::VBox m_VBox;
-		t_engine& engine;
+		t_engine* engine;
 };
