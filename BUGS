@@ -12,6 +12,6 @@ TODO list:
 - respawn point should not be constant (syntax change?)
 
 WTF list:
-- playerball time property
+- playerball has a time property?? (move to goal)
 - register system is ugly
 - (collision data) base != collision (data base) -> name change?

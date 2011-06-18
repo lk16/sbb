@@ -77,10 +77,10 @@ add_custom_command (
 	)
 
 ADD_EXECUTABLE(ldes
-	ldes/main.cpp 
-	main/main_menu.cpp 
-	ldes/main_window.cpp
-	main/main_window.cpp
+	main_ldes/main.cpp 
+	main_sbb/main_menu.cpp 
+	main_ldes/main_window.cpp
+	main_sbb/main_window.cpp
 	${objects}
 )
 target_link_libraries(ldes
@@ -93,9 +93,9 @@ target_link_libraries(ldes
 )
 
 ADD_EXECUTABLE(sbb 
-	main/main.cpp 
-	main/main_menu.cpp 
-	main/main_window.cpp
+	main_sbb/main.cpp 
+	main_sbb/main_menu.cpp 
+	main_sbb/main_window.cpp
 	${objects}
 )
 target_link_libraries(sbb

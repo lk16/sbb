@@ -47,9 +47,8 @@ public:
 	
 	std::string get_param(const std::string& s);
 	std::string get_param(const std::string& s,const std::string& def);
-	virtual void construct_params();
 	void set_construct_params(const std::string& s);
-	
+	virtual void construct_params();
 	
 	virtual void load_textures(){}
 	virtual void step(){}

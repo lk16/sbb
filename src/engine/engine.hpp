@@ -10,17 +10,20 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <gdk/gdkkeysyms.h>
-
 #include "engine_interface.hpp"
 
 #if   defined(DEBUG_LOAD_KEYS) || defined(DEBUG_LOG_KEYS)
 #include <fstream>
 #endif
 
-//#include "dbg/glconfigutil.hpp"
+namespace sbb{
+	class main_window;
+}
 
-class main_window;
-class des_main_window;
+namespace ldes{
+	class main_window;
+}
+
 class t_camera;
 class engine_interface;
 class t_engine;
@@ -34,8 +37,8 @@ class t_engine:
 public:
 	static t_engine* engine_ptr;
 
-	friend class main_window;
-	friend class des_main_window;
+	friend class sbb::main_window;
+	friend class ldes::main_window;
 
 	
 	struct engine_interface_list:
