@@ -1,4 +1,4 @@
-LEVEL "test"{
+LEVEL "donut"{
 t_floor 0 0 0 	"w=8;l=8;tex=floors/red.png"
 t_floor 8 0 0 	"w=8;l=8;tex=floors/red.png"
 t_floor 16 0 0 	"w=8;l=8;tex=floors/red.png"

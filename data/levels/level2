@@ -1,5 +1,4 @@
-LEVEL "LK"{
-t_floor	0	0	0	0 1.57 0 "w=8;l=124;tex=floors/red.png"
-t_floor	64	0	8	"w=64;l=8;tex=floors/red.png"
+LEVEL "debug"{
+t_floor	0	0	0	0 	0 	0 "w=16;l=16;tex=floors/red.png"
 CAMERA simcam { player_ball 0 1 0 }
 }

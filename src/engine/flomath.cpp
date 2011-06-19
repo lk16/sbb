@@ -1,7 +1,4 @@
 #include "flomath.hpp"
-#include <cassert>
-#include <cmath>
-#include <iostream>
 
 namespace flomath{
 	
@@ -88,8 +85,8 @@ namespace flomath{
 	point project(const point& p,const line3d& l){
 		point tmp1 = l.offset-p;
 		point tmp2 = crossproduct(l.rc,tmp1);
-		point tmp3 = crossproduct(tmp2,l.rc);
-		tmp3 = tmp3 / tmp3.length();
+		point tmp3 = crossproduct(tmp2,l.rc); 
+		tmp3.normalized();
 		tmp3 = tmp3 * tmp2.length()/l.rc.length();
 		return p+tmp3;
 	}

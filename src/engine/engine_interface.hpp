@@ -4,6 +4,7 @@
 #include <bitset>
 #include <map>
 #include <iostream>
+#include <sstream>
 
 #include "engine.hpp"
 

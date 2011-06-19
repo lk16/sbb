@@ -1,4 +1,4 @@
-LEVEL "level5"{
+LEVEL "skill test"{
 t_floor	0	6.95316e-310	0	0	0	0	"w=20;l=20;tex=floors/green.png"
 t_floor	20	0	0	0	0	0	"w=20;l=20;tex=floors/green.png"
 t_floor	40	0	0	0	0	0	"w=1;l=20;tex=floors/green.png"

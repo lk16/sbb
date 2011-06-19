@@ -4,6 +4,9 @@
 #include <boost/array.hpp>
 #include <vector>
 #include <cmath>
+#include <cassert>
+#include <cmath>
+#include <iostream>
 
 #include "util.hpp"
 
@@ -29,8 +32,8 @@ namespace flomath{
 		
 		double length() const;
 		double length_sqr() const;
-		point normalized();
-		point& normalize();
+		void normalize();
+		point& normalized();
 		
 		
 

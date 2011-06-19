@@ -7,7 +7,6 @@ TODO list:
 - figure::file2fig() opruimen
 - teken bol ipv cirkel.
 - ldes listviewtext sort
-- ldes sbb namespaces
 - TODO markings
 - respawn point should not be constant (syntax change?)
 

@@ -61,7 +61,7 @@ struct p_same_normal_cmp{
 	{}
 	
 	bool operator()(const flomath::polygon& o){
-		return flomath::plane(o).normal.normalize() == p1;
+		return flomath::plane(o).normal.normalized() == p1;
 	}
 };
 

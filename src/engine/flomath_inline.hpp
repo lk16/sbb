@@ -6,12 +6,12 @@
 
 namespace flomath{
 
-	inline point& point::normalize(){
+	inline point& point::normalized(){
 		return *this/=length();
 	}
 
-	inline point point::normalized(){
-		return *this/length();
+	inline void point::normalize(){
+		*this/=length();
 	}
 
 	inline std::ostream& operator<<(std::ostream& out ,const point& p){
