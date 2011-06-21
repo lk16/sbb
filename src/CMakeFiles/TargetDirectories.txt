@@ -1,3 +1,0 @@
-/home/luuk/program_lol/bunnyball/src/CMakeFiles/engine.dir
-/home/luuk/program_lol/bunnyball/src/CMakeFiles/ldes.dir
-/home/luuk/program_lol/bunnyball/src/CMakeFiles/sbb.dir

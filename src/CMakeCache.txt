@@ -179,6 +179,9 @@ Project_SOURCE_DIR:STATIC=/home/luuk/program_lol/bunnyball/src
 //Dependencies for target
 engine_LIB_DEPENDS:STATIC=
 
+//Dependencies for target
+objects_LIB_DEPENDS:STATIC=
+
 
 ########################
 # INTERNAL cache entries
@@ -188,6 +191,8 @@ engine_LIB_DEPENDS:STATIC=
 BISON_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
 CMAKE_AR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_BUILD_TOOL
+CMAKE_BUILD_TOOL-ADVANCED:INTERNAL=1
 //What is the target build tool cmake is generating for.
 CMAKE_BUILD_TOOL:INTERNAL=/usr/bin/make
 //This is the directory where this CMakeCache.txt was created

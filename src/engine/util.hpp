@@ -43,9 +43,9 @@ inline void segfault(){
 }
 
 // prints a warning
-inline void show_warning(const std::string& what){
-	std::cout << "WARNING: " << what << std::endl;
-}
+#define show_warning(what) \
+	std::cout << "WARNING @" __FILE__ ":" << __LINE__ << ": " << what << std::endl;
+
 
 // prints an error and segfaults. USE WITH CARE!!
 inline void show_error(const std::string& what,bool segv=true){

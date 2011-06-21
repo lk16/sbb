@@ -125,6 +125,19 @@ ldes/fast:
 .PHONY : ldes/fast
 
 #=============================================================================
+# Target rules for targets named objects
+
+# Build rule for target.
+objects: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 objects
+.PHONY : objects
+
+# fast build rule for target.
+objects/fast:
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/build
+.PHONY : objects/fast
+
+#=============================================================================
 # Target rules for targets named sbb
 
 # Build rule for target.
@@ -228,6 +241,21 @@ PARSE_OBJ.s:
 .PHONY : PARSE_OBJ.s
 
 # target to build an object file
+engine/collision_data.o:
+	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/collision_data.o
+.PHONY : engine/collision_data.o
+
+# target to preprocess a source file
+engine/collision_data.i:
+	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/collision_data.i
+.PHONY : engine/collision_data.i
+
+# target to generate assembly for a file
+engine/collision_data.s:
+	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/collision_data.s
+.PHONY : engine/collision_data.s
+
+# target to build an object file
 engine/collision_test.o:
 	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/collision_test.o
 .PHONY : engine/collision_test.o
@@ -273,19 +301,19 @@ engine/engine.s:
 .PHONY : engine/engine.s
 
 # target to build an object file
-engine/engine_interfaces.o:
-	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/engine_interfaces.o
-.PHONY : engine/engine_interfaces.o
+engine/engine_interface.o:
+	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/engine_interface.o
+.PHONY : engine/engine_interface.o
 
 # target to preprocess a source file
-engine/engine_interfaces.i:
-	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/engine_interfaces.i
-.PHONY : engine/engine_interfaces.i
+engine/engine_interface.i:
+	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/engine_interface.i
+.PHONY : engine/engine_interface.i
 
 # target to generate assembly for a file
-engine/engine_interfaces.s:
-	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/engine_interfaces.s
-.PHONY : engine/engine_interfaces.s
+engine/engine_interface.s:
+	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/engine/engine_interface.s
+.PHONY : engine/engine_interface.s
 
 # target to build an object file
 engine/figure.o:
@@ -318,36 +346,6 @@ engine/flomath.s:
 .PHONY : engine/flomath.s
 
 # target to build an object file
-ldes/main.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/ldes/main.o
-.PHONY : ldes/main.o
-
-# target to preprocess a source file
-ldes/main.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/ldes/main.i
-.PHONY : ldes/main.i
-
-# target to generate assembly for a file
-ldes/main.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/ldes/main.s
-.PHONY : ldes/main.s
-
-# target to build an object file
-ldes/main_window.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/ldes/main_window.o
-.PHONY : ldes/main_window.o
-
-# target to preprocess a source file
-ldes/main_window.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/ldes/main_window.i
-.PHONY : ldes/main_window.i
-
-# target to generate assembly for a file
-ldes/main_window.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/ldes/main_window.s
-.PHONY : ldes/main_window.s
-
-# target to build an object file
 level-parser/parse.o:
 	$(MAKE) -f CMakeFiles/engine.dir/build.make CMakeFiles/engine.dir/level-parser/parse.o
 .PHONY : level-parser/parse.o
@@ -363,55 +361,85 @@ level-parser/parse.s:
 .PHONY : level-parser/parse.s
 
 # target to build an object file
-main/main.o:
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main.o
-.PHONY : main/main.o
+main_ldes/main.o:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_ldes/main.o
+.PHONY : main_ldes/main.o
 
 # target to preprocess a source file
-main/main.i:
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main.i
-.PHONY : main/main.i
+main_ldes/main.i:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_ldes/main.i
+.PHONY : main_ldes/main.i
 
 # target to generate assembly for a file
-main/main.s:
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main.s
-.PHONY : main/main.s
+main_ldes/main.s:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_ldes/main.s
+.PHONY : main_ldes/main.s
 
 # target to build an object file
-main/main_menu.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main/main_menu.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main_menu.o
-.PHONY : main/main_menu.o
+main_ldes/main_window.o:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_ldes/main_window.o
+.PHONY : main_ldes/main_window.o
 
 # target to preprocess a source file
-main/main_menu.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main/main_menu.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main_menu.i
-.PHONY : main/main_menu.i
+main_ldes/main_window.i:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_ldes/main_window.i
+.PHONY : main_ldes/main_window.i
 
 # target to generate assembly for a file
-main/main_menu.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main/main_menu.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main_menu.s
-.PHONY : main/main_menu.s
+main_ldes/main_window.s:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_ldes/main_window.s
+.PHONY : main_ldes/main_window.s
 
 # target to build an object file
-main/main_window.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main/main_window.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main_window.o
-.PHONY : main/main_window.o
+main_sbb/main.o:
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main.o
+.PHONY : main_sbb/main.o
 
 # target to preprocess a source file
-main/main_window.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main/main_window.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main_window.i
-.PHONY : main/main_window.i
+main_sbb/main.i:
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main.i
+.PHONY : main_sbb/main.i
 
 # target to generate assembly for a file
-main/main_window.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main/main_window.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main/main_window.s
-.PHONY : main/main_window.s
+main_sbb/main.s:
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main.s
+.PHONY : main_sbb/main.s
+
+# target to build an object file
+main_sbb/main_menu.o:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_sbb/main_menu.o
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main_menu.o
+.PHONY : main_sbb/main_menu.o
+
+# target to preprocess a source file
+main_sbb/main_menu.i:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_sbb/main_menu.i
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main_menu.i
+.PHONY : main_sbb/main_menu.i
+
+# target to generate assembly for a file
+main_sbb/main_menu.s:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_sbb/main_menu.s
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main_menu.s
+.PHONY : main_sbb/main_menu.s
+
+# target to build an object file
+main_sbb/main_window.o:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_sbb/main_window.o
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main_window.o
+.PHONY : main_sbb/main_window.o
+
+# target to preprocess a source file
+main_sbb/main_window.i:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_sbb/main_window.i
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main_window.i
+.PHONY : main_sbb/main_window.i
+
+# target to generate assembly for a file
+main_sbb/main_window.s:
+	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/main_sbb/main_window.s
+	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/main_sbb/main_window.s
+.PHONY : main_sbb/main_window.s
 
 # target to build an object file
 mtl-parser/parse.o:
@@ -444,129 +472,108 @@ object-parser/parse.s:
 .PHONY : object-parser/parse.s
 
 # target to build an object file
-objects/cube/cube.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/cube/cube.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/cube/cube.o
-.PHONY : objects/cube/cube.o
-
-# target to preprocess a source file
-objects/cube/cube.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/cube/cube.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/cube/cube.i
-.PHONY : objects/cube/cube.i
-
-# target to generate assembly for a file
-objects/cube/cube.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/cube/cube.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/cube/cube.s
-.PHONY : objects/cube/cube.s
-
-# target to build an object file
 objects/finish/finish.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/finish/finish.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/finish/finish.o
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/finish/finish.o
 .PHONY : objects/finish/finish.o
 
 # target to preprocess a source file
 objects/finish/finish.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/finish/finish.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/finish/finish.i
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/finish/finish.i
 .PHONY : objects/finish/finish.i
 
 # target to generate assembly for a file
 objects/finish/finish.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/finish/finish.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/finish/finish.s
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/finish/finish.s
 .PHONY : objects/finish/finish.s
 
 # target to build an object file
 objects/floor/floor.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/floor/floor.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/floor/floor.o
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/floor/floor.o
 .PHONY : objects/floor/floor.o
 
 # target to preprocess a source file
 objects/floor/floor.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/floor/floor.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/floor/floor.i
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/floor/floor.i
 .PHONY : objects/floor/floor.i
 
 # target to generate assembly for a file
 objects/floor/floor.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/floor/floor.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/floor/floor.s
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/floor/floor.s
 .PHONY : objects/floor/floor.s
 
 # target to build an object file
+objects/floor/movingfloor.o:
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/floor/movingfloor.o
+.PHONY : objects/floor/movingfloor.o
+
+# target to preprocess a source file
+objects/floor/movingfloor.i:
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/floor/movingfloor.i
+.PHONY : objects/floor/movingfloor.i
+
+# target to generate assembly for a file
+objects/floor/movingfloor.s:
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/floor/movingfloor.s
+.PHONY : objects/floor/movingfloor.s
+
+# target to build an object file
 objects/player_ball/player_ball.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/player_ball/player_ball.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/player_ball/player_ball.o
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/player_ball/player_ball.o
 .PHONY : objects/player_ball/player_ball.o
 
 # target to preprocess a source file
 objects/player_ball/player_ball.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/player_ball/player_ball.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/player_ball/player_ball.i
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/player_ball/player_ball.i
 .PHONY : objects/player_ball/player_ball.i
 
 # target to generate assembly for a file
 objects/player_ball/player_ball.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/player_ball/player_ball.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/player_ball/player_ball.s
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/player_ball/player_ball.s
 .PHONY : objects/player_ball/player_ball.s
 
 # target to build an object file
 objects/simcam/simcam.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/simcam/simcam.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/simcam/simcam.o
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/simcam/simcam.o
 .PHONY : objects/simcam/simcam.o
 
 # target to preprocess a source file
 objects/simcam/simcam.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/simcam/simcam.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/simcam/simcam.i
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/simcam/simcam.i
 .PHONY : objects/simcam/simcam.i
 
 # target to generate assembly for a file
 objects/simcam/simcam.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/simcam/simcam.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/simcam/simcam.s
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/simcam/simcam.s
 .PHONY : objects/simcam/simcam.s
 
 # target to build an object file
 objects/wall/wall.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/wall/wall.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/wall/wall.o
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/wall/wall.o
 .PHONY : objects/wall/wall.o
 
 # target to preprocess a source file
 objects/wall/wall.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/wall/wall.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/wall/wall.i
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/wall/wall.i
 .PHONY : objects/wall/wall.i
 
 # target to generate assembly for a file
 objects/wall/wall.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/objects/wall/wall.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/objects/wall/wall.s
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/objects/wall/wall.s
 .PHONY : objects/wall/wall.s
 
 # target to build an object file
 register/register.o:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/register/register.o
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/register/register.o
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/register/register.o
 .PHONY : register/register.o
 
 # target to preprocess a source file
 register/register.i:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/register/register.i
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/register/register.i
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/register/register.i
 .PHONY : register/register.i
 
 # target to generate assembly for a file
 register/register.s:
-	$(MAKE) -f CMakeFiles/ldes.dir/build.make CMakeFiles/ldes.dir/register/register.s
-	$(MAKE) -f CMakeFiles/sbb.dir/build.make CMakeFiles/sbb.dir/register/register.s
+	$(MAKE) -f CMakeFiles/objects.dir/build.make CMakeFiles/objects.dir/register/register.s
 .PHONY : register/register.s
 
 # Help Target
@@ -578,6 +585,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... engine"
 	@echo "... ldes"
+	@echo "... objects"
 	@echo "... rebuild_cache"
 	@echo "... sbb"
 	@echo "... LEX_LEVEL.o"
@@ -598,6 +606,9 @@ help:
 	@echo "... PARSE_OBJ.o"
 	@echo "... PARSE_OBJ.i"
 	@echo "... PARSE_OBJ.s"
+	@echo "... engine/collision_data.o"
+	@echo "... engine/collision_data.i"
+	@echo "... engine/collision_data.s"
 	@echo "... engine/collision_test.o"
 	@echo "... engine/collision_test.i"
 	@echo "... engine/collision_test.s"
@@ -607,48 +618,48 @@ help:
 	@echo "... engine/engine.o"
 	@echo "... engine/engine.i"
 	@echo "... engine/engine.s"
-	@echo "... engine/engine_interfaces.o"
-	@echo "... engine/engine_interfaces.i"
-	@echo "... engine/engine_interfaces.s"
+	@echo "... engine/engine_interface.o"
+	@echo "... engine/engine_interface.i"
+	@echo "... engine/engine_interface.s"
 	@echo "... engine/figure.o"
 	@echo "... engine/figure.i"
 	@echo "... engine/figure.s"
 	@echo "... engine/flomath.o"
 	@echo "... engine/flomath.i"
 	@echo "... engine/flomath.s"
-	@echo "... ldes/main.o"
-	@echo "... ldes/main.i"
-	@echo "... ldes/main.s"
-	@echo "... ldes/main_window.o"
-	@echo "... ldes/main_window.i"
-	@echo "... ldes/main_window.s"
 	@echo "... level-parser/parse.o"
 	@echo "... level-parser/parse.i"
 	@echo "... level-parser/parse.s"
-	@echo "... main/main.o"
-	@echo "... main/main.i"
-	@echo "... main/main.s"
-	@echo "... main/main_menu.o"
-	@echo "... main/main_menu.i"
-	@echo "... main/main_menu.s"
-	@echo "... main/main_window.o"
-	@echo "... main/main_window.i"
-	@echo "... main/main_window.s"
+	@echo "... main_ldes/main.o"
+	@echo "... main_ldes/main.i"
+	@echo "... main_ldes/main.s"
+	@echo "... main_ldes/main_window.o"
+	@echo "... main_ldes/main_window.i"
+	@echo "... main_ldes/main_window.s"
+	@echo "... main_sbb/main.o"
+	@echo "... main_sbb/main.i"
+	@echo "... main_sbb/main.s"
+	@echo "... main_sbb/main_menu.o"
+	@echo "... main_sbb/main_menu.i"
+	@echo "... main_sbb/main_menu.s"
+	@echo "... main_sbb/main_window.o"
+	@echo "... main_sbb/main_window.i"
+	@echo "... main_sbb/main_window.s"
 	@echo "... mtl-parser/parse.o"
 	@echo "... mtl-parser/parse.i"
 	@echo "... mtl-parser/parse.s"
 	@echo "... object-parser/parse.o"
 	@echo "... object-parser/parse.i"
 	@echo "... object-parser/parse.s"
-	@echo "... objects/cube/cube.o"
-	@echo "... objects/cube/cube.i"
-	@echo "... objects/cube/cube.s"
 	@echo "... objects/finish/finish.o"
 	@echo "... objects/finish/finish.i"
 	@echo "... objects/finish/finish.s"
 	@echo "... objects/floor/floor.o"
 	@echo "... objects/floor/floor.i"
 	@echo "... objects/floor/floor.s"
+	@echo "... objects/floor/movingfloor.o"
+	@echo "... objects/floor/movingfloor.i"
+	@echo "... objects/floor/movingfloor.s"
 	@echo "... objects/player_ball/player_ball.o"
 	@echo "... objects/player_ball/player_ball.i"
 	@echo "... objects/player_ball/player_ball.s"

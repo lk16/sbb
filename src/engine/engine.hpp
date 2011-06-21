@@ -42,16 +42,15 @@ public:
 
 	
 	struct engine_interface_list:
-		public std::vector<engine_interface*> //TODO repair kludge, this was private inherited
+		public std::vector<engine_interface*>
 	{
 		//friend class t_engine;
 		void add(engine_interface*);
 		void remove(engine_interface*);
-		using std::vector<engine_interface*>::clear;
 	};
 	
 public:
-	
+		
 		t_engine();
 		virtual ~t_engine();
 		void gl_begin();
@@ -71,6 +70,8 @@ public:
 		engine_interface_list &has_textures, &steppables, 
 		&drawables, &key_receivs, &moveables, 
 		&transparent_drawables;
+		
+
 
 		// returns pointer to t_engine::the_engine
 		static t_engine* get();

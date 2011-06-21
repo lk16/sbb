@@ -125,19 +125,6 @@ ldes/fast:
 .PHONY : ldes/fast
 
 #=============================================================================
-# Target rules for targets named objects
-
-# Build rule for target.
-objects: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 objects
-.PHONY : objects
-
-# fast build rule for target.
-objects/fast:
-	$(MAKE) -f build/CMakeFiles/objects.dir/build.make build/CMakeFiles/objects.dir/build
-.PHONY : objects/fast
-
-#=============================================================================
 # Target rules for targets named sbb
 
 # Build rule for target.
@@ -160,7 +147,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... engine"
 	@echo "... ldes"
-	@echo "... objects"
 	@echo "... sbb"
 .PHONY : help
 

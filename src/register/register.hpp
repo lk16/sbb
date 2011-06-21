@@ -46,5 +46,4 @@ struct do_register_ei{
 
 #define SBB_REGISTER_ei(t) do_register_ei SBB_REGISTER_##t(create<t>,#t)
 
-
 #endif
