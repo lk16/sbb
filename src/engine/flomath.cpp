@@ -114,9 +114,8 @@ namespace flomath{
 		}
 	}	
 	
-	//TODO refactor as to show that the lines might not intersect at all
 	point intersect_lines(const line3d& a,const line3d& b){
-		point res;
+		/*point res;
 		vector c=b.offset-a.offset;
 		double s=dotproduct(
 				crossproduct(c,b.rc),
@@ -124,8 +123,16 @@ namespace flomath{
 			)/(
 				crossproduct(a.rc,b.rc).length_sqr()
 			);
-		res=a.offset+a.rc*s;
-		return res;
+		res=a.offset+a.rc*s;*/
+		vector c,d;
+		double t;
+		c = crossproduct(a.rc,b.rc);
+		d = crossproduct(b.offset-a.offset,b.rc);
+		t = c.x/d.x;
+		if(flomath::equals(c.y/d.y,t) || flomath::equals(c.z/d.z,t)){
+			show_error("lines do not intersect at all",false);
+		}
+		return a.offset+ t*a.rc;
 	}
 
 	bool are_planes_paralel_in_coords(const plane& p1, const plane& p2,double vector::* axis1, double vector::* axis2){

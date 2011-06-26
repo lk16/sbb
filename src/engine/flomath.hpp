@@ -93,8 +93,7 @@ namespace flomath{
 	struct line3d{
 		line3d(){}
 		line3d(const point&,const point&);
-		vector rc;
-		vector offset;
+		vector rc,offset;
 	};
 
 	line3d get_intersect_line(const plane&,const plane&);
