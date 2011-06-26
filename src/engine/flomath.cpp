@@ -103,15 +103,12 @@ namespace flomath{
 	
 	//BUG this function doesn't work properly..
 	bool lines_intersect(const line3d& a,const line3d& b){
-		return true;
-		plane p(a.offset,b.offset,a.offset+a.rc);
-		if(abs(p.eval(b.offset+b.rc))>negligible){
-			std::cout <<"val:" <<p.eval(b.offset+b.rc) << '\n';
-			return false;
-		}
-		if(a.rc==b.rc){
-			return false;
-		}
+		vector c,d;
+		double t;
+		c = crossproduct(a.rc,b.rc);
+		d = crossproduct(b.offset-a.offset,b.rc);
+		t = c.x/d.x;
+		return (flomath::equals(c.y/d.y,t) && flomath::equals(c.z/d.z,t));
 	}	
 	
 	point intersect_lines(const line3d& a,const line3d& b){
@@ -129,7 +126,7 @@ namespace flomath{
 		c = crossproduct(a.rc,b.rc);
 		d = crossproduct(b.offset-a.offset,b.rc);
 		t = c.x/d.x;
-		if(flomath::equals(c.y/d.y,t) || flomath::equals(c.z/d.z,t)){
+		if(!(flomath::equals(c.y/d.y,t) && flomath::equals(c.z/d.z,t))){
 			show_error("lines do not intersect at all",false);
 		}
 		return a.offset+ t*a.rc;
