@@ -1,23 +1,20 @@
 #include "figure.hpp"
 
-figure::figure(const flomath::point& pos,const flomath::base_figure& data):
+figure::figure(const flomath::point& _pos,const flomath::base_figure& data):
 	engine_interface(ei_drawable),
-	flomath::base_figure(data)
-{
-	*static_cast<point*>(this)=pos;
-}
+	flomath::base_figure(data),
+	pos(_pos)
+{}
 	
 figure::figure(double _x,double _y,double _z):
-		engine_interface(ei_drawable)
-{
-	*static_cast<flomath::point*>(this) = point(_x,_y,_z);
-}
+		engine_interface(ei_drawable),
+		pos(_x,_y,_z)
+{}
 
-figure::figure(const flomath::point& pos):
-	engine_interface(ei_drawable)
-{
-	*static_cast<point*>(this)=pos;
-}
+figure::figure(const flomath::point& _pos):
+	engine_interface(ei_drawable),
+	pos(_pos)
+{}
 
 // fname should be relative to <projectroot>/data/img/
 unsigned figure::get_texture_tag(const std::string& fname){
@@ -111,17 +108,15 @@ void figure::add_face(const t_face& face,const obj_file& file){
 
 figure::figure(double _x,double _y,double _z,const std::string& fname):
 	engine_interface(ei_drawable|ei_has_texture),
-	file(fname)
-{
-	*static_cast<flomath::point*>(this) = point(_x,_y,_z);
-}
+	file(fname),
+	pos(_x,_y,_z)
+{}
 
-figure::figure(const flomath::point& pos,const std::string& fname):
+figure::figure(const flomath::point& _pos,const std::string& fname):
 	engine_interface(ei_drawable|ei_has_texture),
-	file(fname)
-{
-	*static_cast<flomath::point*>(this) = pos;
-}
+	file(fname),
+	pos(_pos)
+{}
 
 void figure::load_textures()
 {

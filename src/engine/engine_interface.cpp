@@ -123,7 +123,7 @@ engine_interface& engine_interface::operator=(const engine_interface& rhs){
 		}
 	}
 	if(interfaces[4]){
-		*static_cast<flomath::point*>(this)=rhs;
+		pos=rhs;
 		speed=rhs.speed;
 		accel=rhs.accel;
 		rotation=rhs.rotation;
@@ -149,7 +149,7 @@ void engine_interface::accelerate(double _ax,double _ay, double _az){
 
 void engine_interface::move(){
 	speed += accel;
-	*static_cast<flomath::point*>(this) += speed;
+	pos += speed;
 }
 
 t_camera::t_camera(){
@@ -167,7 +167,7 @@ engine_interface::engine_interface(const engine_interface& rhs){
 		}
 	}
 	if(interfaces[4]){ //moveable
-		*static_cast<flomath::point*>(this)=rhs;
+		pos=rhs;
 		speed=rhs.speed;
 		accel=rhs.accel;
 		rotation=rhs.rotation;

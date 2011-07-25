@@ -5,7 +5,7 @@ namespace flomath{
 	point::point(){
 		x = y = z = 0.0;
 	}
-	
+
 	double point::length_sqr() const
 	{
 		return x*x+y*y+z*z;

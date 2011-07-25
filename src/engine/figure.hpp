@@ -35,7 +35,6 @@ struct drawable_face{
 
 
 class figure:
-	public virtual flomath::point,
 	public engine_interface,
 	public flomath::base_figure
 {

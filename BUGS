@@ -12,4 +12,4 @@ TODO list:
 WTF list:
 - playerball has a time property?? (move to goal)
 - register system is ugly
-- (collision data) base != collision (data base) -> name change?
+- (collision data) base != colnlision (data base) -> name change?

@@ -20,8 +20,7 @@ enum{
 
 class t_engine;
 
-class engine_interface:
-	virtual public flomath::point
+class engine_interface
 {	
 	std::bitset<5> interfaces;
 
@@ -30,6 +29,7 @@ private:
 	
 	
 public:
+	flomath::point pos;
 	flomath::vector speed,accel;
 	flomath::quaternion rotation;
 	
