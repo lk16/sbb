@@ -46,7 +46,7 @@ inline void segfault(){
 
 // prints a warning
 #define show_warning(what) \
-	std::cout << "WARNING @" __FILE__ ":" << __LINE__ << ": " << what << std::endl;
+	std::cout << "WARNING @" __FILE__ ":" << __LINE__ << ": " << what << std::endl
 
 
 // prints an error and segfaults. USE WITH CARE!!

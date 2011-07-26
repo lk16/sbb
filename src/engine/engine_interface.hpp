@@ -43,7 +43,7 @@ public:
 	void accel_same_direction(double factor);
 	void add_speed(double _dx,double _dy,double _dz);
 	void set_speed(double _dx,double _dy,double _dz);
-	void accelerate(double _ax,double _ay, double _az);	
+	void accelerate(double _ax,double _ay, double _az);
 	void move();	
 	
 	std::string get_param(const std::string& s);
