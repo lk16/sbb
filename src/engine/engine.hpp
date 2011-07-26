@@ -27,37 +27,60 @@ namespace ldes{
 class t_camera;
 class engine_interface;
 class t_engine;
+class screen;
 
 extern bool debug;
 
-class t_engine:
+struct screen:
 	public Gtk::DrawingArea,
 	public Gtk::GL::Widget<t_engine>
 {
-public:
+	t_camera* camera;
+	void set_camera(t_camera*);
+	void remove_camera(t_camera*);
+		
+	virtual void on_realize();
+	virtual bool on_configure_event(GdkEventConfigure*);
+	virtual bool on_expose_event(GdkEventExpose*);
+	virtual void draw();
+	virtual ~screen(){}
+};
+
+
+class t_engine
+{
+private:
 	static t_engine* engine_ptr;
 
 	friend class sbb::main_window;
 	friend class ldes::main_window;
 
 	
-	struct engine_interface_list:
-		public std::vector<engine_interface*>
+	template<class T>
+	struct list:
+		public std::vector<T>
 	{
 		//friend class t_engine;
-		void add(engine_interface*);
-		void remove(engine_interface*);
+		void add(T* t){
+			this->push_back(t);
+		}
+		void remove(T* arg1){
+			this->erase(std::remove(this->begin(), this->end(), arg1), this->end());
+		}
 	};
 	
+	template<> struct list<screen*>:
+		public std::vector<void*>
+	{
+		void add(screen* s){
+			s->signal_configure_event().connect(sigc::mem_fun(t_engine::get(),&t_engine::load_textures));
+			this->push_back(s);
+		}
+	};
 public:
 		
 		t_engine();
 		virtual ~t_engine();
-		void gl_begin();
-		void gl_end();
-		
-		void set_camera(t_camera*);
-		void remove_camera(t_camera*);
 		
 		///BEWARE
 		void key_press(unsigned);
@@ -65,34 +88,27 @@ public:
 		
 		sigc::signal<void> signal_collision;
 
+		typedef list<engine_interface*> engine_interface_list;
 		engine_interface_list ei_list[6];
 
 		engine_interface_list &has_textures, &steppables, 
 		&drawables, &key_receivs, &moveables, 
 		&transparent_drawables;
 		
-
-
 		// returns pointer to t_engine::the_engine
 		static t_engine* get();
 		
-	protected:
-
+protected:
 		
-		t_camera* camera;
-
+		list<screen*> screens;
+		
 		void do_collisions();
 		void draw();
 		bool step();
 		
-		virtual void on_realize();
-		virtual bool on_configure_event(GdkEventConfigure*);
-		virtual bool on_expose_event(GdkEventExpose*);
 		virtual bool on_button_press_event(GdkEventButton*);
 		virtual bool on_key_press_event(GdkEventKey*);
 		virtual bool on_key_release_event(GdkEventKey*);
-		
-
 		
 		void do_steps();
 		void do_moves();
@@ -102,8 +118,6 @@ public:
 		bool texture_load_ready;
 		
 		std::set<unsigned> keys_down;
-//		main_window* win;
-//		int lockdown; /* necessary to stop the main loop temporarily to clear engine*/
 		
 		void clear_all();
 		void run();

@@ -152,9 +152,12 @@ t_engine::t_engine():
 	moveables(ei_list[4]), 
 	transparent_drawables(ei_list[5])
 {
+	assert(engine_ptr==0);
 	engine_ptr = this;
-	set_can_focus();
 	debug = false;
+}
+
+screen::screen(){
 	Glib::RefPtr<Gdk::GL::Config> glconfig;
 	// Try double-buffered visual
 	glconfig = Gdk::GL::Config::create(Gdk::GL::MODE_RGBA    |
@@ -172,7 +175,6 @@ t_engine::t_engine():
 		}
 	}
 
-	//GLConfigUtil::examine_gl_attrib(glconfig);
 
 	set_gl_capability(glconfig);
 
@@ -180,10 +182,6 @@ t_engine::t_engine():
 }
 
 t_engine::~t_engine() {}
-
-bool t_engine::on_button_press_event(GdkEventButton*){
-	grab_focus();
-}
 
 bool t_engine::on_key_press_event(GdkEventKey* k)
 {
@@ -195,7 +193,7 @@ bool t_engine::on_key_release_event(GdkEventKey* k)
 	key_release(k->keyval);
 }
 
-void t_engine::on_realize() {
+void screen::on_realize() {
 	Gtk::DrawingArea::on_realize();
 
 	Glib::RefPtr<Gdk::GL::Window> glwindow = get_gl_window();
@@ -239,35 +237,42 @@ void t_engine::on_realize() {
 
 	draw();
 	glwindow->gl_end();
-
 }
 
 void t_engine::load_textures() {
-	for (eip_iter i = has_textures.begin();i != has_textures.end();i++) {
-		(*i)->load_textures();
+	for(list<screen*>::iterator j = screens.begin(); j!= screens.end();j++){
+		for (eip_iter i = has_textures.begin();i != has_textures.end();i++) {
+			(*i)->load_textures();
+		}
 	}
 }
 
-bool t_engine::on_configure_event(GdkEventConfigure* event) {
+bool screen::on_configure_event(GdkEventConfigure* event) {
 	Glib::RefPtr<Gdk::GL::Window> glwindow = get_gl_window();
 
 	if (!glwindow->gl_begin(get_gl_context()))
 		return false;
 
 	glViewport(0, 0, get_width(), get_height());
-	load_textures();
-//	grab_focus();
 	
 	glwindow->gl_end();
 
 	return true;
 }
 
-void t_engine::draw() {
+void t_engine::draw()
+{
+	for(list<screen*>::iterator i=screens.begin();i!=screens.end();i++){
+		(*i)->draw();
+	}
+}
+
+
+void screen::draw() {
+	if (camera == 0) return;
 	//
 	// Get GL::Window.
 	//
-	if (camera == 0) return;
 	Glib::RefPtr<Gdk::GL::Window> glwindow = get_gl_window();
 
 	//
@@ -281,11 +286,11 @@ void t_engine::draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	(*camera)();
-	for (eip_iter i = drawables.begin();i != drawables.end();i++) {
+	for (eip_iter i = t_engine::get()->drawables.begin();i != t_engine::get()->drawables.end();i++) {
 		(*i)->draw();
 	}
 
-	for (eip_iter i = transparent_drawables.begin();i != transparent_drawables.end();i++) {
+	for (eip_iter i = t_engine::get()->transparent_drawables.begin();i != t_engine::get()->transparent_drawables.end();i++) {
 		(*i)->draw();
 	}
 	
@@ -296,14 +301,6 @@ void t_engine::draw() {
 		glFlush();
 
 	glwindow->gl_end();
-}
-
-void t_engine::gl_begin() {
-	get_gl_window()->gl_begin(get_gl_context());
-}
-
-void t_engine::gl_end() {
-	get_gl_window()->gl_end();
 }
 
 void t_engine::clear_all() {

@@ -7,6 +7,8 @@
 
 #define PING (std::cout << "PING!\t"<< __FILE__<<":"<<__LINE__ <<"\n")
 
+#define TEST_VALUE(x) (std::cout << "At " << __FILE__ << ":" << << #x << " = " << x << __LINE__ << std::endl)
+
 enum doubly_owned_bool{ 
 	DOB_FALSE=0,
 	DOB_TRUE=1,
